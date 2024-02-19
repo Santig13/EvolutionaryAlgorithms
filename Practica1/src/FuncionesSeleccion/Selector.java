@@ -1,10 +1,7 @@
 package FuncionesSeleccion;
 
-public class Selector {
+public interface Selector {
 
-	public void seleccionar() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void seleccionar();
 
 }
