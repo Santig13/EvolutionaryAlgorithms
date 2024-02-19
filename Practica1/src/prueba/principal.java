@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
+import javax.swing.JDesktopPane;
+import javax.swing.JSplitPane;
 
 public class principal extends JFrame {
 
@@ -36,6 +39,15 @@ public class principal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
+		
+		JSplitPane splitPane = new JSplitPane();
+		contentPane.add(splitPane);
+		
+		JDesktopPane desktopPane = new JDesktopPane();
+		contentPane.add(desktopPane);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		contentPane.add(scrollPane);
 	}
 
 }

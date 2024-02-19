@@ -1,5 +1,13 @@
 package Algortimo;
 
+import java.awt.Cursor;
+
+import FunCruzador.Cruzador;
+import FuncionMutador.Mutador;
+import FuncionesEvaluador.Evaluador;
+import FuncionesSeleccion.Selector;
+import Poblacion.Individuo;
+
 public class algoritmoGenetico {
     
     private int tamPoblacion;
@@ -14,17 +22,23 @@ public class algoritmoGenetico {
 	private Individuo[] generationAverage;
 	private Individuo[] generationBest;
 	private Individuo[] absoluteBest;
-	private Evaluator ev;
-	private Object cross;
-	private Object mut;
-	private Object sel;
+	private Evaluador ev;
+	private Cruzador cross;
+	private Mutador mut;
+	private Selector sel;
 
-    public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion, String NombreProblema) //AÑADIR FUNCIONES CRUCE, MUTACION, SELECCION Y FITNESS
+    public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
+    			Evaluador ev,Selector sel,Mutador mut,Cruzador cruz) //AÑADIR FUNCIONES CRUCE, MUTACION, SELECCION, FITNESS, INICIALIZACION
     {
     	this.tamPoblacion = tamPoblacion;
         this.maxGeneraciones = maxGeneraciones;
         this.probCruce = probCruce;
         this.probMutacion = probMutacion;
+        this.ev=ev;
+        this.sel=sel;
+        this.mut=mut;
+        this.cross=cruz;
+        
     }
     
     public AGView executeAlgorithm() {
@@ -59,11 +73,6 @@ public class algoritmoGenetico {
 	private Object getAbsoluteBest() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	private void initialize() {
-		// TODO Auto-generated method stub
-		
 	}
     
 
