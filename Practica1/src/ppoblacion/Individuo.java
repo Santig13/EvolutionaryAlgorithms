@@ -1,5 +1,5 @@
-package Poblacion;
-public class Individuo<T>{
+package ppoblacion;
+public abstract class Individuo<T> {
 	
 	 T[] cromosoma;
     protected int[] tamGen;

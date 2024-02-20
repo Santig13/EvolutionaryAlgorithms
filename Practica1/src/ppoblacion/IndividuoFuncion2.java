@@ -1,4 +1,4 @@
-package Poblacion;
+package ppoblacion;
 
 import java.util.Random;
 

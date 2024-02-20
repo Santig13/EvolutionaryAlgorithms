@@ -1,7 +1,9 @@
 package FuncionesSeleccion;
 
-public interface Selector {
+import ppoblacion.Individuo;
 
-	public void seleccionar();
+public interface Selector<T> {
+
+	public Individuo<T> seleccionar();
 
 }

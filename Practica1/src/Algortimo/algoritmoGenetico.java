@@ -6,7 +6,7 @@ import FunCruzador.Cruzador;
 import FuncionMutador.Mutador;
 import FuncionesEvaluador.Evaluador;
 import FuncionesSeleccion.Selector;
-import Poblacion.Individuo;
+import ppoblacion.Individuo;
 
 public class algoritmoGenetico {
     
@@ -28,7 +28,7 @@ public class algoritmoGenetico {
 	private Selector sel;
 
     public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
-    			Evaluador ev,Selector sel,Mutador mut,Cruzador cruz) //AÑADIR FUNCIONES CRUCE, MUTACION, SELECCION, FITNESS, INICIALIZACION
+    			Evaluador ev,Selector sel,Mutador mut,Cruzador cruz) //Aï¿½ADIR FUNCIONES CRUCE, MUTACION, SELECCION, FITNESS, INICIALIZACION
     {
     	this.tamPoblacion = tamPoblacion;
         this.maxGeneraciones = maxGeneraciones;

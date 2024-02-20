@@ -2,7 +2,7 @@ package Algortimo;
 
 import java.util.ArrayList;
 
-import Poblacion.IndividuoFuncion1;
+import ppoblacion.IndividuoFuncion1;
 
 public class AlgoritmoGenetico1 {
 	private int tamPoblacion;
