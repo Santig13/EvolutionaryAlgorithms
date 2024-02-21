@@ -2,8 +2,8 @@ package FuncionesSeleccion;
 
 import ppoblacion.Individuo;
 
-public interface Selector<T> {
+public interface Selector {
 
-	public Individuo<T> seleccionar();
+	public Individuo<?>[]  seleccionar(Individuo<?>[]  generacion);
 
 }

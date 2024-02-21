@@ -52,4 +52,38 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
 		}
 		return decimal;
 	}
+
+	@Override
+	public void cruzarMonopunto(int i, Individuo<?> padre2) {
+		// TODO Auto-generated method stub
+		Boolean[] cromosomaPadre=(Boolean[]) padre2.getCromosoma();
+		for(int x=i;x<cromosoma.length;x++) {
+			cromosoma[x]=cromosomaPadre[x];
+		}
+		
+	}
+
+
+	@Override
+	public void cruzarUniforme(Boolean primero,Boolean[] cruzar, Individuo<?> padre2) {
+		// TODO Auto-generated method stub
+		Boolean[] cromosomaPadre=(Boolean[]) padre2.getCromosoma();
+		for(int i=0;i<cromosoma.length;i++) {
+			if(cruzar[i]==primero) {
+				cromosoma[i]=cromosomaPadre[i];
+			}
+		}
+	}
+
+	@Override
+	public void mutarBasico(double probMutac) {
+		// TODO Auto-generated method stub
+		Random r=new Random();
+		for(int i=0;i<cromosoma.length;i++) {
+			double p=r.nextDouble();
+			if(p<probMutac) {
+				cromosoma[i]=!cromosoma[i];
+			}
+		}
+	}
 }

@@ -6,7 +6,8 @@ public abstract class Individuo<T> {
     protected int[] inicioGen;
     protected double[] min;
     protected double[] max;
-    protected double idoniedad;
+    protected double fitness;
+    
     public int tamGen(double valorError, double min, double max) {
         return (int) (Math.log10(((max - min) / valorError) + 1) / Math.log10(2));
     }
@@ -34,13 +35,22 @@ public abstract class Individuo<T> {
 	public void setMax(double[] max) {
 		this.max = max;
 	}
-	public double getIdoniedad() {
-		return idoniedad;
+	public double getFitness() {
+		return fitness;
 	}
-	public void setIdoniedad(double idoniedad) {
-		this.idoniedad = idoniedad;
+	public void setIdoniedad(double fitness) {
+		this.fitness = fitness;
+		
 	}
-    
+	public int getLongitudCromosoma() {
+		// TODO Auto-generate
+		return cromosoma.length;
+	}
+	public abstract void cruzarMonopunto(int puntoCorte, Individuo<?> padre2);
+	public abstract void cruzarUniforme(Boolean primero, Boolean[] cruzar, Individuo<?> padre2);
+	public abstract void mutarBasico(double probMutac);
+	
+
 }
     
    

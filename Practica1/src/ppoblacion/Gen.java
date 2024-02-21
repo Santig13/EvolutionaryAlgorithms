@@ -1,5 +1,5 @@
 package ppoblacion;
 
-public class Gen <T>{
+public abstract class Gen {
     
 }
