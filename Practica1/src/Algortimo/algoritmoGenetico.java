@@ -56,17 +56,19 @@ public class algoritmoGenetico {
     	currentGeneration=0;
     	this.initialize();
     	this.evaluar();
+    	currentGeneration++;
     	while(currentGeneration!=maxGeneraciones) {
     		this.seleccionar();
     		this.cross.crossover(this.poblacion,tamPoblacion,probCruce);
-    		this.mutate();
-    		
+    		this.mut.mutate(this.poblacion,tamPoblacion,this.probMutacion);
+    		this.evaluar();
+    		/*	
     		this.generationAverage[currentGeneration] = getGenerationAvg();
     		this.generationBest[currentGeneration] = getGenerationBest();
     		this.absoluteBest[currentGeneration] = getAbsoluteBest();
-
+    	 */
     		currentGeneration++;
-    		this.evaluar();
+    	
     	}
     
     }
