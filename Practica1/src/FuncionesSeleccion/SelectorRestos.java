@@ -11,6 +11,7 @@ public class SelectorRestos  implements Selector{ //POR TERMINAR
 
 	     double fitness_total = 0;
 
+
 	     for(int i = 0 ; i < generacion.length; i++)
 	     {
 	         fitness[i] = generacion[i].getFitness();
