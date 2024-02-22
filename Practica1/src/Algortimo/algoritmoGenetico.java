@@ -40,7 +40,7 @@ public class algoritmoGenetico {
 	private int currentGeneration;
 
     public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
-    			Selector sel,Mutador mut,Cruzador cruz) //A�ADIR FUNCIONES CRUCE, MUTACION, SELECCION, FITNESS, INICIALIZACION
+    			Selector sel,Mutador mut,Cruzador cruz,Poblacion poblacion)
     {
     	this.tamPoblacion = tamPoblacion;
         this.maxGeneraciones = maxGeneraciones;
@@ -49,6 +49,7 @@ public class algoritmoGenetico {
         this.sel=sel;
         this.mut=mut;
         this.cross=cruz;
+        this.poblacion=poblacion;
         
     }
     

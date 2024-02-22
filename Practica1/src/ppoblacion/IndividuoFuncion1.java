@@ -8,11 +8,14 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
 	
 	public IndividuoFuncion1() {
 		super();
+		//inicializar
 		this.rand=new Random();
 		this.tamGen=new int[2];
 		this.min=new double[2];
 		this.max=new double[2];
 		this.inicioGen=new int[2];
+		
+		//asignar limites y parametros
 	    this.min[0] = -10.00;
         this.min[1] = -10.00;
         this.max[0] = 10;
@@ -23,6 +26,8 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
         inicioGen[0]=0;
         inicioGen[1]=tamGen[0];
         this.cromosoma = new Boolean [tamTotal];
+        
+        //dar valor a los genes 
         for(int i = 0; i < tamTotal; i++) this.cromosoma[i] = this.rand.nextBoolean();
    
 	}

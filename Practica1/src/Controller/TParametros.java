@@ -2,39 +2,65 @@ package Controller;
 
 public class TParametros {
 
+	private String selector;
+	private String mutador;
+	private String cruzador;
+	private String funcion;
+	private double probMuta;
+	private int generaciones;
+	private int tamPobla;
+	private double probCruce;
+
+	public TParametros(String selector, String mutador, String cruzador, String funcion, double probMuta,
+			int generaciones, int tamPobla, double probCruce) {
+		this.selector = selector;
+		this.mutador = mutador;
+		this.cruzador = cruzador;
+		this.funcion = funcion;
+		this.probMuta = probMuta;
+		this.generaciones = generaciones;
+		this.tamPobla = tamPobla;
+		this.probCruce = probCruce;
+	}
+
 	public int getTamPoblacion() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.tamPobla;
 	}
 
 	public int getMaxGen() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.generaciones;
 	}
 
 	public double getProbCruce() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.probCruce;
 	}
 
 	public double getProbMuta() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.probMuta;
 	}
 
 	public String getSelector() {
 		// TODO Auto-generated method stub
-		return null;
+		return selector;
 	}
 
 	public String getCruzador() {
 		// TODO Auto-generated method stub
-		return null;
+		return cruzador;
 	}
 
 	public String getMutador() {
 		// TODO Auto-generated method stub
-		return null;
+		return mutador;
+	}
+
+	public String getFuncion() {
+		// TODO Auto-generated method stub
+		return funcion;
 	}
 
 }

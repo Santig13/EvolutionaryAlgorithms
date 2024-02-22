@@ -1,8 +1,8 @@
 package ppoblacion;
 
-public class PoblacionFuncion1 implements Poblacion {
+public class PoblacionFuncion1 extends Poblacion {
 
-	private Individuo<?>[] individuos;
+
 	@Override
 	public void inicializarIndividuos(int TamPob) {
 		// TODO Auto-generated method stub
@@ -12,16 +12,6 @@ public class PoblacionFuncion1 implements Poblacion {
 		}
 	}
 
-	@Override
-	public Individuo<?>[] getIndivuduos() {
-		// TODO Auto-generated method stub
-		return individuos;
-	}
-
-	@Override
-	public void setNuevaPoblacion(Individuo<?>[] nuevaPob) {
-		this.individuos=nuevaPob;
-
-	}
+	
 
 }
