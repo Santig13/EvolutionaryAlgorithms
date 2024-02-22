@@ -3,9 +3,10 @@ package Algortimo;
 import java.awt.Cursor;
 import java.util.Random;
 
+import Controller.TResultStatistics;
 import FunCruzador.Cruzador;
 import FuncionMutador.Mutador;
-import FuncionesEvaluador.Evaluador;
+//import FuncionesEvaluador.Evaluador;
 import FuncionesSeleccion.Selector;
 import ppoblacion.Individuo;
 import ppoblacion.Poblacion;
@@ -51,7 +52,7 @@ public class algoritmoGenetico {
         
     }
     
-    public void executeAlgorithm() {
+    public TResultStatistics executeAlgorithm() {
 
     	currentGeneration=0;
     	this.initialize();
@@ -70,7 +71,7 @@ public class algoritmoGenetico {
     		currentGeneration++;
     	
     	}
-    
+    	return null;
     }
 
 	private void evaluar() {
