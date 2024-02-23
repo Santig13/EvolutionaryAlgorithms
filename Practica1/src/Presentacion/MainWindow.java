@@ -45,7 +45,15 @@ public class MainWindow extends JFrame implements GUI {
 	private JTextField textFieldPrecision;
 	private JTextField textFieldProbElitis;
 	private JTextField textFieldNDim;
-	private Plot2DPanel plot; 
+	private JComboBox<String> comboBoxFunc;
+	private JComboBox<String> comboBoxMetSel;
+	private JComboBox<String> comboBoxMetCruce;
+	private JComboBox<String> comboBoxMetMut;
+	private Plot2DPanel plot;
+	
+	
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -90,7 +98,7 @@ public class MainWindow extends JFrame implements GUI {
 		gbc_LabelFuncion.gridy = 1;
 		panelParametros.add(LabelFuncion, gbc_LabelFuncion);
 		
-		JComboBox<String> comboBoxFunc = new JComboBox<String>(this.tiposDeSelector);
+		comboBoxFunc = new JComboBox<String>(this.tiposDeFuncion);
 		GridBagConstraints gbc_comboBoxFunc = new GridBagConstraints();
 		gbc_comboBoxFunc.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxFunc.fill = GridBagConstraints.HORIZONTAL;
@@ -106,6 +114,7 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(LabelTamGener, gbc_LabelTamGener);
 		
 		textFieldTamGener = new JTextField();
+		textFieldTamGener.setText("60");
 		GridBagConstraints gbc_textFieldTamGener = new GridBagConstraints();
 		gbc_textFieldTamGener.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldTamGener.fill = GridBagConstraints.HORIZONTAL;
@@ -122,6 +131,7 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(LabelNGener, gbc_LabelNGener);
 		
 		textFieldNGener = new JTextField();
+		textFieldNGener.setText("100");
 		GridBagConstraints gbc_textFieldNGener = new GridBagConstraints();
 		gbc_textFieldNGener.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldNGener.fill = GridBagConstraints.HORIZONTAL;
@@ -138,6 +148,7 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(LabelProbCruce, gbc_LabelProbCruce);
 		
 		textFieldProbCruc = new JTextField();
+		textFieldProbCruc.setText("60");
 		GridBagConstraints gbc_textFieldProbCruc = new GridBagConstraints();
 		gbc_textFieldProbCruc.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldProbCruc.fill = GridBagConstraints.HORIZONTAL;
@@ -154,6 +165,7 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(LabelProbMut, gbc_LabelProbMut);
 		
 		textFieldProbMut = new JTextField();
+		textFieldProbMut.setText("5");
 		GridBagConstraints gbc_textFieldProbMut = new GridBagConstraints();
 		gbc_textFieldProbMut.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldProbMut.fill = GridBagConstraints.HORIZONTAL;
@@ -170,6 +182,7 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(LabelPrecision, gbc_LabelPrecision);
 		
 		textFieldPrecision = new JTextField();
+		textFieldPrecision.setText("0.001");
 		GridBagConstraints gbc_textFieldPrecision = new GridBagConstraints();
 		gbc_textFieldPrecision.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldPrecision.fill = GridBagConstraints.HORIZONTAL;
@@ -186,7 +199,7 @@ public class MainWindow extends JFrame implements GUI {
 		gbc_LabelMetSelec.gridy = 13;
 		panelParametros.add(LabelMetSelec, gbc_LabelMetSelec);
 		
-		JComboBox<String> comboBoxMetSel = new JComboBox<String>(this.tiposDeSelector);
+		comboBoxMetSel = new JComboBox<String>(this.tiposDeSelector);
 		GridBagConstraints gbc_comboBoxMetSel = new GridBagConstraints();
 		gbc_comboBoxMetSel.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxMetSel.fill = GridBagConstraints.HORIZONTAL;
@@ -201,7 +214,7 @@ public class MainWindow extends JFrame implements GUI {
 		gbc_LabelMetCruce.gridy = 15;
 		panelParametros.add(LabelMetCruce, gbc_LabelMetCruce);
 		
-		JComboBox<String> comboBoxMetCruce = new JComboBox<String>(this.tiposDeCruzador);
+		comboBoxMetCruce = new JComboBox<String>(this.tiposDeCruzador);
 		GridBagConstraints gbc_comboBoxMetCruce = new GridBagConstraints();
 		gbc_comboBoxMetCruce.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxMetCruce.fill = GridBagConstraints.HORIZONTAL;
@@ -216,7 +229,7 @@ public class MainWindow extends JFrame implements GUI {
 		gbc_LabelMetMut.gridy = 17;
 		panelParametros.add(LabelMetMut, gbc_LabelMetMut);
 		
-		JComboBox<String> comboBoxMetMut = new JComboBox<String>(this.tiposDeMutador);
+		comboBoxMetMut = new JComboBox<String>(this.tiposDeMutador);
 		GridBagConstraints gbc_comboBoxMetMut = new GridBagConstraints();
 		gbc_comboBoxMetMut.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxMetMut.fill = GridBagConstraints.HORIZONTAL;
@@ -232,6 +245,7 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(LabelProbElitis, gbc_LabelProbElitis);
 		
 		textFieldProbElitis = new JTextField();
+		textFieldProbElitis.setText("0");
 		GridBagConstraints gbc_textFieldProbElitis = new GridBagConstraints();
 		gbc_textFieldProbElitis.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldProbElitis.fill = GridBagConstraints.HORIZONTAL;
@@ -248,6 +262,7 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(LabelNDim, gbc_LabelNDim);
 		
 		textFieldNDim = new JTextField();
+		textFieldNDim.setText("0");
 		GridBagConstraints gbc_textFieldNDim = new GridBagConstraints();
 		gbc_textFieldNDim.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldNDim.fill = GridBagConstraints.HORIZONTAL;
@@ -264,7 +279,8 @@ public class MainWindow extends JFrame implements GUI {
             ctr.run(this, camposToRun());
             }
             catch(Exception ex) {
-            	JOptionPane.showMessageDialog(null, "No se ha podido ejecutar el algoritmo, introduzca los datos correctamente");
+            	//JOptionPane.showMessageDialog(null, "No se ha podido ejecutar el algoritmo, introduzca los datos correctamente");
+            	JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         });
 		GridBagConstraints gbc_ButtonEjecutar = new GridBagConstraints();
@@ -295,8 +311,22 @@ public class MainWindow extends JFrame implements GUI {
 
 
 	private TParametros camposToRun() throws CamposException {
-	
-		return null;
+		
+		
+		String selector =  tiposDeSelector[comboBoxMetSel.getSelectedIndex()];
+		String mutador = tiposDeMutador [comboBoxMetMut.getSelectedIndex()];
+		String cruzador = tiposDeCruzador [comboBoxMetCruce.getSelectedIndex()];
+		String funcion = tiposDeFuncion[comboBoxFunc.getSelectedIndex()];
+		double probMuta = Double.parseDouble(textFieldProbMut.getText());
+		int generaciones = Integer.parseInt(textFieldNGener.getText());
+		int tamPobla = Integer.parseInt(textFieldTamGener.getText());
+		double probCruce = Double.parseDouble(textFieldProbCruc.getText());
+		double elitismo =  Double.parseDouble(textFieldProbElitis.getText());
+		int ndimensiones = Integer.parseInt(textFieldNDim.getText());
+		double precision =  Double.parseDouble(textFieldPrecision.getText());
+		
+		return new TParametros(selector,mutador,cruzador,funcion,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100,ndimensiones,precision);
+		
 	} 
 
 	private void reiniciarGrafica() {
@@ -308,9 +338,10 @@ public class MainWindow extends JFrame implements GUI {
 	@Override
 	public void update(TResultStatistics trs) {
 		// TODO Auto-generated method stub
+		plot.addLegend("SOUTH");
 		plot.addLinePlot("Mejores Absolutos",trs.getGenreaciones(),trs.getMejoresAbsolutos());
-		plot.addLinePlot("Mejores Generacionales",trs.getMejorLocal());
-		plot.addLinePlot("Media Generacional",trs.getMedio());
+		plot.addLinePlot("Mejores Generacionales",trs.getGenreaciones(),trs.getMejorLocal());
+		plot.addLinePlot("Media Generacional",trs.getGenreaciones(),trs.getMedio());
 	}
 
 }

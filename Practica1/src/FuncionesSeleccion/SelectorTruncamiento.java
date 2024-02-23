@@ -27,8 +27,10 @@ public class SelectorTruncamiento implements Selector{
 
 	        for(int i = 0 ; i < generacion.length; i++)
 	        {
-	            fit_ind[i].fit = generacion[i].getFitness();
-	            fit_ind[i].indi = generacion[i];
+	        	Indi_Fit x = new Indi_Fit();
+	        	x.fit = generacion[i].getFitness();
+	            x.indi = generacion[i];
+	            fit_ind [i] = x;
 	            fitness_total = fitness_total + fit_ind[i].fit;
 	        }
 	        
@@ -40,11 +42,16 @@ public class SelectorTruncamiento implements Selector{
 	      //El el tamaño de las generaciones tiene que ser multiplo de trunc*10 porq sino podria reducir el tamaño de la poblacion en la siguiente operacion
 	        int vecesRep = (int) (generacion.length/(generacion.length*trunc)); 
 	        
-	        Individuo<?>[] nuevaGeneracion = new Individuo<?>[nSeleccionados];
+	        Individuo<?>[] nuevaGeneracion = new Individuo<?>[generacion.length];
 	        
-	        for (int i = 0; i < nSeleccionados; i++) {
+	        int i = 0; 
+	        while (i < generacion.length) {
+	        	int x = i;
 	        	for (int j = 0; j<vecesRep; j++)
-	        		nuevaGeneracion[i] = fit_ind[i].indi;
+	        	{
+	        		nuevaGeneracion[i] = fit_ind[x].indi;
+	        		i++;
+	        	}
 	        }
 
 	        return nuevaGeneracion;

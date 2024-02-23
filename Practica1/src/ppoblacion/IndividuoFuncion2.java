@@ -8,9 +8,10 @@ public class IndividuoFuncion2 extends Individuo<Boolean> {
 	private Random rand;
 
 
-    public IndividuoFuncion2 ()
+    public IndividuoFuncion2 (int precision)
     {
         super();
+        this.valorError = precision;
         this.tamGen = new int[2];
         this.min = new double[2];
         this.max = new double[2];

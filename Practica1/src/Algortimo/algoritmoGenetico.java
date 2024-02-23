@@ -27,20 +27,23 @@ public class algoritmoGenetico {
     private int puntuacion ;
 
 	//Datos para grafica
-	private Individuo<?>[] generationAverage;
-	private Individuo<?>[] generationBest;
-	private Individuo<?>[] absoluteBest;
-	private Double[] aptitud_media_generacion;
-	private Double[] aptitud_mejor_generacion;
-	private Double[] aptitud_absoluta_generacion;
+	//private Individuo<?>[] generationAverage;
+	//private Individuo<?>[] generationBest;
+	//private Individuo<?>[] absoluteBest;
+	private double[] aptitud_media_generacion;
+	private double[] aptitud_mejor_generacion;
+	private double[] aptitud_absoluta_generacion;
 	
 	private Cruzador cross;
 	private Mutador mut;
 	private Selector sel;
 	private int currentGeneration;
+	
+	private double precision;
+	private double elitismo;
 
     public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
-    			Selector sel,Mutador mut,Cruzador cruz,Poblacion poblacion)
+    			Selector sel,Mutador mut,Cruzador cruz,Poblacion poblacion,  double elitismo, double precision)
     {
     	this.tamPoblacion = tamPoblacion;
         this.maxGeneraciones = maxGeneraciones;
@@ -50,6 +53,14 @@ public class algoritmoGenetico {
         this.mut=mut;
         this.cross=cruz;
         this.poblacion=poblacion;
+        this.precision = precision;
+        this.elitismo = elitismo;
+        
+    	 this.aptitud_media_generacion = new double[maxGeneraciones];
+    	 this.aptitud_mejor_generacion = new double[maxGeneraciones];
+    	 this.aptitud_absoluta_generacion = new double[maxGeneraciones];
+    	 
+    	// this.absoluteBest = new Individuo<?>[maxGeneraciones];
         
     }
     
@@ -72,7 +83,15 @@ public class algoritmoGenetico {
     		currentGeneration++;
     	
     	}
-    	return null;
+    	
+    	
+    	double[] gener = new double[tamPoblacion]; 
+    	for (int i = 0; i < tamPoblacion; i++)
+    		gener[i] = i;
+    	
+    	
+    	return new TResultStatistics(gener,this.aptitud_absoluta_generacion,this.aptitud_mejor_generacion,this.aptitud_media_generacion);
+    	
     }
 
 	private void evaluar() {
@@ -80,16 +99,16 @@ public class algoritmoGenetico {
 		Individuo<?>[] individuos=poblacion.getIndivuduos();
 		Double punt_acu = 0.0;
 		Double aptitud_mejor = Double.MIN_VALUE;
-		Individuo<?> mejor=null;
+		//Individuo<?> mejor=null;
 		
 		for(int i=0;i<tamPoblacion;i++) {
 			double aptitud=individuos[i].getFitness();
 			
-			punt_acu=aptitud;
+			punt_acu= punt_acu + aptitud;
 			
 			if(aptitud>aptitud_mejor) {
 				aptitud_mejor=aptitud;
-				mejor=individuos[i];
+				//mejor=individuos[i];
 			}
 		}
 		
@@ -97,9 +116,15 @@ public class algoritmoGenetico {
 		this.aptitud_mejor_generacion[this.currentGeneration]=aptitud_mejor;
 		
 		if(this.currentGeneration>0&&this.aptitud_absoluta_generacion[this.currentGeneration-1]<aptitud_mejor) {
-			this.absoluteBest[this.currentGeneration]=mejor;
+			//this.absoluteBest[this.currentGeneration]=mejor;
 			this.aptitud_absoluta_generacion[this.currentGeneration]=aptitud_mejor;
 		}
+		else if (this.currentGeneration>0){
+			this.aptitud_absoluta_generacion[this.currentGeneration]=aptitud_absoluta_generacion[this.currentGeneration-1];
+
+		}
+		else
+			this.aptitud_absoluta_generacion[this.currentGeneration] = aptitud_mejor;
 	
 	}
 
@@ -110,9 +135,10 @@ public class algoritmoGenetico {
 
 	private void initialize() {
 		// TODO Auto-generated method stub
-		poblacion.inicializarIndividuos(tamPoblacion);
+		poblacion.inicializarIndividuos(tamPoblacion, precision);
 	}
 
+	/*
 	private Object getGenerationAvg() {
 		// TODO Auto-generated method stub
 		return null;
@@ -127,7 +153,7 @@ public class algoritmoGenetico {
 		// TODO Auto-generated method stub
 		return null;
 	}
-    
+    */
 
 
 

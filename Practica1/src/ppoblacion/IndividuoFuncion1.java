@@ -6,8 +6,10 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
 	private double valorError;
 	private Random rand;
 	
-	public IndividuoFuncion1() {
+	public IndividuoFuncion1(double precision) {
 		super();
+		this.valorError = precision;
+		
 		//inicializar
 		this.rand=new Random();
 		this.tamGen=new int[2];
