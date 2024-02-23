@@ -38,7 +38,7 @@ public abstract class Individuo<T> {
 	public double getFitness() {
 		return fitness;
 	}
-	public void setIdoniedad(double fitness) {
+	public void setFitness(double fitness) {
 		this.fitness = fitness;
 		
 	}
