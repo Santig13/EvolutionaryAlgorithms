@@ -4,6 +4,8 @@ import FuncionesSeleccion.Selector;
 import FuncionesSeleccion.SelectorEstocastica;
 import FuncionesSeleccion.SelectorRestos;
 import FuncionesSeleccion.SelectorRuleta;
+import FuncionesSeleccion.SelectorTorneoDeterministico;
+import FuncionesSeleccion.SelectorTorneoProbabilistico;
 import FuncionesSeleccion.SelectorTruncamiento;
 
 public class FactoriaSelectorIMP extends FactoriaSelector {
@@ -18,6 +20,10 @@ public class FactoriaSelectorIMP extends FactoriaSelector {
 			return new SelectorEstocastica();
 		case "Truncamiento":
 			return new SelectorTruncamiento();
+		case "Torneo Deterministico":
+			return new SelectorTorneoDeterministico();
+		case "Torneo Probabilistico":
+			return new SelectorTorneoProbabilistico();
 		default:
 			return new SelectorRestos();
 		}

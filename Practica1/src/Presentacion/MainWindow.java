@@ -5,6 +5,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.math.plot.Plot2DPanel;
+
+import Controller.Controller;
+import Controller.ControllerIMP;
+import Controller.TParametros;
+import Controller.TResultStatistics;
+
 import java.awt.Button;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
@@ -15,14 +23,20 @@ import java.awt.Insets;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JTextPane;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements GUI {
 
+	private final String[] tiposDeFuncion= {"Funcion 1","Funcion 2"};
+	private final String[] tiposDeCruzador= {"Mono Punto","Uniforme"};
+	private final String[] tiposDeMutador= {"Basico"};
+	private final String[] tiposDeSelector= {"Ruleta","Estocastico","Truncamiento","Torneo Deterministico","Torneo Probabilistico"};
 	private JPanel contentPane;
 	private JTextField textFieldTamGener;
 	private JTextField textFieldNGener;
@@ -31,7 +45,7 @@ public class MainWindow extends JFrame {
 	private JTextField textFieldPrecision;
 	private JTextField textFieldProbElitis;
 	private JTextField textFieldNDim;
-
+	private Plot2DPanel plot; 
 	/**
 	 * Launch the application.
 	 */
@@ -56,7 +70,7 @@ public class MainWindow extends JFrame {
 		setBounds(100, 100, 1092, 631);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+		Controller ctr=new ControllerIMP();
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
@@ -76,7 +90,7 @@ public class MainWindow extends JFrame {
 		gbc_LabelFuncion.gridy = 1;
 		panelParametros.add(LabelFuncion, gbc_LabelFuncion);
 		
-		JComboBox comboBoxFunc = new JComboBox();
+		JComboBox<String> comboBoxFunc = new JComboBox<String>(this.tiposDeSelector);
 		GridBagConstraints gbc_comboBoxFunc = new GridBagConstraints();
 		gbc_comboBoxFunc.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxFunc.fill = GridBagConstraints.HORIZONTAL;
@@ -172,7 +186,7 @@ public class MainWindow extends JFrame {
 		gbc_LabelMetSelec.gridy = 13;
 		panelParametros.add(LabelMetSelec, gbc_LabelMetSelec);
 		
-		JComboBox comboBoxMetSel = new JComboBox();
+		JComboBox<String> comboBoxMetSel = new JComboBox<String>(this.tiposDeSelector);
 		GridBagConstraints gbc_comboBoxMetSel = new GridBagConstraints();
 		gbc_comboBoxMetSel.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxMetSel.fill = GridBagConstraints.HORIZONTAL;
@@ -187,7 +201,7 @@ public class MainWindow extends JFrame {
 		gbc_LabelMetCruce.gridy = 15;
 		panelParametros.add(LabelMetCruce, gbc_LabelMetCruce);
 		
-		JComboBox comboBoxMetCruce = new JComboBox();
+		JComboBox<String> comboBoxMetCruce = new JComboBox<String>(this.tiposDeCruzador);
 		GridBagConstraints gbc_comboBoxMetCruce = new GridBagConstraints();
 		gbc_comboBoxMetCruce.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxMetCruce.fill = GridBagConstraints.HORIZONTAL;
@@ -202,7 +216,7 @@ public class MainWindow extends JFrame {
 		gbc_LabelMetMut.gridy = 17;
 		panelParametros.add(LabelMetMut, gbc_LabelMetMut);
 		
-		JComboBox comboBoxMetMut = new JComboBox();
+		JComboBox<String> comboBoxMetMut = new JComboBox<String>(this.tiposDeMutador);
 		GridBagConstraints gbc_comboBoxMetMut = new GridBagConstraints();
 		gbc_comboBoxMetMut.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxMetMut.fill = GridBagConstraints.HORIZONTAL;
@@ -243,6 +257,16 @@ public class MainWindow extends JFrame {
 		textFieldNDim.setColumns(10);
 		
 		JButton ButtonEjecutar = new JButton("Ejectutar");
+		ButtonEjecutar.addActionListener(e -> {
+            // Manejar la acción del botón aquí
+            reiniciarGrafica();
+            try{
+            ctr.run(this, camposToRun());
+            }
+            catch(Exception ex) {
+            	JOptionPane.showMessageDialog(null, "No se ha podido ejecutar el algoritmo, introduzca los datos correctamente");
+            }
+        });
 		GridBagConstraints gbc_ButtonEjecutar = new GridBagConstraints();
 		gbc_ButtonEjecutar.insets = new Insets(0, 0, 5, 0);
 		gbc_ButtonEjecutar.gridx = 0;
@@ -258,12 +282,35 @@ public class MainWindow extends JFrame {
 		panelGraficaSol.add(panelSol, BorderLayout.SOUTH);
 		panelSol.setSize(new Dimension(100, 200));
 		panelSol.setLayout(new BoxLayout(panelSol, BoxLayout.X_AXIS));
-		
+		//Representacion 
+		plot = new Plot2DPanel();
+		panelGraficaSol.add(plot);
 		JLabel LabelSol = new JLabel("Solucion:");
 		panelSol.add(LabelSol);
 		
 		JTextArea textAreaSol = new JTextArea();
 		panelSol.add(textAreaSol);
+	}
+
+
+
+	private TParametros camposToRun() throws CamposException {
+	
+		return null;
+	} 
+
+	private void reiniciarGrafica() {
+		// TODO Auto-generated method stub
+		plot.removeAllPlots();
+        plot.repaint();
+	}
+
+	@Override
+	public void update(TResultStatistics trs) {
+		// TODO Auto-generated method stub
+		plot.addLinePlot("Mejores Absolutos",trs.getGenreaciones(),trs.getMejoresAbsolutos());
+		plot.addLinePlot("Mejores Generacionales",trs.getMejorLocal());
+		plot.addLinePlot("Media Generacional",trs.getMedio());
 	}
 
 }

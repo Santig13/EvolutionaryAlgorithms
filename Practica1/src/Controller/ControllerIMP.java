@@ -15,12 +15,17 @@ public class ControllerIMP implements Controller {
 
 	@Override
 	public void run(GUI gui,TParametros parametros) {
-		// TODO Auto-generated method stub
+		
+		//Pasar de parametros a las factorias
 		Selector selector=FactoriaSelector.getInstancia().generarSelector(parametros.getSelector());
 		Cruzador cruzador=FactoriaCruzador.getInstancia().generarCruzador(parametros.getCruzador());
 		Mutador mutador=FactoriaMutador.getInstancia().generarMutador(parametros.getMutador());
 		Poblacion poblacion=FactoriaPoblaciones.getInstancia().generarPoblacion(parametros.getFuncion());
+		
+		//Ejecutar algoritmo
 		algoritmoGenetico AG=new algoritmoGenetico(parametros.getTamPoblacion(),parametros.getMaxGen(),parametros.getProbCruce(),parametros.getProbMuta(),selector,mutador,cruzador,poblacion);
+		
+		//Informar a la vista 
 		gui.update(AG.executeAlgorithm());
 	}
 
