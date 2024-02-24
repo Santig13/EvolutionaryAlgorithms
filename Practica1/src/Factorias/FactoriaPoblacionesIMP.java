@@ -4,6 +4,7 @@ package Factorias;
 import ppoblacion.Poblacion;
 import ppoblacion.PoblacionFuncion1;
 import ppoblacion.PoblacionFuncion2;
+import ppoblacion.PoblacionFuncion3;
 
 public class FactoriaPoblacionesIMP extends FactoriaPoblaciones {
 
@@ -15,6 +16,8 @@ public class FactoriaPoblacionesIMP extends FactoriaPoblaciones {
 			return new PoblacionFuncion1();
 		case "Funcion 2":
 			return new PoblacionFuncion2();
+		case "Funcion 3":
+			return new PoblacionFuncion3();
 		default:
 			return null;
 		}

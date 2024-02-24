@@ -1,7 +1,6 @@
 package ppoblacion;
 
-public class PoblacionFuncion2 extends Poblacion {
-
+public class PoblacionFuncion3 extends Poblacion {
 	@Override
 	public void inicializarIndividuos(int TamPob, double precision) {
 		// TODO Auto-generated method stub
@@ -11,5 +10,4 @@ public class PoblacionFuncion2 extends Poblacion {
 	
 		}
 	}
-	
 }
