@@ -23,7 +23,7 @@ public class ControllerIMP implements Controller {
 		Poblacion poblacion=FactoriaPoblaciones.getInstancia().generarPoblacion(parametros.getFuncion());
 		
 		//Ejecutar algoritmo
-		algoritmoGenetico AG =new algoritmoGenetico(parametros.getTamPoblacion(),parametros.getMaxGen(),parametros.getProbCruce(),parametros.getProbMuta(),selector,mutador,cruzador,poblacion,parametros.getElitismo(),parametros.getPrecision());
+		algoritmoGenetico AG =new algoritmoGenetico(parametros.getTamPoblacion(),parametros.getMaxGen(),parametros.getProbCruce(),parametros.getProbMuta(),selector,mutador,cruzador,poblacion,parametros.getElitismo(),parametros.getPrecision(),parametros.getNDimensiones());
 		
 		//Informar a la vista 
 		gui.update(AG.executeAlgorithm());

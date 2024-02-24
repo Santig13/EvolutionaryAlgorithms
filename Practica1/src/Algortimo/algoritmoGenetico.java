@@ -41,9 +41,10 @@ public class algoritmoGenetico {
 	
 	private double precision;
 	private double elitismo;
+	private int nDimensiones;
 
     public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
-    			Selector sel,Mutador mut,Cruzador cruz,Poblacion poblacion,  double elitismo, double precision)
+    			Selector sel,Mutador mut,Cruzador cruz,Poblacion poblacion,  double elitismo, double precision, int nDimensiones)
     {
     	this.tamPoblacion = tamPoblacion;
         this.maxGeneraciones = maxGeneraciones;
@@ -55,7 +56,7 @@ public class algoritmoGenetico {
         this.poblacion=poblacion;
         this.precision = precision;
         this.elitismo = elitismo;
-        
+        this.nDimensiones = nDimensiones;
     	 this.aptitud_media_generacion = new double[maxGeneraciones];
     	 this.aptitud_mejor_generacion = new double[maxGeneraciones];
     	 this.aptitud_absoluta_generacion = new double[maxGeneraciones];
@@ -135,7 +136,7 @@ public class algoritmoGenetico {
 
 	private void initialize() {
 		// TODO Auto-generated method stub
-		poblacion.inicializarIndividuos(tamPoblacion, precision);
+		poblacion.inicializarIndividuos(tamPoblacion, precision, nDimensiones);
 	}
 
 	/*

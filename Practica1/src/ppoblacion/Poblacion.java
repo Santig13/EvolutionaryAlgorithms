@@ -1,7 +1,7 @@
 package ppoblacion;
 
 public abstract class Poblacion {
-	public abstract void inicializarIndividuos(int TamPob, double precision);
+	public abstract void inicializarIndividuos(int TamPob, double precision, int nDim);
 	
 	protected Individuo<?>[] individuos;
 	public Individuo<?>[] getIndivuduos() {
