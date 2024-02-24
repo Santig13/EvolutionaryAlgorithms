@@ -85,8 +85,8 @@ public class algoritmoGenetico {
     	}
     	
     	
-    	double[] gener = new double[tamPoblacion]; 
-    	for (int i = 0; i < tamPoblacion; i++)
+    	double[] gener = new double[maxGeneraciones]; 
+    	for (int i = 0; i < maxGeneraciones; i++)
     		gener[i] = i;
     	
     	

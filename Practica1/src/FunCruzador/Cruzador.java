@@ -24,8 +24,8 @@ public abstract class Cruzador {
 			
 			if(p<probCruce) {
 				seleccionados[numSeleccionados]=individuos[i];
-				numSeleccionados++;
 				indices[numSeleccionados]=i;
+				numSeleccionados++;
 			}
 		}
 		
