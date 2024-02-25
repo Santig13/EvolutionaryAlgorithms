@@ -44,7 +44,7 @@ public class IndividuoFuncion2 extends Individuo<Boolean> {
     	double parte1 = Math.sin(x2) * Math.exp(1 - Math.cos(x1)) * Math.exp(1 - Math.cos(x1));
         double parte2 = Math.cos(x1) * Math.exp(1 - Math.sin(x2)) * Math.exp(1 - Math.sin(x2));
         double parte3 = (x1 - x2) * (x1 - x2);
-        return parte1 + parte2 + parte3;
+        return -(parte1 + parte2 + parte3);
 	}
     
     private double getFenotipo(int i) {

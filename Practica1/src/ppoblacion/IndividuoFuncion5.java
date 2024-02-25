@@ -1,0 +1,65 @@
+package ppoblacion;
+
+import java.util.Random;
+
+public class IndividuoFuncion5  extends Individuo<Double> {
+
+	private Random rand;
+	
+	public IndividuoFuncion5(int nDim) {
+		this.rand=new Random();
+        this.cromosoma = new Double [nDim];
+        for(int i = 0; i < nDim; i++) this.cromosoma[i] = this.rand.nextDouble() * Math.PI;
+
+	}
+	
+	public double getFitness() {
+		return getValor();
+	}
+
+	private double getValor() {
+		double sum = 0;
+		
+		for(int i = 0; i < cromosoma.length; i++)
+		{
+			double xi=this.cromosoma[i];
+			sum = sum + Math.sin(xi)*Math.pow((Math.sin((i*xi*xi)/Math.PI)),10*2);
+		}
+		
+		return -((-1) * sum);
+	}
+
+	
+	@Override
+	public void cruzarMonopunto(int i, Individuo<?> padre2) {
+		Double[] cromosomaPadre=(Double[]) padre2.getCromosoma();
+		for(int x=i;x<cromosoma.length;x++) {
+			cromosoma[x]=cromosomaPadre[x];
+		}
+		
+	}
+
+	@Override
+	public void cruzarUniforme(Boolean primero, Boolean[] cruzar, Individuo<?> padre2) {
+		// TODO Auto-generated method stub
+		Double[] cromosomaPadre=(Double[]) padre2.getCromosoma();
+		for(int i=0;i<cromosoma.length;i++) {
+			if(cruzar[i]==primero) {
+				cromosoma[i]=cromosomaPadre[i];
+			}
+		}
+	}
+
+	@Override
+	public void mutarBasico(double probMutac) {
+		Random r=new Random();
+		for(int i=0;i<cromosoma.length;i++) {
+			double p=r.nextDouble();
+			if(p<probMutac) {
+				cromosoma[i]= this.rand.nextDouble() * Math.PI;
+			}
+		}
+		
+	}
+
+}

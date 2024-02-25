@@ -41,7 +41,7 @@ public class IndividuoFuncion3  extends Individuo<Boolean> {
 	private double getValor() {
 		double x1=this.getFenotipo(0);
 		double x2=this.getFenotipo(1);
-		return (-1)*Math.abs(Math.sin(x1)*Math.cos(x2)*Math.exp(Math.abs(Math.sqrt(x1*x1+x2*x2)/Math.PI)));
+		return -((-1)*Math.abs(Math.sin(x1)*Math.cos(x2)*Math.exp(Math.abs(1-(Math.sqrt(x1*x1+x2*x2)/Math.PI)))));
 	}
 
 	private double getFenotipo(int i) {
