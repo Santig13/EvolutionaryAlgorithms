@@ -5,9 +5,10 @@ import java.util.Random;
 public class IndividuoFuncion5  extends Individuo<Double> {
 
 	private Random rand;
-	
+	private int numD;
 	public IndividuoFuncion5(int nDim) {
 		this.rand=new Random();
+		this.numD=nDim;
         this.cromosoma = new Double [nDim];
         for(int i = 0; i < nDim; i++) this.cromosoma[i] = this.rand.nextDouble() * Math.PI;
 
@@ -60,6 +61,14 @@ public class IndividuoFuncion5  extends Individuo<Double> {
 			}
 		}
 		
+	}
+	@Override
+	public Individuo<?> copia() {
+		// TODO Auto-generated method stub
+		IndividuoFuncion5 copia=new IndividuoFuncion5(this.numD);
+		copia.setCromosoma(cromosoma);
+		
+		return copia;
 	}
 
 }

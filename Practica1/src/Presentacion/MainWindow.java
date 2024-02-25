@@ -50,6 +50,7 @@ public class MainWindow extends JFrame implements GUI {
 	private JComboBox<String> comboBoxMetCruce;
 	private JComboBox<String> comboBoxMetMut;
 	private Plot2DPanel plot;
+	private JTextArea textAreaSol;
 	
 	
 	
@@ -281,7 +282,7 @@ public class MainWindow extends JFrame implements GUI {
             catch(Exception ex) {
             	//JOptionPane.showMessageDialog(null, "No se ha podido ejecutar el algoritmo, introduzca los datos correctamente");
             	JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
+            } 
         });
 		GridBagConstraints gbc_ButtonEjecutar = new GridBagConstraints();
 		gbc_ButtonEjecutar.insets = new Insets(0, 0, 5, 0);
@@ -304,7 +305,7 @@ public class MainWindow extends JFrame implements GUI {
 		JLabel LabelSol = new JLabel("Solucion:");
 		panelSol.add(LabelSol);
 		
-		JTextArea textAreaSol = new JTextArea();
+		textAreaSol = new JTextArea();
 		panelSol.add(textAreaSol);
 	}
 
@@ -313,19 +314,28 @@ public class MainWindow extends JFrame implements GUI {
 	private TParametros camposToRun() throws CamposException {
 		
 		
+		try {
+			
 		String selector =  tiposDeSelector[comboBoxMetSel.getSelectedIndex()];
 		String mutador = tiposDeMutador [comboBoxMetMut.getSelectedIndex()];
 		String cruzador = tiposDeCruzador [comboBoxMetCruce.getSelectedIndex()];
 		String funcion = tiposDeFuncion[comboBoxFunc.getSelectedIndex()];
+		
 		double probMuta = Double.parseDouble(textFieldProbMut.getText());
-		int generaciones = Integer.parseInt(textFieldNGener.getText());
-		int tamPobla = Integer.parseInt(textFieldTamGener.getText());
 		double probCruce = Double.parseDouble(textFieldProbCruc.getText());
 		double elitismo =  Double.parseDouble(textFieldProbElitis.getText());
-		int ndimensiones = Integer.parseInt(textFieldNDim.getText());
 		double precision =  Double.parseDouble(textFieldPrecision.getText());
 		
+		int generaciones = Integer.parseInt(textFieldNGener.getText());
+		int tamPobla = Integer.parseInt(textFieldTamGener.getText());
+		int ndimensiones = Integer.parseInt(textFieldNDim.getText());
+		
+		 
 		return new TParametros(selector,mutador,cruzador,funcion,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100,ndimensiones,precision);
+		}
+		catch(Exception e){
+			throw new CamposException("No se han podido analizar los datos introducidos, asegurese de que ha rellenado correctamente todos los campos");
+		}
 		
 	} 
 
@@ -342,6 +352,7 @@ public class MainWindow extends JFrame implements GUI {
 		plot.addLinePlot("Mejores Absolutos",trs.getGenreaciones(),trs.getMejoresAbsolutos());
 		plot.addLinePlot("Mejores Generacionales",trs.getGenreaciones(),trs.getMejorLocal());
 		plot.addLinePlot("Media Generacional",trs.getGenreaciones(),trs.getMedio());
+		textAreaSol.setText("Valor optimo =("+trs.getOptimo()+") Encontrado en la generacion número: "+trs.getPosicion());
 	}
 
 }

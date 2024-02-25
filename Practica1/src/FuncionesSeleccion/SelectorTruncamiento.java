@@ -29,7 +29,7 @@ public class SelectorTruncamiento implements Selector{
 	        {
 	        	Indi_Fit x = new Indi_Fit();
 	        	x.fit = generacion[i].getFitness();
-	            x.indi = generacion[i];
+	            x.indi = generacion[i].copia();
 	            fit_ind [i] = x;
 	            fitness_total = fitness_total + fit_ind[i].fit;
 	        }

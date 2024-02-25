@@ -5,11 +5,11 @@ import java.util.Random;
 public class IndividuoFuncion4  extends Individuo<Boolean>{
 	private double valorError;
 	private Random rand;
-	
+	private int numD;
 	public IndividuoFuncion4(double precision, int nDim) {
 		super();
 		this.valorError = precision;
-		
+		this.numD=nDim;
 		//inicializar
 		this.rand=new Random();
 		this.tamGen=new int[nDim];
@@ -106,5 +106,13 @@ public class IndividuoFuncion4  extends Individuo<Boolean>{
 				cromosoma[i]=!cromosoma[i];
 			}
 		}
+	}
+	@Override
+	public Individuo<?> copia() {
+		// TODO Auto-generated method stub
+		IndividuoFuncion4 copia=new IndividuoFuncion4(this.valorError, this.numD);
+		copia.setCromosoma(cromosoma);
+		
+		return copia;
 	}
 }

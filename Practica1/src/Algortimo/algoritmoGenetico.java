@@ -1,6 +1,7 @@
 package Algortimo;
 
 import java.awt.Cursor;
+import java.util.Collections;
 import java.util.Random;
 
 import Controller.TResultStatistics;
@@ -15,25 +16,21 @@ public class algoritmoGenetico {
     
     private int tamPoblacion;
     private Poblacion poblacion;
-    private double[] fitness;
     private int maxGeneraciones;
     
     private double probCruce;
     private double probMutacion;
     private int tamTorneo;
-    private Individuo<?> elMejor;
+  
     
+    
+    //Datos para grafica 
     private int pos_mejor;
-    private int puntuacion ;
-
-	//Datos para grafica
-	//private Individuo<?>[] generationAverage;
-	//private Individuo<?>[] generationBest;
-	//private Individuo<?>[] absoluteBest;
+  	private double optimo;
 	private double[] aptitud_media_generacion;
 	private double[] aptitud_mejor_generacion;
 	private double[] aptitud_absoluta_generacion;
-	
+
 	private Cruzador cross;
 	private Mutador mut;
 	private Selector sel;
@@ -57,12 +54,9 @@ public class algoritmoGenetico {
         this.precision = precision;
         this.elitismo = elitismo;
         this.nDimensiones = nDimensiones;
-    	 this.aptitud_media_generacion = new double[maxGeneraciones];
-    	 this.aptitud_mejor_generacion = new double[maxGeneraciones];
-    	 this.aptitud_absoluta_generacion = new double[maxGeneraciones];
-    	 
-    	// this.absoluteBest = new Individuo<?>[maxGeneraciones];
-        
+    	this.aptitud_media_generacion = new double[maxGeneraciones];
+    	this.aptitud_mejor_generacion = new double[maxGeneraciones];
+    	this.aptitud_absoluta_generacion = new double[maxGeneraciones];        
     }
     
     public TResultStatistics executeAlgorithm() {
@@ -72,15 +66,14 @@ public class algoritmoGenetico {
     	this.evaluar();
     	currentGeneration++;
     	while(currentGeneration!=maxGeneraciones) {
+    	/*	if(tamElites>0) {
+    			Collections.sort(poblacion.getIndivuduos(),new IndividuoComparator());
+    			apartarElite();
+    		}*/
     		this.seleccionar();
     		this.cross.crossover(this.poblacion,tamPoblacion,probCruce);
     		this.mut.mutate(this.poblacion,tamPoblacion,this.probMutacion);
     		this.evaluar();
-    		/*	
-    		this.generationAverage[currentGeneration] = getGenerationAvg();
-    		this.generationBest[currentGeneration] = getGenerationBest();
-    		this.absoluteBest[currentGeneration] = getAbsoluteBest();
-    	 */
     		currentGeneration++;
     	
     	}
@@ -91,7 +84,7 @@ public class algoritmoGenetico {
     		gener[i] = i;
     	
     	
-    	return new TResultStatistics(gener,this.aptitud_absoluta_generacion,this.aptitud_mejor_generacion,this.aptitud_media_generacion);
+    	return new TResultStatistics(gener,this.aptitud_absoluta_generacion,this.aptitud_mejor_generacion,this.aptitud_media_generacion,this.optimo,this.pos_mejor);
     	
     }
 
@@ -109,25 +102,25 @@ public class algoritmoGenetico {
 			
 			if(aptitud>aptitud_mejor) {
 				aptitud_mejor=aptitud;
-				//mejor=individuos[i];
 			}
 		}
 		
 		this.aptitud_media_generacion[this.currentGeneration]=punt_acu/tamPoblacion;
 		this.aptitud_mejor_generacion[this.currentGeneration]=aptitud_mejor;
 		
-		if(this.currentGeneration>0&&this.aptitud_absoluta_generacion[this.currentGeneration-1]<aptitud_mejor) {
-			//this.absoluteBest[this.currentGeneration]=mejor;
+		if(this.currentGeneration==0||(this.currentGeneration>0&&this.aptitud_absoluta_generacion[this.currentGeneration-1]<aptitud_mejor)){
 			this.aptitud_absoluta_generacion[this.currentGeneration]=aptitud_mejor;
+			this.optimo=aptitud_mejor;
+			this.pos_mejor=currentGeneration;
 		}
-		else if (this.currentGeneration>0){
+		else{
 			this.aptitud_absoluta_generacion[this.currentGeneration]=aptitud_absoluta_generacion[this.currentGeneration-1];
 
 		}
-		else
-			this.aptitud_absoluta_generacion[this.currentGeneration] = aptitud_mejor;
-	
 	}
+
+	
+	
 
 	private void seleccionar() {
 		// TODO Auto-generated method stub

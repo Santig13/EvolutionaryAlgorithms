@@ -15,7 +15,9 @@ public abstract class Individuo<T> {
 		return cromosoma;
 	}
 	public void setCromosoma(T[] cromosoma) {
-		this.cromosoma = cromosoma;
+		for(int i = 0; i < cromosoma.length;i++) {
+			this.cromosoma[i] = cromosoma[i];
+		}
 	}
 	public int[] getTamGen() {
 		return tamGen;
@@ -49,6 +51,7 @@ public abstract class Individuo<T> {
 	public abstract void cruzarMonopunto(int puntoCorte, Individuo<?> padre2);
 	public abstract void cruzarUniforme(Boolean primero, Boolean[] cruzar, Individuo<?> padre2);
 	public abstract void mutarBasico(double probMutac);
+	public abstract Individuo<?> copia();
 	
 
 }

@@ -36,7 +36,7 @@ public class SelectorRestos  implements Selector{ //POR TERMINAR
 	     {
 	    	 if (probSeleccion[i] * (generacion.length - seleccionados) > 1)
 	    	 {
-	    		 nuevaGeneracion[seleccionados] = generacion[seleccionados];
+	    		 nuevaGeneracion[seleccionados] = generacion[seleccionados].copia();
 	    	 }
 	     }
 	     
@@ -57,7 +57,7 @@ public class SelectorRestos  implements Selector{ //POR TERMINAR
 	                sum = sum + probSeleccion[x];
 	                x++;
 	            }
-	            nuevaGeneracion[seleccionados] = generacion[x-1];
+	            nuevaGeneracion[seleccionados] = generacion[x-1].copia();
 	            seleccionados++;
 	        }        
 

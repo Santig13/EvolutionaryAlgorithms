@@ -38,12 +38,13 @@ public class SelectorRuleta implements Selector{
             double numeroAleatorio = random.nextDouble();
             int x = 0;
             double sum = 0; 
+            
             while (numeroAleatorio > sum)
             {
                 sum = sum + probSeleccion[x];
                 x++;
             }
-            NuevaGeneracion[i] = generacion[x-1];
+            NuevaGeneracion[i] = generacion[x-1].copia();
         }        
         
 

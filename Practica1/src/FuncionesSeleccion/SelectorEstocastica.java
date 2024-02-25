@@ -39,7 +39,7 @@ public class SelectorEstocastica implements Selector {
                 sum = sum + probSeleccion[x];
                 x++;
             }
-            nuevaGeneracion[i-1] = generacion[x];
+            nuevaGeneracion[i-1] = generacion[x].copia();
              
         }        
         

@@ -16,9 +16,9 @@ public class SelectorTorneoProbabilistico  implements Selector{
 			
 			while (seleccionados != generacion.length)		
 			{
-				int[] torneo = SeleccionIndividuosTorneo(generacion);
+				int[] torneo = SeleccionIndividuosTorneo(generacion.length);
 				int ganador = GanadorTorneo(torneo, generacion);
-				nuevaGeneracion[seleccionados] = generacion[ganador];
+				nuevaGeneracion[seleccionados] = generacion[ganador].copia();
 				seleccionados++;
 			}
 			
@@ -26,7 +26,7 @@ public class SelectorTorneoProbabilistico  implements Selector{
 			return nuevaGeneracion;
 	}
 	
-	int[] SeleccionIndividuosTorneo(Individuo<?>[] generacion)
+	int[] SeleccionIndividuosTorneo(int tam)
 	{
 		int[] torneo = new int[tamTorneo]; //Un array de posiciones de los individuos que participan en el torneo
 		int nseleccionados = 0;
@@ -34,7 +34,7 @@ public class SelectorTorneoProbabilistico  implements Selector{
 
 		while(nseleccionados != tamTorneo)
 		{
-			int i = random.nextInt(generacion.length); //Escojo un individuo al azar
+			int i = random.nextInt(tam); //Escojo un individuo al azar
 			torneo[nseleccionados] = i;
 			nseleccionados++;
 		}

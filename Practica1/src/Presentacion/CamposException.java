@@ -2,6 +2,11 @@ package Presentacion;
 
 public class CamposException extends Exception {
 
+	public CamposException(String string) {
+		// TODO Auto-generated constructor stub
+		super(string);
+	}
+
 	/**
 	 * 
 	 */

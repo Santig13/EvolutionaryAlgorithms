@@ -93,5 +93,13 @@ public class IndividuoFuncion3  extends Individuo<Boolean> {
 			}
 		}
 	}
+	@Override
+	public Individuo<?> copia() {
+		// TODO Auto-generated method stub
+		IndividuoFuncion3 copia=new IndividuoFuncion3(this.valorError);
+		copia.setCromosoma(cromosoma);
+		
+		return copia;
+	}
 
 }
