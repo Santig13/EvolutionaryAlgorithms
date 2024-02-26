@@ -138,6 +138,7 @@ public class algoritmoGenetico {
 		if(minimizar) {
 			sumaFit = 0.0;
 			double aux=0;
+			maximo=maximo*1.05;
 			for(int i=0;i<tamPoblacion;i++) {
 				aux=maximo-individuos[i].evalua();
 				individuos[i].setFitness(aux);
@@ -159,7 +160,10 @@ public class algoritmoGenetico {
 		}
 		
 		this.aptitud_mejor_generacion[this.currentGeneration]=mejor.evalua();
-		if(this.currentGeneration==0||(this.currentGeneration>0&&this.elMejor.getFintess()<mejor.getFintess())){
+		
+		if(this.currentGeneration==0||(this.currentGeneration>0&&
+				((this.elMejor.getFintess()<mejor.getFintess()&&!minimizar)||
+						(this.elMejor.evalua()>mejor.evalua()&&minimizar)))){
 			elMejor=mejor;
 			this.aptitud_absoluta_generacion[this.currentGeneration]=mejor.evalua();
 			this.optimo=mejor.evalua();
@@ -185,22 +189,7 @@ public class algoritmoGenetico {
 		poblacion.inicializarIndividuos(tamPoblacion, precision, nDimensiones);
 	}
 
-	/*
-	private Object getGenerationAvg() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private Object getGenerationBest() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private Object getAbsoluteBest() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-    */
+	
 
 
 

@@ -54,7 +54,7 @@ public class SelectorTorneoProbabilistico  implements Selector{
 			
 			for (int i = 1; i < torneo.length ;i++)
 			{
-				if (generacion[torneo[i]].evalua() > generacion[ganador].evalua())
+				if (generacion[torneo[i]].getFintess() > generacion[ganador].getFintess())
 					ganador = torneo[i];
 			}
 		}
@@ -62,7 +62,7 @@ public class SelectorTorneoProbabilistico  implements Selector{
 		{
 			for (int i = 1; i < torneo.length ;i++)
 			{
-				if (generacion[torneo[i]].evalua() < generacion[ganador].evalua())
+				if (generacion[torneo[i]].getFintess() < generacion[ganador].getFintess())
 					ganador = torneo[i];
 			}
 		}

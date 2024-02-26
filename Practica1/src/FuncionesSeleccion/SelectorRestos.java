@@ -15,18 +15,19 @@ public class SelectorRestos  implements Selector{ //POR TERMINAR
 
 	     
 	     
-	     
+	     /*
 	     for(int i = 0 ; i < generacion.length; i++)
 	     {
 	         fitness[i] = generacion[i].evalua();
 	         fitness_total = fitness_total + fitness[i];
 	     }
-	        
+	      */
 	     double [] probSeleccion = new double [generacion.length];
 
 	     for(int i = 0 ; i < generacion.length; i++)
 	     {
-	         probSeleccion[i] = fitness[i] / fitness_total;
+	       //  probSeleccion[i] = fitness[i] / fitness_total;
+	    	 probSeleccion[i] = generacion[i].getPuntuacion();
 	     }
 	        
 	     int seleccionados = 0;
