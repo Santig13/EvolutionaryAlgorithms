@@ -115,7 +115,7 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(LabelTamGener, gbc_LabelTamGener);
 		
 		textFieldTamGener = new JTextField();
-		textFieldTamGener.setText("60");
+		textFieldTamGener.setText("100");
 		GridBagConstraints gbc_textFieldTamGener = new GridBagConstraints();
 		gbc_textFieldTamGener.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldTamGener.fill = GridBagConstraints.HORIZONTAL;
@@ -158,7 +158,7 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(textFieldProbCruc, gbc_textFieldProbCruc);
 		textFieldProbCruc.setColumns(10);
 		
-		JLabel LabelProbMut = new JLabel("Probailidad Mutacion");
+		JLabel LabelProbMut = new JLabel("Porcentaje de  Mutacion");
 		GridBagConstraints gbc_LabelProbMut = new GridBagConstraints();
 		gbc_LabelProbMut.insets = new Insets(0, 0, 5, 0);
 		gbc_LabelProbMut.gridx = 0;
@@ -238,7 +238,7 @@ public class MainWindow extends JFrame implements GUI {
 		gbc_comboBoxMetMut.gridy = 18;
 		panelParametros.add(comboBoxMetMut, gbc_comboBoxMetMut);
 		
-		JLabel LabelProbElitis = new JLabel("Probabilidad Elitismo");
+		JLabel LabelProbElitis = new JLabel("Porcentaje Elitismo");
 		GridBagConstraints gbc_LabelProbElitis = new GridBagConstraints();
 		gbc_LabelProbElitis.insets = new Insets(0, 0, 5, 0);
 		gbc_LabelProbElitis.gridx = 0;

@@ -33,4 +33,14 @@ public abstract class Poblacion {
 		}
 		return mejor;
 	}
+
+	public  Individuo<?> getCopiaIndivuduo(int i){
+		if(i>=individuos.length)return null;
+		return individuos[i].copia();
+	}
+
+	public void swap(int i, Individuo<?> individuo) {
+		// TODO Auto-generated method stub
+		individuos[i]=individuo;
+	}
 }

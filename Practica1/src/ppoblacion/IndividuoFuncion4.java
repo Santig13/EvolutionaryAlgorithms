@@ -125,4 +125,17 @@ public class IndividuoFuncion4  extends Individuo<Boolean>{
 		}
 		return v;
 	}
+
+	@Override
+	protected String fenotipoToString() {
+		String s= "Encontrado en:( ";
+		int indice=0;
+		for (int i = 0; i < inicioGen.length-1; i++) {
+			 indice=i+1;
+			s= s+"X"+indice+" = "+getFenotipo(i)+", ";
+		}
+		indice++;
+		s= s+"X"+indice+" = "+getFenotipo(indice-1)+") ";
+		return s;	
+	}
 }

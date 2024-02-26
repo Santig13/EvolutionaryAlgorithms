@@ -110,4 +110,10 @@ public class IndividuoFuncion3  extends Individuo<Boolean> {
 		v[1] = getFenotipo(1);
 		return v;
 	}
+
+	@Override
+	protected String fenotipoToString() {
+		// TODO Auto-generated method stub
+		return "Encontrado en:(X1 ="+ getFenotipo(0)+",X2 = " + getFenotipo(1)+") "; 
+	}
 }

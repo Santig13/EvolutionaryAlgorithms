@@ -19,31 +19,8 @@ public abstract class Individuo<T> {
 			this.cromosoma[i] = cromosoma[i];
 		}
 	}
-	public int[] getTamGen() {
-		return tamGen;
-	}
-	public void setTamGen(int[] tamGen) {
-		this.tamGen = tamGen;
-	}
-	public double[] getMin() {
-		return min;
-	}
-	public void setMin(double[] min) {
-		this.min = min;
-	}
-	public double[] getMax() {
-		return max;
-	}
-	public void setMax(double[] max) {
-		this.max = max;
-	}
-	public double getFitness() {
-		return fitness;
-	}
-	public void setFitness(double fitness) {
-		this.fitness = fitness;
-		
-	}
+	public abstract double getFitness();
+	
 	public int getLongitudCromosoma() {
 		// TODO Auto-generate
 		return cromosoma.length;
@@ -55,7 +32,12 @@ public abstract class Individuo<T> {
 	public abstract void cruzarUniforme(Boolean primero, Boolean[] cruzar, Individuo<?> padre2);
 	public abstract void mutarBasico(double probMutac);
 	public abstract Individuo<?> copia();
-	
+	@Override
+	public String toString() {
+		return "Valor optimo ("+ getFitness()+")"+fenotipoToString();
+		
+	}
+	protected abstract String fenotipoToString();
 
 }
     

@@ -81,5 +81,17 @@ public class IndividuoFuncion5  extends Individuo<Double> {
 		}
 		return v;
 	}
+	@Override
+	protected String fenotipoToString() {
+		String s= "Encontrado en:( ";
+		int indice=0;
+		for (int i = 0; i < cromosoma.length-1; i++) {
+			 indice=i+1;
+			s= s+"X"+indice+" = "+cromosoma[i].doubleValue()+", ";
+		}
+		indice++;
+		s= s+"X"+indice+" = "+cromosoma[indice-1].doubleValue()+") ";
+		return s;	
+	}
 
 }
