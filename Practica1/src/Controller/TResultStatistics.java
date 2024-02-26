@@ -11,10 +11,11 @@ public class TResultStatistics {
 	private double[] medio;
 	private double optimo;
 	private double posicion;
+	private double[] solucionFen;
 
 
 	public TResultStatistics(double[] generaciones, double[] mejorAbsoluto, double[] mejorLocal, double[] medio,
-			double optimo, double posicion) {
+			double optimo, double posicion, double[] solucionFen) {
 		super();
 		this.generaciones = generaciones;
 		this.mejorAbsoluto = mejorAbsoluto;
@@ -22,6 +23,7 @@ public class TResultStatistics {
 		this.medio = medio;
 		this.optimo = optimo;
 		this.posicion = posicion;
+		this.solucionFen = solucionFen;
 	}
 	public double[] getGenreaciones() {
 		return generaciones;
@@ -49,5 +51,9 @@ public class TResultStatistics {
 	public void setPosicion(double posicion) {
 		this.posicion = posicion;
 	}
-
+	public double[] getSolucionFen()
+	{
+		return solucionFen;
+	}
+	
 }

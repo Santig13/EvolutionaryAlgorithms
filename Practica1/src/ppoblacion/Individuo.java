@@ -48,6 +48,9 @@ public abstract class Individuo<T> {
 		// TODO Auto-generate
 		return cromosoma.length;
 	}
+	
+	public abstract double[] getFenotipoTot();
+	
 	public abstract void cruzarMonopunto(int puntoCorte, Individuo<?> padre2);
 	public abstract void cruzarUniforme(Boolean primero, Boolean[] cruzar, Individuo<?> padre2);
 	public abstract void mutarBasico(double probMutac);

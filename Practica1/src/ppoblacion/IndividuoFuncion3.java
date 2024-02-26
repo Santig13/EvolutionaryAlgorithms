@@ -102,4 +102,12 @@ public class IndividuoFuncion3  extends Individuo<Boolean> {
 		return copia;
 	}
 
+	
+	@Override
+	public double[] getFenotipoTot() {
+		double[] v = new double[2];
+		v[0] = getFenotipo(0);
+		v[1] = getFenotipo(1);
+		return v;
+	}
 }

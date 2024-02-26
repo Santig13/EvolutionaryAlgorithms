@@ -352,7 +352,16 @@ public class MainWindow extends JFrame implements GUI {
 		plot.addLinePlot("Mejores Absolutos",trs.getGenreaciones(),trs.getMejoresAbsolutos());
 		plot.addLinePlot("Mejores Generacionales",trs.getGenreaciones(),trs.getMejorLocal());
 		plot.addLinePlot("Media Generacional",trs.getGenreaciones(),trs.getMedio());
-		textAreaSol.setText("Valor optimo =("+trs.getOptimo()+") Encontrado en la generacion número: "+trs.getPosicion());
+		
+		double [] sol = trs.getSolucionFen();
+		
+		String txt = "Valor optimo =("+trs.getOptimo()+") Encontrado en: (";
+		for (int i = 0; i < sol.length-1; i++)
+		{
+			txt = txt + "X" + i + " = " + sol[i] + ", ";
+		}
+		txt = txt + "X" + (sol.length-1) + " = " + sol[sol.length-1]+") Durante la generacion: " + trs.getPosicion();
+		textAreaSol.setText(txt);
 	}
 
 }

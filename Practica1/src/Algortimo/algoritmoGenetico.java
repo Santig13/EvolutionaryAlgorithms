@@ -22,7 +22,7 @@ public class algoritmoGenetico {
     private double probMutacion;
     private int tamTorneo;
   
-    
+    private double[] solucionFen;
     
     //Datos para grafica 
     private int pos_mejor;
@@ -84,7 +84,7 @@ public class algoritmoGenetico {
     		gener[i] = i;
     	
     	
-    	return new TResultStatistics(gener,this.aptitud_absoluta_generacion,this.aptitud_mejor_generacion,this.aptitud_media_generacion,this.optimo,this.pos_mejor);
+    	return new TResultStatistics(gener,this.aptitud_absoluta_generacion,this.aptitud_mejor_generacion,this.aptitud_media_generacion,this.optimo,this.pos_mejor, this.solucionFen);
     	
     }
 
@@ -93,7 +93,7 @@ public class algoritmoGenetico {
 		Individuo<?>[] individuos=poblacion.getIndivuduos();
 		Double punt_acu = 0.0;
 		Double aptitud_mejor = Double.MIN_VALUE;
-		//Individuo<?> mejor=null;
+		Individuo<?> mejor=null;
 		
 		for(int i=0;i<tamPoblacion;i++) {
 			double aptitud=individuos[i].getFitness();
@@ -102,6 +102,7 @@ public class algoritmoGenetico {
 			
 			if(aptitud>aptitud_mejor) {
 				aptitud_mejor=aptitud;
+				mejor = individuos[i];
 			}
 		}
 		
@@ -112,6 +113,7 @@ public class algoritmoGenetico {
 			this.aptitud_absoluta_generacion[this.currentGeneration]=aptitud_mejor;
 			this.optimo=aptitud_mejor;
 			this.pos_mejor=currentGeneration;
+			this.solucionFen = mejor.getFenotipoTot();
 		}
 		else{
 			this.aptitud_absoluta_generacion[this.currentGeneration]=aptitud_absoluta_generacion[this.currentGeneration-1];

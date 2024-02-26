@@ -115,4 +115,14 @@ public class IndividuoFuncion4  extends Individuo<Boolean>{
 		
 		return copia;
 	}
+	
+	@Override
+	public double[] getFenotipoTot() {
+		double[] v = new double[inicioGen.length];
+		for (int i = 0; i < inicioGen.length; i++)
+		{
+			v[i] = getFenotipo(i);
+		}
+		return v;
+	}
 }
