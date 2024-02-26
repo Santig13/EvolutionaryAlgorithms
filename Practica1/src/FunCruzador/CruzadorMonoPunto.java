@@ -9,8 +9,8 @@ public class CruzadorMonoPunto extends Cruzador {
 	@Override
 	public void cruzar(Individuo<?> individuo, Individuo<?> individuo2) {
 		// TODO Auto-generated method stub
-		Individuo<?> hijo1=individuo;
-		Individuo<?> hijo2=individuo2;
+		Individuo<?> hijo1=individuo.copia();
+		Individuo<?> hijo2=individuo2.copia();
 		
 		Random rand = new Random();
 		int lcrom=individuo.getLongitudCromosoma();

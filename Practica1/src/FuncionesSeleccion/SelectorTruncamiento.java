@@ -28,7 +28,7 @@ public class SelectorTruncamiento implements Selector{
 	        for(int i = 0 ; i < generacion.length; i++)
 	        {
 	        	Indi_Fit x = new Indi_Fit();
-	        	x.fit = generacion[i].getFitness();
+	        	x.fit = generacion[i].evalua();
 	            x.indi = generacion[i].copia();
 	            fit_ind [i] = x;
 	            fitness_total = fitness_total + fit_ind[i].fit;

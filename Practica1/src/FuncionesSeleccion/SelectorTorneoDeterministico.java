@@ -49,7 +49,7 @@ public class SelectorTorneoDeterministico  implements Selector{
 		int ganador = torneo[0];
 		for (int i = 1; i < torneo.length ;i++)
 		{
-			if (generacion[torneo[i]].getFitness() > generacion[ganador].getFitness())
+			if (generacion[torneo[i]].evalua() > generacion[ganador].evalua())
 				ganador = torneo[i];
 		}
 		return ganador;

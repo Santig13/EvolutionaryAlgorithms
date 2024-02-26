@@ -42,7 +42,7 @@ public class IndividuoFuncion4  extends Individuo<Boolean>{
    
 	}
 	
-	public double getFitness() {
+	public double evalua() {
 		return getValor();
 	}
 
@@ -55,7 +55,7 @@ public class IndividuoFuncion4  extends Individuo<Boolean>{
 			sum = sum + Math.sin(xi)*Math.pow((Math.sin((i*xi*xi)/Math.PI)),10*2);
 		}
 		
-		return -((-1) * sum);
+		return ((-1) * sum);
 	}
 
 	private double getFenotipo(int i) {
@@ -112,7 +112,7 @@ public class IndividuoFuncion4  extends Individuo<Boolean>{
 		// TODO Auto-generated method stub
 		IndividuoFuncion4 copia=new IndividuoFuncion4(this.valorError, this.numD);
 		copia.setCromosoma(cromosoma);
-		
+		copia.setFitness(this.fitness);
 		return copia;
 	}
 	

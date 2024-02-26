@@ -23,7 +23,7 @@ public abstract class Cruzador {
 			double p=r.nextDouble();
 			
 			if(p<probCruce) {
-				seleccionados[numSeleccionados]=individuos[i];
+				seleccionados[numSeleccionados]=individuos[i].copia();
 				indices[numSeleccionados]=i;
 				numSeleccionados++;
 			}

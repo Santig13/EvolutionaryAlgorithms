@@ -14,7 +14,7 @@ public class IndividuoFuncion5  extends Individuo<Double> {
 
 	}
 	
-	public double getFitness() {
+	public double evalua() {
 		return getValor();
 	}
 
@@ -27,7 +27,7 @@ public class IndividuoFuncion5  extends Individuo<Double> {
 			sum = sum + Math.sin(xi)*Math.pow((Math.sin((i*xi*xi)/Math.PI)),10*2);
 		}
 		
-		return -((-1) * sum);
+		return ((-1) * sum);
 	}
 
 	
@@ -67,7 +67,7 @@ public class IndividuoFuncion5  extends Individuo<Double> {
 		// TODO Auto-generated method stub
 		IndividuoFuncion5 copia=new IndividuoFuncion5(this.numD);
 		copia.setCromosoma(cromosoma);
-		
+		copia.setFitness(this.fitness);
 		return copia;
 	}
 	

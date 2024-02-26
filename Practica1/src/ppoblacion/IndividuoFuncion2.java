@@ -33,7 +33,7 @@ public class IndividuoFuncion2 extends Individuo<Boolean> {
         for(int i = 0; i < tamTotal; i++) this.cromosoma[i] = this.rand.nextBoolean(); //Para inicializar el individuo de forma aleatoria
     }
 
-    public double getFitness() {
+    public double evalua() {
 		return getValor();
 	}
     
@@ -44,7 +44,7 @@ public class IndividuoFuncion2 extends Individuo<Boolean> {
     	double parte1 = Math.sin(x2) * Math.exp(1 - Math.cos(x1)) * Math.exp(1 - Math.cos(x1));
         double parte2 = Math.cos(x1) * Math.exp(1 - Math.sin(x2)) * Math.exp(1 - Math.sin(x2));
         double parte3 = (x1 - x2) * (x1 - x2);
-        return -(parte1 + parte2 + parte3);
+        return (parte1 + parte2 + parte3);
 	}
     
     private double getFenotipo(int i) {
@@ -102,7 +102,7 @@ public class IndividuoFuncion2 extends Individuo<Boolean> {
 		// TODO Auto-generated method stub
 		IndividuoFuncion2 copia=new IndividuoFuncion2(this.valorError);
 		copia.setCromosoma(cromosoma);
-		
+		copia.setFitness(this.fitness);
 		return copia;
 	}
 	

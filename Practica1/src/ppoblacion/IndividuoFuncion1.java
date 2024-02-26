@@ -34,7 +34,7 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
    
 	}
 	
-	public double getFitness() {
+	public double evalua() {
 		return getValor();
 	}
 
@@ -99,7 +99,7 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
 		// TODO Auto-generated method stub
 		IndividuoFuncion1 copia=new IndividuoFuncion1(this.valorError);
 		copia.setCromosoma(cromosoma);
-		
+		copia.setFitness(this.fitness);
 		return copia;
 	}
 

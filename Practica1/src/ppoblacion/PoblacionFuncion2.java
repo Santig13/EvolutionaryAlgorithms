@@ -11,5 +11,11 @@ public class PoblacionFuncion2 extends Poblacion {
 	
 		}
 	}
+
+	@Override
+	public boolean isMin() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 	
 }

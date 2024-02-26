@@ -23,6 +23,7 @@ public class algoritmoGenetico {
     private double probMutacion;
     private int tamTorneo;
     private Individuo<?>[] elite;
+    private Individuo<?> elMejor;
     private double[] solucionFen;
     
     //Datos para grafica 
@@ -40,6 +41,7 @@ public class algoritmoGenetico {
 	private double precision;
 	private int nElite;
 	private int nDimensiones;
+	private boolean minimizar;
 
     public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
     			Selector sel,Mutador mut,Cruzador cruz,Poblacion poblacion,  double porcenElite, double precision, int nDimensiones)
@@ -58,7 +60,7 @@ public class algoritmoGenetico {
     	this.aptitud_media_generacion = new double[maxGeneraciones];
     	this.aptitud_mejor_generacion = new double[maxGeneraciones];
     	this.aptitud_absoluta_generacion = new double[maxGeneraciones];    
-    	
+    	this.minimizar=poblacion.isMin();
     }
     
     public TResultStatistics executeAlgorithm() {
@@ -114,27 +116,53 @@ public class algoritmoGenetico {
 	private void evaluar() {
 		// TODO Auto-generated method stub
 		Individuo<?>[] individuos=poblacion.getIndivuduos();
-		Double punt_acu = 0.0;
-		Double aptitud_mejor = Double.MIN_VALUE;
+		Double sumaFit = 0.0;
+		Double maximo = Double.MIN_VALUE;
 		Individuo<?> mejor=null;
 		
 		for(int i=0;i<tamPoblacion;i++) {
-			double aptitud=individuos[i].getFitness();
+			double aptitud=individuos[i].evalua();
 			
-			punt_acu= punt_acu + aptitud;
-			
-			if(aptitud>aptitud_mejor) {
-				aptitud_mejor=aptitud;
-				mejor = individuos[i];
+			sumaFit+=aptitud;
+			individuos[i].setFitness(aptitud);
+			if(aptitud>maximo) {
+				maximo=aptitud;
+				mejor = individuos[i].copia();
 			}
 		}
 		
-		this.aptitud_media_generacion[this.currentGeneration]=punt_acu/tamPoblacion;
-		this.aptitud_mejor_generacion[this.currentGeneration]=aptitud_mejor;
 		
-		if(this.currentGeneration==0||(this.currentGeneration>0&&this.aptitud_absoluta_generacion[this.currentGeneration-1]<aptitud_mejor)){
-			this.aptitud_absoluta_generacion[this.currentGeneration]=aptitud_mejor;
-			this.optimo=aptitud_mejor;
+		this.aptitud_media_generacion[this.currentGeneration]=sumaFit/tamPoblacion;
+		
+		
+		if(minimizar) {
+			sumaFit = 0.0;
+			double aux=0;
+			for(int i=0;i<tamPoblacion;i++) {
+				aux=maximo-individuos[i].evalua();
+				individuos[i].setFitness(aux);
+				sumaFit+=aux;
+			}
+			maximo = Double.MIN_VALUE;
+			for(int i=0;i<tamPoblacion;i++) {
+				double aptitud=individuos[i].getFintess();
+				if( aptitud > maximo)
+				{
+					maximo=individuos[i].getFintess();
+					mejor = individuos[i].copia();
+				}
+			}
+		}
+		
+		for(int i=0;i<tamPoblacion;i++) {
+			individuos[i].setPuntuacion(individuos[i].getFintess()/sumaFit);
+		}
+		
+		this.aptitud_mejor_generacion[this.currentGeneration]=mejor.evalua();
+		if(this.currentGeneration==0||(this.currentGeneration>0&&this.elMejor.getFintess()<mejor.getFintess())){
+			elMejor=mejor;
+			this.aptitud_absoluta_generacion[this.currentGeneration]=mejor.evalua();
+			this.optimo=mejor.evalua();
 			this.pos_mejor=currentGeneration;
 			this.solucionFen = mejor.getFenotipoTot();
 		}

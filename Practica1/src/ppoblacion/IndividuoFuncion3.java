@@ -34,14 +34,14 @@ public class IndividuoFuncion3  extends Individuo<Boolean> {
    
 	}
 	
-	public double getFitness() {
+	public double evalua() {
 		return getValor();
 	}
 
 	private double getValor() {
 		double x1=this.getFenotipo(0);
 		double x2=this.getFenotipo(1);
-		return -((-1)*Math.abs(Math.sin(x1)*Math.cos(x2)*Math.exp(Math.abs(1-(Math.sqrt(x1*x1+x2*x2)/Math.PI)))));
+		return ((-1)*Math.abs(Math.sin(x1)*Math.cos(x2)*Math.exp(Math.abs(1-(Math.sqrt(x1*x1+x2*x2)/Math.PI)))));
 	}
 
 	private double getFenotipo(int i) {
@@ -98,7 +98,7 @@ public class IndividuoFuncion3  extends Individuo<Boolean> {
 		// TODO Auto-generated method stub
 		IndividuoFuncion3 copia=new IndividuoFuncion3(this.valorError);
 		copia.setCromosoma(cromosoma);
-		
+		copia.setFitness(this.fitness);
 		return copia;
 	}
 

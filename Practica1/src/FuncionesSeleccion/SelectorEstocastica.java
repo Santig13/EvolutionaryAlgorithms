@@ -13,7 +13,7 @@ public class SelectorEstocastica implements Selector {
 
         for(int i = 0 ; i < generacion.length; i++)
         {
-            fitness[i] = generacion[i].getFitness();
+            fitness[i] = generacion[i].evalua();
             fitness_total = fitness_total + fitness[i];
         }
         

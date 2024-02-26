@@ -17,7 +17,7 @@ public abstract class Poblacion {
 		double sum = 0;
 		for (Individuo x : individuos)
 		{
-			sum = sum + x.getFitness();
+			sum = sum + x.evalua();
 		}
 		sum = sum / individuos.length;
 		
@@ -28,8 +28,8 @@ public abstract class Poblacion {
 		double mejor = 0;
 		for (Individuo x : individuos)
 		{
-			if (x.getFitness() > mejor)
-				mejor = x.getFitness();
+			if (x.evalua() > mejor)
+				mejor = x.evalua();
 		}
 		return mejor;
 	}
@@ -43,4 +43,6 @@ public abstract class Poblacion {
 		// TODO Auto-generated method stub
 		individuos[i]=individuo;
 	}
+
+	public abstract boolean isMin();
 }

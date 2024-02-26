@@ -9,8 +9,8 @@ public class IndividuoComparator implements Comparator<Individuo<?>> {
 	@Override
 	public int compare(Individuo<?> o1, Individuo<?> o2) {
 		int sol=-1;
-		if(o1.getFitness()==o2.getFitness())sol=0;
-		else if(o1.getFitness()>o2.getFitness())sol=1;
+		if(o1.evalua()==o2.evalua())sol=0;
+		else if(o1.evalua()>o2.evalua())sol=1;
 		return sol;
 	}
 

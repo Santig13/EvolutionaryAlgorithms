@@ -13,7 +13,6 @@ public abstract class Mutador {
 		for(int i=0;i<tamPoblacion;i++) {
 			mutar(individuos[i],probMutac);			
 		}
-		poblacion.setNuevaPoblacion(individuos);
 	}
 
 	protected abstract void mutar(Individuo<?> individuo, double probMutac);

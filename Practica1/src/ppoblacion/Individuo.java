@@ -7,8 +7,12 @@ public abstract class Individuo<T> {
     protected double[] min;
     protected double[] max;
     protected double fitness;
+    protected double puntuacion;
     
-    public int tamGen(double valorError, double min, double max) {
+    public double getPuntuacion() {
+		return puntuacion;
+	}
+	public int tamGen(double valorError, double min, double max) {
         return (int) (Math.log10(((max - min) / valorError) + 1) / Math.log10(2));
     }
 	public T[] getCromosoma() {
@@ -19,7 +23,7 @@ public abstract class Individuo<T> {
 			this.cromosoma[i] = cromosoma[i];
 		}
 	}
-	public abstract double getFitness();
+	public abstract double evalua();
 	
 	public int getLongitudCromosoma() {
 		// TODO Auto-generate
@@ -34,10 +38,22 @@ public abstract class Individuo<T> {
 	public abstract Individuo<?> copia();
 	@Override
 	public String toString() {
-		return "Valor optimo ("+ getFitness()+")"+fenotipoToString();
+		return "Valor optimo ("+ evalua()+")"+fenotipoToString();
 		
 	}
 	protected abstract String fenotipoToString();
+	public void setPuntuacion(double d) {
+		this.puntuacion=d;
+		
+	}
+	public void setFitness(double aux) {
+		// TODO Auto-generated method stub
+		this.fitness=aux;
+	}
+	public Double getFintess() {
+		// TODO Auto-generated method stub
+		return fitness;
+	}
 
 }
     
