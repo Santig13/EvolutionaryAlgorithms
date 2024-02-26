@@ -93,5 +93,23 @@ public class IndividuoFuncion5  extends Individuo<Double> {
 		s= s+"X"+indice+" = "+cromosoma[indice-1].doubleValue()+") ";
 		return s;	
 	}
+	
+	public void cruzarBLXalpha(double max2, double min2) {
+		Random random = new Random();
+		for (int i = 0; i < cromosoma.length; i++)
+		{
+			cromosoma[i] = random.nextDouble(min2, max2);
+		}
+	}
+	
+	public void cruzarAritmetico(double alpha, Individuo<?> individuo) {
+		
+		Double[] cromosoma1 = (Double[]) individuo.getCromosoma();
+
+		for(int i = 0; i < cromosoma.length; i++)
+		{
+			cromosoma[i] = cromosoma[i]*alpha + cromosoma1[i]*(1-alpha);
+		}
+	}
 
 }

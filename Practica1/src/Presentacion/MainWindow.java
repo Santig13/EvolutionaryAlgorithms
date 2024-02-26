@@ -34,7 +34,7 @@ import javax.swing.JTextPane;
 public class MainWindow extends JFrame implements GUI {
 
 	private final String[] tiposDeFuncion= {"Funcion 1","Funcion 2","Funcion 3","Funcion 4", "Funcion 5"};
-	private final String[] tiposDeCruzador= {"Mono Punto","Uniforme"};
+	private final String[] tiposDeCruzador= {"Mono Punto","Uniforme","BLXa(Solo fun5)","Aritmetico(Solo fun5)"};
 	private final String[] tiposDeMutador= {"Basico"};
 	private final String[] tiposDeSelector= {"Ruleta","Estocastico","Truncamiento","Torneo Deterministico","Torneo Probabilistico", "Restos"};
 	private JPanel contentPane;

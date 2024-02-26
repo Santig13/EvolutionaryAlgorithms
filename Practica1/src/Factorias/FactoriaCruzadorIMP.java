@@ -1,6 +1,8 @@
 package Factorias;
 
 import FunCruzador.Cruzador;
+import FunCruzador.CruzadorAritmetico;
+import FunCruzador.CruzadorBLXa;
 import FunCruzador.CruzadorMonoPunto;
 import FunCruzador.CruzadorUniforme;
 
@@ -14,8 +16,10 @@ public class FactoriaCruzadorIMP extends FactoriaCruzador {
 				return new CruzadorMonoPunto();
 			case "Uniforme":
 				return new CruzadorUniforme();
+			case "BLXa(Solo fun5)":
+				return new CruzadorBLXa();
 			default:
-				return null;
+				return new CruzadorAritmetico();
 			}
 		}
 	}

@@ -54,6 +54,13 @@ public abstract class Individuo<T> {
 		// TODO Auto-generated method stub
 		return fitness;
 	}
+	public void cruzarBLXalpha(double max2, double min2) {
+		//SOLO PARA LOS INDIVIDUOS DE LA FUNCION 5
+	}
+	public void cruzarAritmetico(double alpha, Individuo<?> individuo2) {
+		//SOLO PARA LOS INDIVIDUOS DE LA FUNCION 5
+		
+	}
 
 }
     
