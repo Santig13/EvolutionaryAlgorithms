@@ -9,7 +9,7 @@ public class PoblacionFuncion1 extends TPoblacion {
 		individuos = new Individuo<?>[TamPob];
 		for(int i=0;i<TamPob;i++) {
 			individuos[i]=new IndividuoFuncion1(precision);
-	
+
 		}
 	}
 
@@ -19,6 +19,6 @@ public class PoblacionFuncion1 extends TPoblacion {
 		return false;
 	}
 
-	
+
 
 }

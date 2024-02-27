@@ -27,7 +27,7 @@ public abstract class IndividuoBinario extends Individuo<Boolean> {
 		for(int x=i;x<cromosoma.length;x++) {
 			cromosoma[x]=cromosomaPadre[x];
 		}
-		
+
 	}
 	@Override
 	public void cruzarUniforme(Boolean primero,Boolean[] cruzar, Individuo<?> padre2) {

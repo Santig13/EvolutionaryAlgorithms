@@ -1,12 +1,12 @@
 package Factorias;
 
 
-import Poblacion.TPoblacion;
 import Poblacion.PoblacionFuncion1;
 import Poblacion.PoblacionFuncion2;
 import Poblacion.PoblacionFuncion3;
 import Poblacion.PoblacionFuncion4;
 import Poblacion.PoblacionFuncion5;
+import Poblacion.TPoblacion;
 
 public class FactoriaPoblacionesIMP extends FactoriaPoblaciones {
 

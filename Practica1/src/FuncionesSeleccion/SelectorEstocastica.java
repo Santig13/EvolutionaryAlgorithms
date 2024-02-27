@@ -33,19 +33,19 @@ public class SelectorEstocastica implements Selector {
         for(int i = 1; i <= generacion.length; i++)
         {
             int x = 0;
-            double sum = 0; 
+            double sum = 0;
             while (n*i < sum)
             {
                 sum = sum + probSeleccion[x];
                 x++;
             }
             nuevaGeneracion[i-1] = generacion[x].copia();
-             
-        }        
-        
 
-      return nuevaGeneracion;        
-	
+        }
+
+
+      return nuevaGeneracion;
+
 	}
 
 }

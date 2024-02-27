@@ -6,12 +6,12 @@ import Poblacion.Individuo;
 
 public class SelectorRuleta implements Selector{
 
-    
+
 
 	@Override
 	public Individuo<?>[]  seleccionar(Individuo<?>[]  generacion) {
-        
-      
+
+
         double [] fitness = new double [generacion.length];
 
         double fitness_total = 0;
@@ -38,18 +38,18 @@ public class SelectorRuleta implements Selector{
         {
             double numeroAleatorio = random.nextDouble();
             int x = 0;
-            double sum = 0; 
-            
+            double sum = 0;
+
             while (numeroAleatorio > sum)
             {
                 sum = sum + probSeleccion[x];
                 x++;
             }
             NuevaGeneracion[i] = generacion[x-1].copia();
-        }        
-        
+        }
 
-       return NuevaGeneracion;        
+
+       return NuevaGeneracion;
 	}
 
 

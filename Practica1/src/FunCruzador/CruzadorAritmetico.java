@@ -11,11 +11,11 @@ public class CruzadorAritmetico extends Cruzador{
 		// TODO Auto-generated method stub
 		Individuo<?> hijo1=individuo.copia();
 		Individuo<?> hijo2=individuo2.copia();
-		
+
 		hijo1.cruzarAritmetico(alpha,individuo2);
 		hijo2.cruzarAritmetico(alpha,individuo);
 
-		
+
 	}
 
 }

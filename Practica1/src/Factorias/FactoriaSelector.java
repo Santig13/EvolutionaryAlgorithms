@@ -4,7 +4,7 @@ import FuncionesSeleccion.Selector;
 
 public abstract class FactoriaSelector {
 	private static  FactoriaSelector fc;
-	
+
 	public static FactoriaSelector getInstancia() {
 		if(fc==null)
 			fc=new FactoriaSelectorIMP();

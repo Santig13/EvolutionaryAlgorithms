@@ -10,7 +10,7 @@ public abstract class IndividuoReal extends Individuo<Double> {
 		for(int x=i;x<cromosoma.length;x++) {
 			cromosoma[x]=cromosomaPadre[x];
 		}
-		
+
 	}
 
 	@Override
@@ -33,11 +33,11 @@ public abstract class IndividuoReal extends Individuo<Double> {
 				cromosoma[i]= r.nextDouble() * Math.PI;
 			}
 		}
-		
+
 	}
 	@Override
 	public double[] getFenotipoTot() {
-		
+
 		double[] v = new double[cromosoma.length];
 		for (int i = 0; i < cromosoma.length; i++)
 		{
@@ -55,7 +55,7 @@ public abstract class IndividuoReal extends Individuo<Double> {
 	}
 	@Override
 	public void cruzarAritmetico(double alpha, Individuo<?> individuo) {
-		
+
 		Double[] cromosoma1 = (Double[]) individuo.getCromosoma();
 
 		for(int i = 0; i < cromosoma.length; i++)

@@ -13,24 +13,25 @@ public class IndividuoFuncion5  extends IndividuoReal {
         for(int i = 0; i < nDim; i++) this.cromosoma[i] = this.rand.nextDouble() * Math.PI;
 
 	}
-	
+
+	@Override
 	public double evalua() {
 		return getValor();
 	}
 
 	private double getValor() {
 		double sum = 0;
-		
+
 		for(int i = 0; i < cromosoma.length; i++)
 		{
 			double xi=this.cromosoma[i];
 			sum = sum + Math.sin(xi)*Math.pow((Math.sin(((i+1)*Math.pow(xi, 2))/Math.PI)),10*2);
 		}
-		
+
 		return ((-1) * sum);
 	}
 
-	
+
 	@Override
 	public Individuo<?> copia() {
 		// TODO Auto-generated method stub
@@ -39,8 +40,8 @@ public class IndividuoFuncion5  extends IndividuoReal {
 		copia.setFitness(this.fitness);
 		return copia;
 	}
-	
-	
+
+
 	@Override
 	protected String fenotipoToString() {
 		String s= "Encontrado en:( ";
@@ -51,9 +52,9 @@ public class IndividuoFuncion5  extends IndividuoReal {
 		}
 		indice++;
 		s= s+"X"+indice+" = "+cromosoma[indice-1].doubleValue()+") ";
-		return s;	
+		return s;
 	}
-	
-	
+
+
 
 }

@@ -10,7 +10,7 @@ public class FactoriaCruzadorIMP extends FactoriaCruzador {
 
 	@Override
 	public Cruzador generarCruzador(String cruzador) {
-		
+
 			switch(cruzador) {
 			case "Mono Punto":
 				return new CruzadorMonoPunto();

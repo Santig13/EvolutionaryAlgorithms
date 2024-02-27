@@ -68,11 +68,11 @@ public class TParametros {
 		// TODO Auto-generated method stub
 		return funcion;
 	}
-	
+
 	public double getElitismo() {
 		return elitismo;
 	}
-	
+
 	public int getNDimensiones() {
 		return ndimensiones;
 	}

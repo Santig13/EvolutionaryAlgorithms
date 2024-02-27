@@ -5,27 +5,27 @@ import java.util.Random;
 import Poblacion.Individuo;
 
 public class SelectorTorneoProbabilistico  implements Selector{
-	private int tamTorneo = 2; 
+	private int tamTorneo = 2;
 	private double p = 0.3;
 
 	@Override
 	public Individuo<?>[] seleccionar(Individuo<?>[] generacion) {
 		  Individuo<?>[] nuevaGeneracion = new Individuo<?>[generacion.length];
 			int seleccionados = 0;
-			
-			
-			while (seleccionados != generacion.length)		
+
+
+			while (seleccionados != generacion.length)
 			{
 				int[] torneo = SeleccionIndividuosTorneo(generacion.length);
 				int ganador = GanadorTorneo(torneo, generacion);
 				nuevaGeneracion[seleccionados] = generacion[ganador].copia();
 				seleccionados++;
 			}
-			
-			
+
+
 			return nuevaGeneracion;
 	}
-	
+
 	int[] SeleccionIndividuosTorneo(int tam)
 	{
 		int[] torneo = new int[tamTorneo]; //Un array de posiciones de los individuos que participan en el torneo
@@ -38,20 +38,20 @@ public class SelectorTorneoProbabilistico  implements Selector{
 			torneo[nseleccionados] = i;
 			nseleccionados++;
 		}
-		
+
 		return torneo;
-		
+
 	}
-	
-	
+
+
 	int GanadorTorneo (int[] torneo, Individuo<?>[] generacion)
 	{
-		
+
 		Random random = new Random();
 		int ganador = torneo[0];
 		if (random.nextDouble() > p)
 		{
-			
+
 			for (int i = 1; i < torneo.length ;i++)
 			{
 				if (generacion[torneo[i]].getFintess() > generacion[ganador].getFintess())
@@ -68,7 +68,7 @@ public class SelectorTorneoProbabilistico  implements Selector{
 		}
 		return ganador;
 
-	
+
 	}
 
 }

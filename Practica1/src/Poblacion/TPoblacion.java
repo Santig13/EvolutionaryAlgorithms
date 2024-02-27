@@ -2,7 +2,7 @@ package Poblacion;
 
 public abstract class TPoblacion {
 	public abstract void inicializarIndividuos(int TamPob, double precision, int nDim);
-	
+
 	protected Individuo<?>[] individuos;
 	public Individuo<?>[] getIndivuduos() {
 		return individuos;
@@ -20,7 +20,7 @@ public abstract class TPoblacion {
 			sum = sum + x.evalua();
 		}
 		sum = sum / individuos.length;
-		
+
 		return sum;
 	}
 

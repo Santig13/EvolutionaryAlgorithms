@@ -1,6 +1,6 @@
 package Poblacion;
 public abstract class Individuo<T> {
-	
+
 	 T[] cromosoma;
     protected int[] tamGen;
     protected int[] inicioGen;
@@ -8,7 +8,7 @@ public abstract class Individuo<T> {
     protected double[] max;
     protected double fitness;
     protected double puntuacion;
-    
+
     public double getPuntuacion() {
 		return puntuacion;
 	}
@@ -24,14 +24,14 @@ public abstract class Individuo<T> {
 		}
 	}
 	public abstract double evalua();
-	
+
 	public int getLongitudCromosoma() {
 		// TODO Auto-generate
 		return cromosoma.length;
 	}
-	
+
 	public abstract double[] getFenotipoTot();
-	
+
 	public abstract void cruzarMonopunto(int puntoCorte, Individuo<?> padre2);
 	public abstract void cruzarUniforme(Boolean primero, Boolean[] cruzar, Individuo<?> padre2);
 	public abstract void mutarBasico(double probMutac);
@@ -39,12 +39,12 @@ public abstract class Individuo<T> {
 	@Override
 	public String toString() {
 		return "Valor optimo ("+ evalua()+")"+fenotipoToString();
-		
+
 	}
 	protected abstract String fenotipoToString();
 	public void setPuntuacion(double d) {
 		this.puntuacion=d;
-		
+
 	}
 	public void setFitness(double aux) {
 		// TODO Auto-generated method stub
@@ -59,9 +59,8 @@ public abstract class Individuo<T> {
 	}
 	public void cruzarAritmetico(double alpha, Individuo<?> individuo2) {
 		//SOLO PARA LOS INDIVIDUOS DE LA FUNCION 5
-		
+
 	}
 
 }
-    
-   
+

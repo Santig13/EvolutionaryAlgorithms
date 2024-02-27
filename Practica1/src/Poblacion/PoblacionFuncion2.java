@@ -8,7 +8,7 @@ public class PoblacionFuncion2 extends TPoblacion {
 		individuos = new Individuo<?>[TamPob];
 		for(int i=0;i<TamPob;i++) {
 			individuos[i]=new IndividuoFuncion2(precision);
-	
+
 		}
 	}
 
@@ -17,5 +17,5 @@ public class PoblacionFuncion2 extends TPoblacion {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
+
 }

@@ -7,7 +7,7 @@ public class PoblacionFuncion5 extends TPoblacion {
 		individuos = new Individuo<?>[TamPob];
 		for(int i=0;i<TamPob;i++) {
 			individuos[i]=new IndividuoFuncion5(nDim);
-	
+
 		}
 	}
 	@Override

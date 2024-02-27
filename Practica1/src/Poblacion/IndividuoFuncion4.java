@@ -16,7 +16,7 @@ public class IndividuoFuncion4  extends IndividuoBinario{
 		this.min=new double[nDim];
 		this.max=new double[nDim];
 		this.inicioGen=new int[nDim];
-		
+
 		//asignar limites y parametros
 		 int tamTotal = 0;
 
@@ -28,28 +28,29 @@ public class IndividuoFuncion4  extends IndividuoBinario{
 			 inicioGen[i]=tamTotal;
 		     tamTotal += this.tamGen[i];
 		}
-	   
-       
+
+
         this.cromosoma = new Boolean [tamTotal];
-        
-        //dar valor a los genes 
+
+        //dar valor a los genes
         for(int i = 0; i < tamTotal; i++) this.cromosoma[i] = this.rand.nextBoolean();
-   
+
 	}
-	
+
+	@Override
 	public double evalua() {
 		return getValor();
 	}
 
 	private double getValor() {
 		double sum = 0;
-		
+
 		for(int i = 0; i < inicioGen.length; i++)
 		{
 			double xi=this.getFenotipo(i);
 			sum +=Math.sin(xi)*Math.pow((Math.sin(((i+1)*Math.pow(xi, 2))/Math.PI)),10*2);
 		}
-		
+
 		return ((-1) * sum);
 	}
 	@Override
@@ -60,7 +61,7 @@ public class IndividuoFuncion4  extends IndividuoBinario{
 		copia.setFitness(this.fitness);
 		return copia;
 	}
-	
+
 	@Override
 	public double[] getFenotipoTot() {
 		double[] v = new double[inicioGen.length];
@@ -81,6 +82,6 @@ public class IndividuoFuncion4  extends IndividuoBinario{
 		}
 		indice++;
 		s= s+"X"+indice+" = "+getFenotipo(indice-1)+") ";
-		return s;	
+		return s;
 	}
 }
