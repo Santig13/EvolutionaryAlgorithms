@@ -118,6 +118,7 @@ public class MainWindow extends JFrame implements GUI {
 		        	comboBoxMetCruce.setModel(new DefaultComboBoxModel<>(tiposDeCruzador5));
 		        	LabelNDim.setVisible(true);
 		        	textFieldNDim.setVisible(true);
+		        	break;
 		        case "Funcion 4":
 		        	comboBoxMetCruce.setModel(new DefaultComboBoxModel<>(tiposDeCruzador));
 		        	LabelNDim.setVisible(true);
@@ -317,7 +318,7 @@ public class MainWindow extends JFrame implements GUI {
             catch(Exception ex) {
             	//JOptionPane.showMessageDialog(null, "No se ha podido ejecutar el algoritmo, introduzca los datos correctamente");
             	JOptionPane.showMessageDialog(null, ex.getMessage());
-            	 ex.printStackTrace();
+            	// ex.printStackTrace();
             } 
         });
 		GridBagConstraints gbc_ButtonEjecutar = new GridBagConstraints();

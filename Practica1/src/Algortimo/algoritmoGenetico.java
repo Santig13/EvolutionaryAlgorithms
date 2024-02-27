@@ -177,13 +177,6 @@ public class algoritmoGenetico {
 		}
 	}
 
-	
-	
-
-	private void corrigeMinimizacion(Double maximo, Individuo<?> mejor) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	private void seleccionar() {
 		// TODO Auto-generated method stub
@@ -194,9 +187,5 @@ public class algoritmoGenetico {
 		// TODO Auto-generated method stub
 		poblacion.inicializarIndividuos(tamPoblacion, precision, nDimensiones);
 	}
-
-	
-
-
 
 }
