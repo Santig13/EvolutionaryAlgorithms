@@ -10,13 +10,13 @@ import FunCruzador.Cruzador;
 import FuncionMutador.Mutador;
 //import FuncionesEvaluador.Evaluador;
 import FuncionesSeleccion.Selector;
-import ppoblacion.Individuo;
-import ppoblacion.Poblacion;
+import Poblacion.Individuo;
+import Poblacion.TPoblacion;
 
 public class algoritmoGenetico {
     
     private int tamPoblacion;
-    private Poblacion poblacion;
+    private TPoblacion poblacion;
     private int maxGeneraciones;
     
     private double probCruce;
@@ -32,6 +32,7 @@ public class algoritmoGenetico {
 	private double[] aptitud_media_generacion;
 	private double[] aptitud_mejor_generacion;
 	private double[] aptitud_absoluta_generacion;
+	double[] gener;
 
 	private Cruzador cross;
 	private Mutador mut;
@@ -44,7 +45,7 @@ public class algoritmoGenetico {
 	private boolean minimizar;
 
     public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
-    			Selector sel,Mutador mut,Cruzador cruz,Poblacion poblacion,  double porcenElite, double precision, int nDimensiones)
+    			Selector sel,Mutador mut,Cruzador cruz,TPoblacion poblacion,  double porcenElite, double precision, int nDimensiones)
     {
     	this.tamPoblacion = tamPoblacion;
         this.maxGeneraciones = maxGeneraciones;
@@ -61,6 +62,7 @@ public class algoritmoGenetico {
     	this.aptitud_mejor_generacion = new double[maxGeneraciones];
     	this.aptitud_absoluta_generacion = new double[maxGeneraciones];    
     	this.minimizar=poblacion.isMin();
+    	gener= new double[maxGeneraciones]; 
     }
     
     public TResultStatistics executeAlgorithm() {
@@ -85,12 +87,11 @@ public class algoritmoGenetico {
     	}
     	
     	
-    	double[] gener = new double[maxGeneraciones]; 
-    	for (int i = 0; i < maxGeneraciones; i++)
-    		gener[i] = i;
+    	
+    		
     	
     	
-    	return new TResultStatistics(gener,this.aptitud_absoluta_generacion,this.aptitud_mejor_generacion,this.aptitud_media_generacion,this.optimo,this.pos_mejor, this.solucionFen);
+    	return new TResultStatistics(elMejor.toString(),gener,this.aptitud_absoluta_generacion,this.aptitud_mejor_generacion,this.aptitud_media_generacion,this.pos_mejor);
     	
     }
 
@@ -119,6 +120,7 @@ public class algoritmoGenetico {
 		Double sumaFit = 0.0;
 		Double maximo = Double.MIN_VALUE;
 		Individuo<?> mejor=null;
+		gener[currentGeneration]=currentGeneration;
 		
 		for(int i=0;i<tamPoblacion;i++) {
 			double aptitud=individuos[i].evalua();
@@ -166,9 +168,7 @@ public class algoritmoGenetico {
 						(this.elMejor.evalua()>mejor.evalua()&&minimizar)))){
 			elMejor=mejor;
 			this.aptitud_absoluta_generacion[this.currentGeneration]=mejor.evalua();
-			this.optimo=mejor.evalua();
 			this.pos_mejor=currentGeneration;
-			this.solucionFen = mejor.getFenotipoTot();
 		}
 		else{
 			this.aptitud_absoluta_generacion[this.currentGeneration]=aptitud_absoluta_generacion[this.currentGeneration-1];

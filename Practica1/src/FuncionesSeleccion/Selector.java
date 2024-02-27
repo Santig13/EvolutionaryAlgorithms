@@ -1,6 +1,6 @@
 package FuncionesSeleccion;
 
-import ppoblacion.Individuo;
+import Poblacion.Individuo;
 
 public interface Selector {
 

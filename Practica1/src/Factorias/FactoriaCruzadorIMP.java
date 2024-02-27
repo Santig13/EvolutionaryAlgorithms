@@ -16,7 +16,7 @@ public class FactoriaCruzadorIMP extends FactoriaCruzador {
 				return new CruzadorMonoPunto();
 			case "Uniforme":
 				return new CruzadorUniforme();
-			case "BLXa(Solo fun5)":
+			case "BLXa":
 				return new CruzadorBLXa();
 			default:
 				return new CruzadorAritmetico();

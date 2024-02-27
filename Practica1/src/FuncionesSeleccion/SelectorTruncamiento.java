@@ -4,7 +4,7 @@ package FuncionesSeleccion;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import ppoblacion.Individuo;
+import Poblacion.Individuo;
 
 public class SelectorTruncamiento implements Selector{
 	

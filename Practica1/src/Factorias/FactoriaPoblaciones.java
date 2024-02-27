@@ -1,6 +1,6 @@
 package Factorias;
 
-import ppoblacion.Poblacion;
+import Poblacion.TPoblacion;
 
 public abstract class FactoriaPoblaciones {
 	private static  FactoriaPoblaciones fp;
@@ -11,5 +11,5 @@ public abstract class FactoriaPoblaciones {
 		return fp;
 	}
 	
-	 public abstract Poblacion generarPoblacion(String funcion);
+	 public abstract TPoblacion generarPoblacion(String funcion);
 }

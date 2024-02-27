@@ -2,12 +2,12 @@ package FunCruzador;
 
 import java.util.Random;
 
-import ppoblacion.Individuo;
-import ppoblacion.Poblacion;
+import Poblacion.Individuo;
+import Poblacion.TPoblacion;
 
 public abstract class Cruzador {
 
-	public void crossover(Poblacion poblacion, int tamPoblacion, double probCruce) {
+	public void crossover(TPoblacion poblacion, int tamPoblacion, double probCruce) {
 		// TODO Auto-generated method stub
 
 		Random r = new Random();

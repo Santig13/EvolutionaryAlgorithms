@@ -1,6 +1,6 @@
 package FunCruzador;
 
-import ppoblacion.Individuo;
+import Poblacion.Individuo;
 
 public class CruzadorAritmetico extends Cruzador{
 

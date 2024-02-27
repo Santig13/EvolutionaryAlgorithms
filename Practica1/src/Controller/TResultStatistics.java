@@ -9,22 +9,22 @@ public class TResultStatistics {
 	private double[] mejorAbsoluto;
 	private double[] mejorLocal;
 	private double[] medio;
-	private double optimo;
+	private String elMejor;
 	private double posicion;
-	private double[] solucionFen;
 
 
-	public TResultStatistics(double[] generaciones, double[] mejorAbsoluto, double[] mejorLocal, double[] medio,
-			double optimo, double posicion, double[] solucionFen) {
+	public TResultStatistics(String elMejor,double[] generaciones, double[] aptitud_absoluta_generacion, double[] aptitud_mejor_generacion,
+			double[] aptitud_media_generacion, int pos_mejor) {
 		super();
+		
 		this.generaciones = generaciones;
-		this.mejorAbsoluto = mejorAbsoluto;
-		this.mejorLocal = mejorLocal;
-		this.medio = medio;
-		this.optimo = optimo;
-		this.posicion = posicion;
-		this.solucionFen = solucionFen;
+		this.mejorAbsoluto = aptitud_absoluta_generacion;
+		this.mejorLocal = aptitud_mejor_generacion;
+		this.medio = aptitud_media_generacion;
+		this.posicion = pos_mejor;
+		this.setElMejor(elMejor);
 	}
+	
 	public double[] getGenreaciones() {
 		return generaciones;
 	}
@@ -39,21 +39,18 @@ public class TResultStatistics {
 	public double[] getMedio() {
 		return medio;
 	}
-	public double getOptimo() {
-		return optimo;
-	}
-	public void setOptimo(double optimo) {
-		this.optimo = optimo;
-	}
+
 	public double getPosicion() {
 		return posicion;
 	}
 	public void setPosicion(double posicion) {
 		this.posicion = posicion;
 	}
-	public double[] getSolucionFen()
-	{
-		return solucionFen;
+	public String getElMejor() {
+		return elMejor;
+	}
+	public void setElMejor(String elMejor) {
+		this.elMejor = elMejor;
 	}
 	
 }

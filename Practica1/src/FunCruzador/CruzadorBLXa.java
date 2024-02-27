@@ -2,7 +2,7 @@ package FunCruzador;
 
 import java.util.Random;
 
-import ppoblacion.Individuo;
+import Poblacion.Individuo;
 
 public class CruzadorBLXa extends Cruzador {
 

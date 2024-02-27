@@ -20,6 +20,9 @@ import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
@@ -29,12 +32,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextPane;
 
 public class MainWindow extends JFrame implements GUI {
 
 	private final String[] tiposDeFuncion= {"Funcion 1","Funcion 2","Funcion 3","Funcion 4", "Funcion 5"};
-	private final String[] tiposDeCruzador= {"Mono Punto","Uniforme","BLXa(Solo fun5)","Aritmetico(Solo fun5)"};
+	private final String[] tiposDeCruzador= {"Mono Punto","Uniforme"};
+	private final String[] tiposDeCruzador5= {"Mono Punto","Uniforme","BLXa","Aritmetico"};
 	private final String[] tiposDeMutador= {"Basico"};
 	private final String[] tiposDeSelector= {"Ruleta","Estocastico","Truncamiento","Torneo Deterministico","Torneo Probabilistico", "Restos"};
 	private JPanel contentPane;
@@ -51,6 +57,7 @@ public class MainWindow extends JFrame implements GUI {
 	private JComboBox<String> comboBoxMetMut;
 	private Plot2DPanel plot;
 	private JTextArea textAreaSol;
+	private JLabel LabelNDim;
 	
 	
 	
@@ -100,6 +107,29 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(LabelFuncion, gbc_LabelFuncion);
 		
 		comboBoxFunc = new JComboBox<String>(this.tiposDeFuncion);
+		comboBoxFunc.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        
+		        String selected = (String) comboBoxFunc.getSelectedItem();
+		        switch(selected) {
+		        case "Funcion 5":
+		        	comboBoxMetCruce.setModel(new DefaultComboBoxModel<>(tiposDeCruzador5));
+		        	LabelNDim.setVisible(true);
+		        	textFieldNDim.setVisible(true);
+		        case "Funcion 4":
+		        	comboBoxMetCruce.setModel(new DefaultComboBoxModel<>(tiposDeCruzador));
+		        	LabelNDim.setVisible(true);
+		        	textFieldNDim.setVisible(true);
+		        	break;
+		        default:
+		        	comboBoxMetCruce.setModel(new DefaultComboBoxModel<>(tiposDeCruzador));
+		        	LabelNDim.setVisible(false);
+		        	textFieldNDim.setVisible(false);
+		        	break;
+		        }
+		    }
+		});
 		GridBagConstraints gbc_comboBoxFunc = new GridBagConstraints();
 		gbc_comboBoxFunc.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxFunc.fill = GridBagConstraints.HORIZONTAL;
@@ -255,15 +285,18 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(textFieldProbElitis, gbc_textFieldProbElitis);
 		textFieldProbElitis.setColumns(10);
 		
-		JLabel LabelNDim = new JLabel("Dimensiones (Solo funcion 4 y 5)");
+		 LabelNDim = new JLabel("Dimensiones");
+		 LabelNDim.setVisible(false);
 		GridBagConstraints gbc_LabelNDim = new GridBagConstraints();
 		gbc_LabelNDim.insets = new Insets(0, 0, 5, 0);
 		gbc_LabelNDim.gridx = 0;
 		gbc_LabelNDim.gridy = 21;
 		panelParametros.add(LabelNDim, gbc_LabelNDim);
 		
+		
 		textFieldNDim = new JTextField();
-		textFieldNDim.setText("0");
+		textFieldNDim.setVisible(false);
+		textFieldNDim.setText("2");
 		GridBagConstraints gbc_textFieldNDim = new GridBagConstraints();
 		gbc_textFieldNDim.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldNDim.fill = GridBagConstraints.HORIZONTAL;
@@ -282,6 +315,7 @@ public class MainWindow extends JFrame implements GUI {
             catch(Exception ex) {
             	//JOptionPane.showMessageDialog(null, "No se ha podido ejecutar el algoritmo, introduzca los datos correctamente");
             	JOptionPane.showMessageDialog(null, ex.getMessage());
+            	 ex.printStackTrace();
             } 
         });
 		GridBagConstraints gbc_ButtonEjecutar = new GridBagConstraints();
@@ -343,6 +377,7 @@ public class MainWindow extends JFrame implements GUI {
 		// TODO Auto-generated method stub
 		plot.removeAllPlots();
         plot.repaint();
+        textAreaSol.setText("");
 	}
 
 	@Override
@@ -352,16 +387,7 @@ public class MainWindow extends JFrame implements GUI {
 		plot.addLinePlot("Mejores Absolutos",trs.getGenreaciones(),trs.getMejoresAbsolutos());
 		plot.addLinePlot("Mejores Generacionales",trs.getGenreaciones(),trs.getMejorLocal());
 		plot.addLinePlot("Media Generacional",trs.getGenreaciones(),trs.getMedio());
-		
-		double [] sol = trs.getSolucionFen();
-		
-		String txt = "Valor optimo =("+trs.getOptimo()+") Encontrado en: (";
-		for (int i = 0; i < sol.length-1; i++)
-		{
-			txt = txt + "X" + i + " = " + sol[i] + ", ";
-		}
-		txt = txt + "X" + (sol.length-1) + " = " + sol[sol.length-1]+") Durante la generacion: " + trs.getPosicion();
-		textAreaSol.setText(txt);
+		textAreaSol.setText(trs.getElMejor()+"Durante la generacion: " + trs.getPosicion());
 	}
 
 }

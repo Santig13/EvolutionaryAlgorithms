@@ -1,17 +1,17 @@
 package Factorias;
 
 
-import ppoblacion.Poblacion;
-import ppoblacion.PoblacionFuncion1;
-import ppoblacion.PoblacionFuncion2;
-import ppoblacion.PoblacionFuncion3;
-import ppoblacion.PoblacionFuncion4;
-import ppoblacion.PoblacionFuncion5;
+import Poblacion.TPoblacion;
+import Poblacion.PoblacionFuncion1;
+import Poblacion.PoblacionFuncion2;
+import Poblacion.PoblacionFuncion3;
+import Poblacion.PoblacionFuncion4;
+import Poblacion.PoblacionFuncion5;
 
 public class FactoriaPoblacionesIMP extends FactoriaPoblaciones {
 
 	@Override
-	public Poblacion generarPoblacion(String funcion) {
+	public TPoblacion generarPoblacion(String funcion) {
 		// TODO Auto-generated method stub
 		switch(funcion) {
 		case "Funcion 1":

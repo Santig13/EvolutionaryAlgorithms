@@ -1,4 +1,4 @@
-package ppoblacion;
+package Poblacion;
 
 public abstract class Gen {
     

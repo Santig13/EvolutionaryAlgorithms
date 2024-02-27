@@ -1,6 +1,6 @@
-package ppoblacion;
+package Poblacion;
 
-public abstract class Poblacion {
+public abstract class TPoblacion {
 	public abstract void inicializarIndividuos(int TamPob, double precision, int nDim);
 	
 	protected Individuo<?>[] individuos;

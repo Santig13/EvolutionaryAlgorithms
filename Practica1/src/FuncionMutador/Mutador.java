@@ -1,12 +1,12 @@
 package FuncionMutador;
 
 
-import ppoblacion.Individuo;
-import ppoblacion.Poblacion;
+import Poblacion.Individuo;
+import Poblacion.TPoblacion;
 
 public abstract class Mutador {
 
-	public void mutate(Poblacion poblacion, int tamPoblacion, double probMutac) {
+	public void mutate(TPoblacion poblacion, int tamPoblacion, double probMutac) {
 		
 		Individuo<?>[] individuos=poblacion.getIndivuduos();
 		

@@ -3,7 +3,7 @@
  */
 package FuncionMutador;
 
-import ppoblacion.Individuo;
+import Poblacion.Individuo;
 
 /**
  * @author sagog

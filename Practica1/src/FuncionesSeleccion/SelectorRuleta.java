@@ -2,7 +2,7 @@ package FuncionesSeleccion;
 
 import java.util.Random;
 
-import ppoblacion.Individuo;
+import Poblacion.Individuo;
 
 public class SelectorRuleta implements Selector{
 
