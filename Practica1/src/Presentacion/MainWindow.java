@@ -356,11 +356,10 @@ public class MainWindow extends JFrame implements GUI {
 		
 		
 		try {
-			
-		String selector =  tiposDeSelector[comboBoxMetSel.getSelectedIndex()];
-		String mutador = tiposDeMutador [comboBoxMetMut.getSelectedIndex()];
-		String cruzador = tiposDeCruzador [comboBoxMetCruce.getSelectedIndex()];
-		String funcion = tiposDeFuncion[comboBoxFunc.getSelectedIndex()];
+		String selector =  (String) comboBoxMetSel.getSelectedItem();
+		String mutador = (String) comboBoxMetMut.getSelectedItem();
+		String cruzador = (String) comboBoxMetCruce.getSelectedItem();
+		String funcion = (String) comboBoxFunc.getSelectedItem();
 		
 		double probMuta = Double.parseDouble(textFieldProbMut.getText());
 		double probCruce = Double.parseDouble(textFieldProbCruc.getText());
