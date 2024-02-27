@@ -82,7 +82,8 @@ public class algoritmoGenetico {
     			introducirElite();
     		}
     		this.evaluar();
-    		currentGeneration++;
+    	//	if(aptitud_media_generacion[this.currentGeneration]>aptitud_media_generacion[currentGeneration-1])//Contractividad
+    			currentGeneration++;
     	
     	}
     	
@@ -138,11 +139,11 @@ public class algoritmoGenetico {
 		
 		
 		if(minimizar) {
+			
 			sumaFit = 0.0;
 			double aux=0;
-			maximo=maximo*1.05;
 			for(int i=0;i<tamPoblacion;i++) {
-				aux=maximo-individuos[i].evalua();
+				aux=(maximo*1.05)-individuos[i].evalua();
 				individuos[i].setFitness(aux);
 				sumaFit+=aux;
 			}
@@ -178,6 +179,11 @@ public class algoritmoGenetico {
 
 	
 	
+
+	private void corrigeMinimizacion(Double maximo, Individuo<?> mejor) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	private void seleccionar() {
 		// TODO Auto-generated method stub

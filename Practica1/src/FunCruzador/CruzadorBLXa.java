@@ -16,27 +16,16 @@ public class CruzadorBLXa extends Cruzador {
 		Double[] cromosoma1 = (Double[]) hijo1.getCromosoma();
 		Double[] cromosoma2 = (Double[]) hijo2.getCromosoma();
 
-		double max = cromosoma1[0];
-		double min = cromosoma1[0];
+		double max = Double.MIN_VALUE;
+		double min = Double.MAX_VALUE;
 		
 		for (int i = 0; i < cromosoma1.length; i++)
 		{
-			if(cromosoma1[i]>max)
-			{
-				max = cromosoma1[i];
-			}
-			if (cromosoma2[i]>max)
-			{
-				max = cromosoma2[i];
-			}
-			if (cromosoma1[i]<min)
-			{
-				min = cromosoma1[i];
-			}
-			if (cromosoma2[i]<min)
-			{
-				min = cromosoma2[i];
-			}
+			max=Math.max(max, cromosoma1[i]);
+			max=Math.max(max, cromosoma2[i]);
+			
+			min=Math.min(min, cromosoma1[i]);
+			min=Math.min(min, cromosoma2[i]);
 		}
 		
 		double I = max - min;

@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import org.math.plot.Plot2DPanel;
@@ -302,6 +303,7 @@ public class MainWindow extends JFrame implements GUI {
 		gbc_textFieldNDim.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldNDim.gridx = 0;
 		gbc_textFieldNDim.gridy = 22;
+		
 		panelParametros.add(textFieldNDim, gbc_textFieldNDim);
 		textFieldNDim.setColumns(10);
 		
@@ -339,8 +341,12 @@ public class MainWindow extends JFrame implements GUI {
 		JLabel LabelSol = new JLabel("Solucion:");
 		panelSol.add(LabelSol);
 		
+        
 		textAreaSol = new JTextArea();
-		panelSol.add(textAreaSol);
+		JScrollPane scrollPane = new JScrollPane(textAreaSol);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		panelSol.add(scrollPane);
 	}
 
 
