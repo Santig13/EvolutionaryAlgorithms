@@ -9,10 +9,10 @@ import javax.swing.border.EmptyBorder;
 
 import org.math.plot.Plot2DPanel;
 
-import Controller.Controller;
-import Controller.ControllerIMP;
-import Controller.TParametros;
-import Controller.TResultStatistics;
+import Controlador.Controller;
+import Controlador.ControllerIMP;
+import Controlador.TParametros;
+import Controlador.TResultStatistics;
 
 import java.awt.Button;
 import java.awt.BorderLayout;
@@ -59,6 +59,7 @@ public class MainWindow extends JFrame implements GUI {
 	private Plot2DPanel plot;
 	private JTextArea textAreaSol;
 	private JLabel LabelNDim;
+	private JLabel LabelPrecision;
 	
 	
 	
@@ -118,16 +119,22 @@ public class MainWindow extends JFrame implements GUI {
 		        	comboBoxMetCruce.setModel(new DefaultComboBoxModel<>(tiposDeCruzador5));
 		        	LabelNDim.setVisible(true);
 		        	textFieldNDim.setVisible(true);
+		        	textFieldPrecision.setVisible(false);
+		        	LabelPrecision.setVisible(false);
 		        	break;
 		        case "Funcion 4":
 		        	comboBoxMetCruce.setModel(new DefaultComboBoxModel<>(tiposDeCruzador));
 		        	LabelNDim.setVisible(true);
 		        	textFieldNDim.setVisible(true);
+		        	textFieldPrecision.setVisible(true);
+		        	LabelPrecision.setVisible(true);
 		        	break;
 		        default:
 		        	comboBoxMetCruce.setModel(new DefaultComboBoxModel<>(tiposDeCruzador));
 		        	LabelNDim.setVisible(false);
 		        	textFieldNDim.setVisible(false);
+		        	textFieldPrecision.setVisible(true);
+		        	LabelPrecision.setVisible(true);
 		        	break;
 		        }
 		    }
@@ -207,7 +214,7 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(textFieldProbMut, gbc_textFieldProbMut);
 		textFieldProbMut.setColumns(10);
 		
-		JLabel LabelPrecision = new JLabel("Precision de Representaci\u00F3n");
+		 LabelPrecision = new JLabel("Precision de Representaci\u00F3n");
 		GridBagConstraints gbc_LabelPrecision = new GridBagConstraints();
 		gbc_LabelPrecision.insets = new Insets(0, 0, 5, 0);
 		gbc_LabelPrecision.gridx = 0;

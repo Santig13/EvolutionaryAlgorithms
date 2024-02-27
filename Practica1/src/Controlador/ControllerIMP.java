@@ -1,4 +1,4 @@
-package Controller;
+package Controlador;
 
 import Algortimo.algoritmoGenetico;
 import Factorias.FactoriaCruzador;

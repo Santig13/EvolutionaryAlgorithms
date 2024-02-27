@@ -1,5 +1,5 @@
 package Presentacion;
-import Controller.TResultStatistics;
+import Controlador.TResultStatistics;
 
 public interface GUI {
 	public void update(TResultStatistics Trs);

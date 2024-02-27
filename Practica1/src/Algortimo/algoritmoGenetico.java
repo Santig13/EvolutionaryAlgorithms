@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
-import Controller.TResultStatistics;
+import Controlador.TResultStatistics;
 import FunCruzador.Cruzador;
 import FuncionMutador.Mutador;
 //import FuncionesEvaluador.Evaluador;
