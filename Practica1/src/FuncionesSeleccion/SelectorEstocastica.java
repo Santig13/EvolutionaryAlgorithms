@@ -7,9 +7,9 @@ public class SelectorEstocastica implements Selector {
 
 	@Override
 	public Individuo<?>[] seleccionar( Individuo<?>[]  generacion) {
-        double [] fitness = new double [generacion.length];
+        //double [] fitness = new double [generacion.length];
 
-        double fitness_total = 0;
+       // double fitness_total = 0;
         /*
         for(int i = 0 ; i < generacion.length; i++)
         {
@@ -28,24 +28,32 @@ public class SelectorEstocastica implements Selector {
 
         Individuo<?>[] nuevaGeneracion = new Individuo<?>[generacion.length];
 
-		double n = 1/generacion.length;
+		 
+		double min = 0;
+		double max = 1.0 /generacion.length;
+        double a = random.nextDouble(min, max);
 
-        for(int i = 1; i <= generacion.length; i++)
+
+        for(int i = 0; i < generacion.length; i++)
         {
-            int x = 0;
-            double sum = 0;
-            while (n*i < sum)
+            int x = -1;
+            double pointer = (a + (i+1.0) - 1.0)/generacion.length;
+            
+            double sum = 0; 
+            while (pointer > sum)
             {
-                sum = sum + probSeleccion[x];
                 x++;
+                sum = sum + probSeleccion[x];
             }
-            nuevaGeneracion[i-1] = generacion[x].copia();
+            
+           
+            nuevaGeneracion[i] = generacion[x].copia();
+             
+        }        
+        
 
-        }
-
-
-      return nuevaGeneracion;
-
+      return nuevaGeneracion;        
+	
 	}
 
 }
