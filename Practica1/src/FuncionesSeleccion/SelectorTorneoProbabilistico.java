@@ -6,7 +6,7 @@ import Poblacion.Individuo;
 
 public class SelectorTorneoProbabilistico  implements Selector{
 	private int tamTorneo = 2;
-	private double p = 0.3;
+	private double p = 0.5;
 
 	@Override
 	public Individuo<?>[] seleccionar(Individuo<?>[] generacion) {
