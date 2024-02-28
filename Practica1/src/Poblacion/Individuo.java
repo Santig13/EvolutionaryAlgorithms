@@ -33,7 +33,7 @@ public abstract class Individuo<T> {
 	public abstract double[] getFenotipoTot();
 
 	public abstract void cruzarMonopunto(int puntoCorte, Individuo<?> padre2);
-	public abstract void cruzarUniforme(Boolean primero, Boolean[] cruzar, Individuo<?> padre2);
+	public abstract void cruzarUniforme(Boolean[] cruzar, Individuo<?> padre2);
 	public abstract void mutarBasico(double probMutac);
 	public abstract Individuo<?> copia();
 	@Override

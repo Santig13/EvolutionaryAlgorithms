@@ -30,11 +30,11 @@ public abstract class IndividuoBinario extends Individuo<Boolean> {
 
 	}
 	@Override
-	public void cruzarUniforme(Boolean primero,Boolean[] cruzar, Individuo<?> padre2) {
+	public void cruzarUniforme(Boolean[] cruzar, Individuo<?> padre2) {
 		// TODO Auto-generated method stub
 		Boolean[] cromosomaPadre=(Boolean[]) padre2.getCromosoma();
 		for(int i=0;i<cromosoma.length;i++) {
-			if(cruzar[i]==primero) {
+			if(cruzar[i]) {
 				cromosoma[i]=cromosomaPadre[i];
 			}
 		}

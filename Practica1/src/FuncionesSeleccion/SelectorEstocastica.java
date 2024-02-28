@@ -7,16 +7,6 @@ public class SelectorEstocastica implements Selector {
 
 	@Override
 	public Individuo<?>[] seleccionar( Individuo<?>[]  generacion) {
-        //double [] fitness = new double [generacion.length];
-
-       // double fitness_total = 0;
-        /*
-        for(int i = 0 ; i < generacion.length; i++)
-        {
-            fitness[i] = generacion[i].evalua();
-            fitness_total = fitness_total + fitness[i];
-        }
-        */
         double [] probSeleccion = new double [generacion.length];
 
         for(int i = 0 ; i < generacion.length; i++)

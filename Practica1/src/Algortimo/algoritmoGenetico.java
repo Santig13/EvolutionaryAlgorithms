@@ -18,14 +18,11 @@ public class algoritmoGenetico {
 
     private double probCruce;
     private double probMutacion;
-    private int tamTorneo;
     private Individuo<?>[] elite;
     private Individuo<?> elMejor;
-    private double[] solucionFen;
-
+    
     //Datos para grafica
     private int pos_mejor;
-  	private double optimo;
 	private double[] aptitud_media_generacion;
 	private double[] aptitud_mejor_generacion;
 	private double[] aptitud_absoluta_generacion;

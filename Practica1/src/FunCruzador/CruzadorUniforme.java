@@ -20,8 +20,8 @@ public class CruzadorUniforme extends Cruzador{
 			else cruzar[i]=false;
 		}
 
-        hijo1.cruzarUniforme(true,cruzar,individuo2);
-    	hijo2.cruzarUniforme(false,cruzar,individuo);
+        hijo1.cruzarUniforme(cruzar,individuo2);
+    	hijo2.cruzarUniforme(cruzar,individuo);
 
     	individuo=hijo1;
  		individuo2=hijo2;

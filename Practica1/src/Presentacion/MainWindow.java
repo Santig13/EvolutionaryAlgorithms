@@ -34,6 +34,10 @@ import Controlador.TResultStatistics;
 
 public class MainWindow extends JFrame implements GUI {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final String[] tiposDeFuncion= {"Funcion 1","Funcion 2","Funcion 3","Funcion 4", "Funcion 5"};
 	private final String[] tiposDeCruzador= {"Mono Punto","Uniforme"};
 	private final String[] tiposDeCruzador5= {"Mono Punto","Uniforme","BLXa","Aritmetico"};
