@@ -44,15 +44,17 @@ public class SelectorTruncamiento implements Selector{
 
 	        Individuo<?>[] nuevaGeneracion = new Individuo<?>[generacion.length];
 
-	        int i = 0;
-	        while (i < generacion.length) {
-	        	int x = i;
-	        	for (int j = 0; j<vecesRep; j++)
-	        	{
-	        		nuevaGeneracion[i] = fit_ind[x].indi;
-	        		i++;
-	        	}
-	        }
+	       
+	        int x = 0;
+        	for (int i = 0; i < nSeleccionados; i++)
+        	{
+        		for (int j = 0; j < vecesRep; j++)
+        		{
+        			nuevaGeneracion[x] = fit_ind[i].indi;
+        			x++;
+        		}
+        	}
+        	
 
 	        return nuevaGeneracion;
 	}
