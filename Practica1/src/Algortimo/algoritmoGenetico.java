@@ -3,6 +3,7 @@ package Algortimo;
 import java.util.Arrays;
 
 import Controlador.TResultStatistics;
+import Factorias.FactoriaPoblaciones;
 import FunCruzador.Cruzador;
 import FuncionMutador.Mutador;
 //import FuncionesEvaluador.Evaluador;
@@ -26,6 +27,7 @@ public class algoritmoGenetico {
 	private double[] aptitud_media_generacion;
 	private double[] aptitud_mejor_generacion;
 	private double[] aptitud_absoluta_generacion;
+	private double[] presion_evolutiva_generacional;
 	double[] gener;
 
 	private Cruzador cross;
@@ -37,9 +39,10 @@ public class algoritmoGenetico {
 	private int nElite;
 	private int nDimensiones;
 	private boolean minimizar;
+	private String funcion;
 
     public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
-    			Selector sel,Mutador mut,Cruzador cruz,TPoblacion poblacion,  double porcenElite, double precision, int nDimensiones)
+    			Selector sel,Mutador mut,Cruzador cruz,TPoblacion poblacion,  double porcenElite, double precision, int nDimensiones,String funcion)
     {
     	this.tamPoblacion = tamPoblacion;
         this.maxGeneraciones = maxGeneraciones;
@@ -55,8 +58,9 @@ public class algoritmoGenetico {
     	this.aptitud_media_generacion = new double[maxGeneraciones];
     	this.aptitud_mejor_generacion = new double[maxGeneraciones];
     	this.aptitud_absoluta_generacion = new double[maxGeneraciones];
-    	this.minimizar=poblacion.isMin();
+    	this.presion_evolutiva_generacional = new double[maxGeneraciones];
     	gener= new double[maxGeneraciones];
+    	this.funcion=funcion;
     }
 
     public TResultStatistics executeAlgorithm() {
@@ -86,7 +90,7 @@ public class algoritmoGenetico {
 
 
 
-    	return new TResultStatistics(elMejor.toString(),gener,this.aptitud_absoluta_generacion,this.aptitud_mejor_generacion,this.aptitud_media_generacion,this.pos_mejor);
+    	return new TResultStatistics(elMejor.toString(),gener,this.aptitud_absoluta_generacion,this.aptitud_mejor_generacion,this.aptitud_media_generacion,this.pos_mejor,this.presion_evolutiva_generacional);
 
     }
 
@@ -130,6 +134,7 @@ public class algoritmoGenetico {
 
 
 		this.aptitud_media_generacion[this.currentGeneration]=sumaFit/tamPoblacion;
+		
 
 
 		if(minimizar) {
@@ -157,7 +162,7 @@ public class algoritmoGenetico {
 		}
 
 		this.aptitud_mejor_generacion[this.currentGeneration]=mejor.evalua();
-
+		this.presion_evolutiva_generacional[this.currentGeneration]=this.aptitud_mejor_generacion[this.currentGeneration]/this.aptitud_media_generacion[this.currentGeneration];
 		if(this.currentGeneration==0||(this.currentGeneration>0&&
 				((this.elMejor.getFintess()<mejor.getFintess()&&!minimizar)||
 						(this.elMejor.evalua()>mejor.evalua()&&minimizar)))){
@@ -179,7 +184,8 @@ public class algoritmoGenetico {
 
 	private void initialize() {
 		// TODO Auto-generated method stub
-		poblacion.inicializarIndividuos(tamPoblacion, precision, nDimensiones);
+		poblacion=FactoriaPoblaciones.getInstancia().generarPoblacion(funcion,tamPoblacion, precision,nDimensiones);
+		this.minimizar=poblacion.isMin();
 	}
 
 }

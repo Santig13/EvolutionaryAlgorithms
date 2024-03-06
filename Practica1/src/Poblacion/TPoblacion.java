@@ -1,9 +1,25 @@
 package Poblacion;
 
-public abstract class TPoblacion {
-	public abstract void inicializarIndividuos(int TamPob, double precision, int nDim);
-
+public  class TPoblacion {
+	
+	
+	
+	
 	protected Individuo<?>[] individuos;
+	private boolean min;
+	
+	public TPoblacion(Individuo<?>[] individuos, boolean min) {
+		super();
+		this.individuos = individuos;
+		this.min = min;
+	}
+
+
+	public  void inicializarIndividuos(int TamPob, double precision, int nDim) {
+		
+	}
+
+	
 	public Individuo<?>[] getIndivuduos() {
 		return individuos;
 	}
@@ -44,5 +60,7 @@ public abstract class TPoblacion {
 		individuos[i]=individuo;
 	}
 
-	public abstract boolean isMin();
+	public  boolean isMin() {
+		return this.min;
+	}
 }

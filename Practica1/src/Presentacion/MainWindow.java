@@ -400,6 +400,7 @@ public class MainWindow extends JFrame implements GUI {
 		plot.addLinePlot("Mejores Absolutos",trs.getGenreaciones(),trs.getMejoresAbsolutos());
 		plot.addLinePlot("Mejores Generacionales",trs.getGenreaciones(),trs.getMejorLocal());
 		plot.addLinePlot("Media Generacional",trs.getGenreaciones(),trs.getMedio());
+		plot.addLinePlot("Presion Generacional",trs.getGenreaciones(),trs.getPresion());
 		textAreaSol.setText(trs.getElMejor()+"Durante la generacion: " + trs.getPosicion());
 	}
 

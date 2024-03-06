@@ -20,10 +20,10 @@ public class ControllerIMP implements Controller {
 		Selector selector=FactoriaSelector.getInstancia().generarSelector(parametros.getSelector());
 		Cruzador cruzador=FactoriaCruzador.getInstancia().generarCruzador(parametros.getCruzador());
 		Mutador mutador=FactoriaMutador.getInstancia().generarMutador(parametros.getMutador());
-		TPoblacion poblacion=FactoriaPoblaciones.getInstancia().generarPoblacion(parametros.getFuncion());
+		TPoblacion poblacion=null;
 
 		//Ejecutar algoritmo
-		algoritmoGenetico AG =new algoritmoGenetico(parametros.getTamPoblacion(),parametros.getMaxGen(),parametros.getProbCruce(),parametros.getProbMuta(),selector,mutador,cruzador,poblacion,parametros.getElitismo(),parametros.getPrecision(),parametros.getNDimensiones());
+		algoritmoGenetico AG =new algoritmoGenetico(parametros.getTamPoblacion(),parametros.getMaxGen(),parametros.getProbCruce(),parametros.getProbMuta(),selector,mutador,cruzador,poblacion,parametros.getElitismo(),parametros.getPrecision(),parametros.getNDimensiones(),parametros.getFuncion());
 
 		//Informar a la vista
 		gui.update(AG.executeAlgorithm());

@@ -1,30 +1,54 @@
 package Factorias;
 
 
-import Poblacion.PoblacionFuncion1;
-import Poblacion.PoblacionFuncion2;
-import Poblacion.PoblacionFuncion3;
-import Poblacion.PoblacionFuncion4;
-import Poblacion.PoblacionFuncion5;
+import Poblacion.Individuo;
+import Poblacion.IndividuoFuncion1;
+import Poblacion.IndividuoFuncion2;
+import Poblacion.IndividuoFuncion3;
+import Poblacion.IndividuoFuncion4;
+import Poblacion.IndividuoFuncion5;
 import Poblacion.TPoblacion;
 
 public class FactoriaPoblacionesIMP extends FactoriaPoblaciones {
 
 	@Override
-	public TPoblacion generarPoblacion(String funcion) {
+	public TPoblacion generarPoblacion(String funcion,int tamanio,double precision, int nDim) {
 		// TODO Auto-generated method stub
+		Individuo<?>[] individuos=new Individuo<?>[tamanio];
+		boolean min=false;
+		
 		switch(funcion) {
 		case "Funcion 1":
-			return new PoblacionFuncion1();
+			 for(int i=0;i<tamanio;i++) {
+				 individuos[i]=new IndividuoFuncion1(precision);
+			 }
+			 break;
 		case "Funcion 2":
-			return new PoblacionFuncion2();
+			min=true;
+			for(int i=0;i<tamanio;i++) {
+				 individuos[i]=new IndividuoFuncion2(precision);
+			 }
+			 break;
 		case "Funcion 3":
-			return new PoblacionFuncion3();
+			min=true;
+			for(int i=0;i<tamanio;i++) {
+				 individuos[i]=new IndividuoFuncion3(precision);
+			 }
+			 break;
 		case "Funcion 4":
-			return new PoblacionFuncion4();
+			min=true;
+			for(int i=0;i<tamanio;i++) {
+				 individuos[i]=new IndividuoFuncion4(precision,nDim);
+			 }
+			 break;
 		default:
-			return new PoblacionFuncion5();
+			min=true;
+			for(int i=0;i<tamanio;i++) {
+				 individuos[i]=new IndividuoFuncion5(nDim);
+			 }
+			 break;
 		}
+		return new TPoblacion(individuos,min);
 	}
 }
 
