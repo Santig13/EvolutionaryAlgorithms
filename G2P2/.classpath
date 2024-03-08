@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/dcouto/eclipse-workspace/G2P2/ArchivosExternos/jmathplot (1).jar"/>
+	<classpathentry kind="lib" path="ArchivosExternos/jmathplot (1).jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
