@@ -2,21 +2,16 @@ package Factorias;
 
 
 import Poblacion.Individuo;
-import Poblacion.IndividuoFuncion1;
-import Poblacion.IndividuoFuncion2;
-import Poblacion.IndividuoFuncion3;
-import Poblacion.IndividuoFuncion4;
-import Poblacion.IndividuoFuncion5;
 import Poblacion.TPoblacion;
 
 public class FactoriaPoblacionesIMP extends FactoriaPoblaciones {
 
 	@Override
-	public TPoblacion generarPoblacion(String funcion,int tamanio,double precision, int nDim) {
+	public TPoblacion generarPoblacion(String funcion,int tamanio) {
 		// TODO Auto-generated method stub
 		Individuo<?>[] individuos=new Individuo<?>[tamanio];
 		boolean min=false;
-		
+		/*
 		switch(funcion) {
 		case "Funcion 1":
 			 for(int i=0;i<tamanio;i++) {
@@ -48,6 +43,7 @@ public class FactoriaPoblacionesIMP extends FactoriaPoblaciones {
 			 }
 			 break;
 		}
+		*/
 		return new TPoblacion(individuos,min);
 	}
 }

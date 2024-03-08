@@ -38,27 +38,22 @@ public class MainWindow extends JFrame implements GUI {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String[] tiposDeFuncion= {"Funcion 1","Funcion 2","Funcion 3","Funcion 4", "Funcion 5"};
-	private final String[] tiposDeCruzador= {"Mono Punto","Uniforme"};
-	private final String[] tiposDeCruzador5= {"Mono Punto","Uniforme","BLXa","Aritmetico"};
-	private final String[] tiposDeMutador= {"Basico"};
-	private final String[] tiposDeSelector= {"Ruleta","Estocastico","Truncamiento","Torneo Deterministico","Torneo Probabilistico", "Restos"};
+	private final String[] tiposDeFuncion= {"Problema 1","Problema 2"};
+	private final String[] tiposDeCruzador= {"PMX","OX","OX con pos prioritarias", "CX", "CO", "Metodo Propio"};
+	private final String[] tiposDeMutador= {"Inserccion","Intercambio","Inversion","Heuristica","Metodo Propio"};
+	private final String[] tiposDeSelector= {"Ruleta","Estocastico","Truncamiento","Torneo Deterministico","Torneo Probabilistico", "Restos", "Ranking"};
 	private JPanel contentPane;
 	private JTextField textFieldTamGener;
 	private JTextField textFieldNGener;
 	private JTextField textFieldProbCruc;
 	private JTextField textFieldProbMut;
-	private JTextField textFieldPrecision;
 	private JTextField textFieldProbElitis;
-	private JTextField textFieldNDim;
 	private JComboBox<String> comboBoxFunc;
 	private JComboBox<String> comboBoxMetSel;
 	private JComboBox<String> comboBoxMetCruce;
 	private JComboBox<String> comboBoxMetMut;
 	private Plot2DPanel plot;
 	private JTextArea textAreaSol;
-	private JLabel LabelNDim;
-	private JLabel LabelPrecision;
 
 
 
@@ -109,6 +104,7 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(LabelFuncion, gbc_LabelFuncion);
 
 		comboBoxFunc = new JComboBox<>(this.tiposDeFuncion);
+		/*
 		comboBoxFunc.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
@@ -139,6 +135,7 @@ public class MainWindow extends JFrame implements GUI {
 		        }
 		    }
 		});
+		*/
 		GridBagConstraints gbc_comboBoxFunc = new GridBagConstraints();
 		gbc_comboBoxFunc.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxFunc.fill = GridBagConstraints.HORIZONTAL;
@@ -214,23 +211,6 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(textFieldProbMut, gbc_textFieldProbMut);
 		textFieldProbMut.setColumns(10);
 
-		 LabelPrecision = new JLabel("Precision de Representaci\u00F3n");
-		GridBagConstraints gbc_LabelPrecision = new GridBagConstraints();
-		gbc_LabelPrecision.insets = new Insets(0, 0, 5, 0);
-		gbc_LabelPrecision.gridx = 0;
-		gbc_LabelPrecision.gridy = 11;
-		panelParametros.add(LabelPrecision, gbc_LabelPrecision);
-
-		textFieldPrecision = new JTextField();
-		textFieldPrecision.setText("0.001");
-		GridBagConstraints gbc_textFieldPrecision = new GridBagConstraints();
-		gbc_textFieldPrecision.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldPrecision.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldPrecision.gridx = 0;
-		gbc_textFieldPrecision.gridy = 12;
-		panelParametros.add(textFieldPrecision, gbc_textFieldPrecision);
-		textFieldPrecision.setColumns(10);
-
 		JLabel LabelMetSelec = new JLabel("Metodo Seleccion");
 		GridBagConstraints gbc_LabelMetSelec = new GridBagConstraints();
 		gbc_LabelMetSelec.anchor = GridBagConstraints.BASELINE;
@@ -294,27 +274,6 @@ public class MainWindow extends JFrame implements GUI {
 		panelParametros.add(textFieldProbElitis, gbc_textFieldProbElitis);
 		textFieldProbElitis.setColumns(10);
 
-		 LabelNDim = new JLabel("Dimensiones");
-		 LabelNDim.setVisible(false);
-		GridBagConstraints gbc_LabelNDim = new GridBagConstraints();
-		gbc_LabelNDim.insets = new Insets(0, 0, 5, 0);
-		gbc_LabelNDim.gridx = 0;
-		gbc_LabelNDim.gridy = 21;
-		panelParametros.add(LabelNDim, gbc_LabelNDim);
-
-
-		textFieldNDim = new JTextField();
-		textFieldNDim.setVisible(false);
-		textFieldNDim.setText("2");
-		GridBagConstraints gbc_textFieldNDim = new GridBagConstraints();
-		gbc_textFieldNDim.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldNDim.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldNDim.gridx = 0;
-		gbc_textFieldNDim.gridy = 22;
-
-		panelParametros.add(textFieldNDim, gbc_textFieldNDim);
-		textFieldNDim.setColumns(10);
-
 		JButton ButtonEjecutar = new JButton("Ejectutar");
 		ButtonEjecutar.addActionListener(e -> {
             // Manejar la acción del botón aquí
@@ -371,14 +330,12 @@ public class MainWindow extends JFrame implements GUI {
 		double probMuta = Double.parseDouble(textFieldProbMut.getText());
 		double probCruce = Double.parseDouble(textFieldProbCruc.getText());
 		double elitismo =  Double.parseDouble(textFieldProbElitis.getText());
-		double precision =  Double.parseDouble(textFieldPrecision.getText());
 
 		int generaciones = Integer.parseInt(textFieldNGener.getText());
 		int tamPobla = Integer.parseInt(textFieldTamGener.getText());
-		int ndimensiones = Integer.parseInt(textFieldNDim.getText());
 
 
-		return new TParametros(selector,mutador,cruzador,funcion,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100,ndimensiones,precision);
+		return new TParametros(selector,mutador,cruzador,funcion,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100);
 		}
 		catch(Exception e){
 			throw new CamposException("No se han podido analizar los datos introducidos, asegurese de que ha rellenado correctamente todos los campos");

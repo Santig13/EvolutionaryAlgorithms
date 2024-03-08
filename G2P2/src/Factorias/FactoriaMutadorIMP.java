@@ -1,7 +1,6 @@
 package Factorias;
 
 import FuncionMutador.Mutador;
-import FuncionMutador.MutadorBasico;
 
 public class FactoriaMutadorIMP extends FactoriaMutador {
 
@@ -10,8 +9,8 @@ public class FactoriaMutadorIMP extends FactoriaMutador {
 		// TODO Auto-generated method stub
 
 		switch(mutador) {
-		case "Basico":
-			return new MutadorBasico();
+		//case "Basico":
+		//	return new MutadorBasico();
 		default:
 			return null;
 		}

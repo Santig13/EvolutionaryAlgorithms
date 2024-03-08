@@ -11,5 +11,5 @@ public abstract class FactoriaPoblaciones {
 		return fp;
 	}
 
-	 public abstract TPoblacion generarPoblacion(String funcion,int tamanio,double precision, int nDim);
+	 public abstract TPoblacion generarPoblacion(String funcion,int tamanio);
 }

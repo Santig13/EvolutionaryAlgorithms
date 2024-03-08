@@ -35,14 +35,12 @@ public class algoritmoGenetico {
 	private Selector sel;
 	private int currentGeneration;
 
-	private double precision;
 	private int nElite;
-	private int nDimensiones;
 	private boolean minimizar;
 	private String funcion;
 
     public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
-    			Selector sel,Mutador mut,Cruzador cruz,TPoblacion poblacion,  double porcenElite, double precision, int nDimensiones,String funcion)
+    			Selector sel,Mutador mut,Cruzador cruz,TPoblacion poblacion,  double porcenElite,String funcion)
     {
     	this.tamPoblacion = tamPoblacion;
         this.maxGeneraciones = maxGeneraciones;
@@ -52,9 +50,7 @@ public class algoritmoGenetico {
         this.mut=mut;
         this.cross=cruz;
         this.poblacion=poblacion;
-        this.precision = precision;
         this.nElite = (int) (porcenElite*tamPoblacion);
-        this.nDimensiones = nDimensiones;
     	this.aptitud_media_generacion = new double[maxGeneraciones];
     	this.aptitud_mejor_generacion = new double[maxGeneraciones];
     	this.aptitud_absoluta_generacion = new double[maxGeneraciones];
@@ -184,7 +180,7 @@ public class algoritmoGenetico {
 
 	private void initialize() {
 		// TODO Auto-generated method stub
-		poblacion=FactoriaPoblaciones.getInstancia().generarPoblacion(funcion,tamPoblacion, precision,nDimensiones);
+		poblacion=FactoriaPoblaciones.getInstancia().generarPoblacion(funcion,tamPoblacion);
 		this.minimizar=poblacion.isMin();
 	}
 

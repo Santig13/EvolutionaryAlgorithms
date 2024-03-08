@@ -11,11 +11,9 @@ public class TParametros {
 	private int tamPobla;
 	private double probCruce;
 	private double elitismo;
-	private int ndimensiones;
-	private double precision;
 
 	public TParametros(String selector, String mutador, String cruzador, String funcion, double probMuta,
-			int generaciones, int tamPobla, double probCruce, double elitismo, int ndimensiones, double precision) {
+			int generaciones, int tamPobla, double probCruce, double elitismo) {
 		this.selector = selector;
 		this.mutador = mutador;
 		this.cruzador = cruzador;
@@ -25,8 +23,6 @@ public class TParametros {
 		this.tamPobla = tamPobla;
 		this.probCruce = probCruce;
 		this.elitismo = elitismo;
-		this.ndimensiones = ndimensiones;
-		this.precision = precision;
 	}
 
 	public int getTamPoblacion() {
@@ -73,12 +69,5 @@ public class TParametros {
 		return elitismo;
 	}
 
-	public int getNDimensiones() {
-		return ndimensiones;
-	}
-	public double getPrecision()
-	{
-		return precision;
-	}
 
 }
