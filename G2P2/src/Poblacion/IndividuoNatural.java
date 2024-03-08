@@ -1,13 +1,10 @@
 package Poblacion;
 
-import java.util.Random;
-
-public abstract class IndividuoReal extends Individuo<Double> {
+public abstract class IndividuoNatural extends Individuo<Integer> {
 
 
 	@Override
 	public double[] getFenotipoTot() {
-
 		double[] v = new double[cromosoma.length];
 		for (int i = 0; i < cromosoma.length; i++)
 		{
@@ -15,5 +12,7 @@ public abstract class IndividuoReal extends Individuo<Double> {
 		}
 		return v;
 	}
+	
+
 	
 }
