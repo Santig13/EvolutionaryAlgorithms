@@ -68,6 +68,9 @@ public abstract class Individuo<T> {
 		// TODO Auto-generated method stub
 		
 	}
+	public abstract void mutarInsercion(int pos, int elem);
+	public abstract void mutarIntercambio(int pos1, int pos2);
+	public abstract void mutarInversion(int pos1, int pos2);
 
 }
 

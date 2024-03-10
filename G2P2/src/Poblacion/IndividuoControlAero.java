@@ -130,4 +130,6 @@ public class IndividuoControlAero extends IndividuoNatural {
 	}
 
 
+	
+
 }

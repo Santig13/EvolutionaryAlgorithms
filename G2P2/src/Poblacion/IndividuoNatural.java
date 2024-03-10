@@ -68,4 +68,60 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 		}
 		
 	}
+	
+	@Override
+	public void mutarInsercion(int pos, int elem) {
+		// TODO Auto-generated method stub
+		/* POR ARREGLAR
+		Integer [] newCromosoma = new Integer[this.getLongitudCromosoma()];
+		int x = 0;
+		for (int i = 0; i < pos; i++)
+		{
+			if (cromosoma[i]!= elem)
+			{
+				newCromosoma[x] = cromosoma[i];
+				x++;
+			}
+		}
+		
+		newCromosoma[x] = elem;
+		
+		for (int i = x+1; i < this.getLongitudCromosoma(); i++)
+		{
+			if (cromosoma[i]!= elem)
+			{
+				newCromosoma[x] = cromosoma[i];
+				x++;
+			}
+		}*/
+		
+	}
+	
+	public void mutarIntercambio(int pos1, int pos2)
+	{
+		int aux = cromosoma[pos2];
+		cromosoma[pos2] = cromosoma[pos1];
+		cromosoma[pos1] = aux;
+	}
+	
+	public void mutarInversion(int pos1, int pos2)
+	{
+		int Tam = pos2 - pos1 +1;
+		Integer aux[] = new Integer[Tam];
+		int x = 0;
+		for (int i = pos1; i <= pos2; i++)
+		{
+			aux[x] = cromosoma[i];
+			x++;
+		}
+		
+		x--;
+		
+		for (int i = pos1; i <= pos2; i++)
+		{
+			cromosoma[i] = aux[x] ;
+			x--;
+		}
+	}
+
 }
