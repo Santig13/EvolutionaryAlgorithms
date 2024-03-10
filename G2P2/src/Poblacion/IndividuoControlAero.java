@@ -7,7 +7,6 @@ import java.util.Random;
 public class IndividuoControlAero extends IndividuoNatural {
 	
 	private HashMap<Integer,Vuelo> vuelos;
-	//private Integer TEL[][];
 	private final double[][] SEP = {
             {1, 1.5, 2},
             {1, 1.5, 1.5},
@@ -34,15 +33,35 @@ public class IndividuoControlAero extends IndividuoNatural {
 	}
 	
 	
+	public IndividuoControlAero(IndividuoControlAero individuoControlAero) {
+		// TODO Auto-generated constructor stub
+		this.rand=new Random();
+		this.numVuelos=individuoControlAero.numVuelos;
+		this.cromosoma =individuoControlAero.cromosoma.clone();
+		//igual es innecesario
+		 for (ArrayList<Vuelo> pistaOriginal : individuoControlAero.pistas) {
+		        ArrayList<Vuelo> pistaClonada = new ArrayList<>();
+		        for (Vuelo vuelo : pistaOriginal) {
+		            pistaClonada.add(vuelo.clone());
+		        }
+		        this.pistas.add(pistaClonada);
+		    }
+		 //Serias dudas
+		// Clonar los vuelos
+		    this.vuelos = new HashMap<>();
+		    for (HashMap.Entry<Integer, Vuelo> entry : individuoControlAero.vuelos.entrySet()) {
+		        this.vuelos.put(entry.getKey(), entry.getValue().clone());
+		    }
+	}
+
+
 	@Override
 	public double evalua() {
 		double fitness = 0;
 		for(int i=0;i<numVuelos;i++) {
-		
 			int vuelo = cromosoma[i];
-			
 			   // se asigna el vuelo actual a la pista con mínimo TLA (menor_TLA)
-			 fitness = fitness + Math.pow((menor_TLA(vuelo) -menor_TEL(vuelo)),2);
+			fitness = fitness + Math.pow((menor_TLA(vuelo) -menor_TEL(vuelo)),2);
 			 
 		}
 		return fitness;
@@ -53,7 +72,7 @@ public class IndividuoControlAero extends IndividuoNatural {
 	@Override
 	public Individuo<?> copia() {
 		// TODO Auto-generated method stub
-		return null;
+		return  new IndividuoControlAero(this);
 	}
 
 	@Override

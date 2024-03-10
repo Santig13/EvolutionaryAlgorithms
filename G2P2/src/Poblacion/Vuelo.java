@@ -12,6 +12,15 @@ public class Vuelo {
 		this.identificador = identificador;
 		this.tipo=tipo;
 	}
+	
+	public Vuelo(String nVuelo, String identificador, String tipo, Integer tLA, Integer retraso) {
+		super();
+		this.nVuelo = nVuelo;
+		this.identificador = identificador;
+		this.tipo = tipo;
+		TLA = tLA;
+		this.retraso = retraso;
+	}
 	public String getTipo() {
 		return tipo;
 	}
@@ -23,6 +32,11 @@ public class Vuelo {
 	}
 	public String getIdentificador() {
 		return identificador;
+	}
+	@Override
+	public Vuelo clone() {
+		return new Vuelo(nVuelo,identificador,tipo,TLA,retraso);
+		
 	}
 	@Override
 	public String toString() {

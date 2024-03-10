@@ -61,6 +61,9 @@ public abstract class Individuo<T> {
 		//SOLO PARA LOS INDIVIDUOS DE LA FUNCION 5
 
 	}
+	public  void cruzarPMX(int puntoDeCorte1, int puntoDeCorte2, Individuo<?> individuo2) {
+		
+	}
 
 }
 
