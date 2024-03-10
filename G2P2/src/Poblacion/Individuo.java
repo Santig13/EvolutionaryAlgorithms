@@ -64,6 +64,10 @@ public abstract class Individuo<T> {
 	public  void cruzarPMX(int puntoDeCorte1, int puntoDeCorte2, Individuo<?> individuo2) {
 		
 	}
+	public void cruzarOX(int puntoDeCorte1, int puntoDeCorte2, Individuo<?> individuo2) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
 
