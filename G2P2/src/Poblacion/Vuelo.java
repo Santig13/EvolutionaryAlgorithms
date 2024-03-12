@@ -1,19 +1,19 @@
 package Poblacion;
 
 public class Vuelo {
-	protected String nVuelo;
+	protected int nVuelo;
 	protected String identificador;
 	private String tipo;
 	private Integer TLA;
 	private Integer retraso;
 	
-	public Vuelo(String nVuelo, String identificador, String tipo) {
+	public Vuelo(int nVuelo, String identificador, String tipo) {
 		this.nVuelo = nVuelo;
 		this.identificador = identificador;
 		this.tipo=tipo;
 	}
 	
-	public Vuelo(String nVuelo, String identificador, String tipo, Integer tLA, Integer retraso) {
+	public Vuelo(int nVuelo, String identificador, String tipo, Integer tLA, Integer retraso) {
 		super();
 		this.nVuelo = nVuelo;
 		this.identificador = identificador;
@@ -24,10 +24,10 @@ public class Vuelo {
 	public String getTipo() {
 		return tipo;
 	}
-	public String getnVuelo() {
+	public int getnVuelo() {
 		return nVuelo;
 	}
-	public void setnVuelo(String nVuelo) {
+	public void setnVuelo(int nVuelo) {
 		this.nVuelo = nVuelo;
 	}
 	public String getIdentificador() {
