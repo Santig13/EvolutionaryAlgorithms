@@ -17,6 +17,8 @@ public class IndividuoControlAero extends IndividuoNatural {
 	private Integer numVuelos;
 	
 	public IndividuoControlAero(Integer numVuelos) {
+		pistas = new ArrayList<>();
+		
 		this.rand=new Random();
 		this.numVuelos=numVuelos;
 		this.cromosoma = new Integer [numVuelos];

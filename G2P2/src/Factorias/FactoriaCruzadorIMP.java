@@ -1,6 +1,6 @@
 package Factorias;
 
-import FunCruzador.Cruzador;
+import FunCruzador.*;
 
 
 public class FactoriaCruzadorIMP extends FactoriaCruzador {
@@ -9,7 +9,11 @@ public class FactoriaCruzadorIMP extends FactoriaCruzador {
 	public Cruzador generarCruzador(String cruzador) {
 
 			switch(cruzador) {
-				default:
+			case "PMX":
+				return new CruzadorPMX();
+			case "OX":
+				return new CruzadorOX();
+			default:
 				return null;
 			}
 		}

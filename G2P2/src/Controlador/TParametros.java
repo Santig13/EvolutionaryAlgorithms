@@ -5,24 +5,26 @@ public class TParametros {
 	private String selector;
 	private String mutador;
 	private String cruzador;
-	private String funcion;
+	private String vuelostxt;
+	private String TELtxt;
 	private double probMuta;
 	private int generaciones;
 	private int tamPobla;
 	private double probCruce;
 	private double elitismo;
 
-	public TParametros(String selector, String mutador, String cruzador, String funcion, double probMuta,
+	public TParametros(String selector, String mutador, String cruzador, String vuelostxt, String TELtxt, double probMuta,
 			int generaciones, int tamPobla, double probCruce, double elitismo) {
 		this.selector = selector;
 		this.mutador = mutador;
 		this.cruzador = cruzador;
-		this.funcion = funcion;
+		this.vuelostxt = vuelostxt;
 		this.probMuta = probMuta;
 		this.generaciones = generaciones;
 		this.tamPobla = tamPobla;
 		this.probCruce = probCruce;
 		this.elitismo = elitismo;
+		this.TELtxt = TELtxt;
 	}
 
 	public int getTamPoblacion() {
@@ -60,13 +62,18 @@ public class TParametros {
 		return mutador;
 	}
 
-	public String getFuncion() {
+	public String getvuelostxt() {
 		// TODO Auto-generated method stub
-		return funcion;
+		return vuelostxt;
 	}
 
 	public double getElitismo() {
 		return elitismo;
+	}
+	
+	public String getTELtxt()
+	{
+		return TELtxt;
 	}
 
 

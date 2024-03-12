@@ -7,7 +7,7 @@ import Poblacion.TPoblacion;
 public class FactoriaPoblacionesIMP extends FactoriaPoblaciones {
 
 	@Override
-	public TPoblacion generarPoblacion(String funcion,int tamanio) {
+	public TPoblacion generarPoblacion(String vuelotxt, String TELtxt,int tamanio) {
 		// TODO Auto-generated method stub
 		Individuo<?>[] individuos=new Individuo<?>[tamanio];
 		boolean min=false;

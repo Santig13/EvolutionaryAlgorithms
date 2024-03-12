@@ -40,8 +40,10 @@ public class MainWindowP2 extends JFrame implements GUI {
 	private JTextField ProbCrucetextField;
 	private JTextField ProbMutaciontextField;
 	private JTextField ElitismotextField;
+	private JTextField VuelostextField;
+	private JTextField txtTeltxt;
 	private Plot2DPanel plot;
-	private final String[] tiposDeFuncion=  {"vuelos1.txt", "vuelos2.txt"};
+	//private final String[] tiposDeFuncion=  {"vuelos1.txt", "vuelos2.txt"};
 	private final String[] tiposDeCruzador= {"PMX", "OX", "OXPosPrio", "CX", "CO", "Propio"};
 	private final String[] tiposDeMutador= {"Insercion", "Intercambio", "Inversion", "Heuristica", "Propio"};
 	private final String[] tiposDeSelector= {"Ruleta", "Estocastico", "Truncamiento", "Torneo Det", "Torneo Pro", "Restos", "Ranking"};
@@ -49,7 +51,6 @@ public class MainWindowP2 extends JFrame implements GUI {
 	JComboBox MutacioncomboBox;
 	JComboBox CrucecomboBox;
 	JComboBox SelecomboBox;
-	JComboBox FuncioncomboBox;
 	
 	/**
 	 * Launch the application.
@@ -74,7 +75,7 @@ public class MainWindowP2 extends JFrame implements GUI {
 		Controller ctr=new ControllerIMP();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1094, 569);
+		setBounds(100, 100, 1135, 579);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -93,7 +94,7 @@ public class MainWindowP2 extends JFrame implements GUI {
 		solTXT = new JTextArea();
 		SolPanel.add(solTXT);
 		solTXT.setColumns(10);
-		solTXT.setText("PISTA 1.\nVuelo 1\nVuelo 2\nVuelo 3");
+		//solTXT.setText("PISTA 1.\nVuelo 1\nVuelo 2\nVuelo 3");
 		
 		JButton EjecutarButton = new JButton("Ejecutar");
 		SolPanel.add(EjecutarButton);
@@ -103,12 +104,21 @@ public class MainWindowP2 extends JFrame implements GUI {
 		contentPane.add(ParametersPanel, BorderLayout.NORTH);
 		ParametersPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel FuncionLabel = new JLabel("Problema");
-		ParametersPanel.add(FuncionLabel);
+		JLabel VuelosLabel = new JLabel("Vuelos");
+		ParametersPanel.add(VuelosLabel);
 		
-		FuncioncomboBox = new JComboBox();
-		FuncioncomboBox.setModel(new DefaultComboBoxModel(tiposDeFuncion));
-		ParametersPanel.add(FuncioncomboBox);
+		VuelostextField = new JTextField();
+		VuelostextField.setText("vuelos1.txt");
+		ParametersPanel.add(VuelostextField);
+		VuelostextField.setColumns(8);
+		
+		JLabel TELLabel = new JLabel("TEL");
+		ParametersPanel.add(TELLabel);
+		
+		txtTeltxt = new JTextField();
+		txtTeltxt.setText("TEL1.txt");
+		ParametersPanel.add(txtTeltxt);
+		txtTeltxt.setColumns(6);
 		
 		JLabel TamGenLabel = new JLabel("Tam Generaci\u00F3n");
 		ParametersPanel.add(TamGenLabel);
@@ -202,8 +212,10 @@ public class MainWindowP2 extends JFrame implements GUI {
 		String selector =  (String) SelecomboBox.getSelectedItem();
 		String mutador = (String) MutacioncomboBox.getSelectedItem();
 		String cruzador = (String) CrucecomboBox.getSelectedItem();
-		String funcion = (String) FuncioncomboBox.getSelectedItem();
-
+		
+		String Vuelostxt = VuelostextField.getText();
+		String TELtxt = txtTeltxt.getText();
+		
 		double probMuta = Double.parseDouble(ProbMutaciontextField.getText());
 		double probCruce = Double.parseDouble(ProbCrucetextField.getText());
 		double elitismo =  Double.parseDouble(ElitismotextField.getText());
@@ -212,7 +224,7 @@ public class MainWindowP2 extends JFrame implements GUI {
 		int tamPobla = Integer.parseInt(TamGentextField.getText());
 
 
-		return new TParametros(selector,mutador,cruzador,funcion,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100);
+		return new TParametros(selector,mutador,cruzador,Vuelostxt,TELtxt,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100);
 		}
 		catch(Exception e){
 			throw new CamposException("No se han podido analizar los datos introducidos, asegurese de que ha rellenado correctamente todos los campos");
@@ -235,7 +247,7 @@ public class MainWindowP2 extends JFrame implements GUI {
 		plot.addLinePlot("Mejores Generacionales",trs.getGenreaciones(),trs.getMejorLocal());
 		plot.addLinePlot("Media Generacional",trs.getGenreaciones(),trs.getMedio());
 		plot.addLinePlot("Presion Generacional",trs.getGenreaciones(),trs.getPresion());
-		//solTXT.setText(trs.getElMejor()+"Durante la generacion: " + trs.getPosicion()); HAY QUE CONTRUIR LA SOLUCION
+		solTXT.setText(trs.getElMejor()+"Durante la generacion: " + trs.getPosicion());
 	}
 
 
