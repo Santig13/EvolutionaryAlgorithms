@@ -1,5 +1,6 @@
 package Poblacion;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -123,5 +124,58 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 			x--;
 		}
 	}
+	
+	public void mutarHeuristica(int[] posSelec)
+	{
+		Integer[]CromosomaOriginal = cromosoma.clone();
+		Integer[]CromosomaMejor = cromosoma.clone();
+		Double mejorpunt = this.evalua();
+		
+		ArrayList<ArrayList<Integer>> permutations = permute(posSelec);
+		
+		for (ArrayList<Integer> permutation : permutations)
+		{
+			for (int i = 0; i < permutation.size();i++)
+			{
+				cromosoma[posSelec[i]] = CromosomaOriginal[permutation.get(i)];
+				Double punt = this.evalua();
+				if (punt > mejorpunt)
+				{
+					CromosomaMejor = cromosoma.clone();
+					mejorpunt = punt;
+				}
+			}
+		}
+		
+		this.cromosoma = CromosomaMejor.clone();
+		
+	}
+	
+	 private static ArrayList<ArrayList<Integer>> permute(int[] nums) {
+		 ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+		 ArrayList<Integer> current = new ArrayList<>();
+	        boolean[] used = new boolean[nums.length];
+	        permute(nums, result, current, used);
+	        return result;
+	    }
+
+	 private static void permute(int[] nums, ArrayList<ArrayList<Integer>> result, ArrayList<Integer> current, boolean[] used) {
+	        if (current.size() == nums.length) {
+	            result.add(new ArrayList<>(current));
+	            return;
+	        }
+
+	        for (int i = 0; i < nums.length; i++) {
+	            if (!used[i]) {
+	                current.add(nums[i]);
+	                used[i] = true;
+	                permute(nums, result, current, used);
+	                used[i] = false;
+	                current.remove(current.size() - 1);
+	            }
+	        }
+	 }
+	
+	
 
 }

@@ -1,4 +1,7 @@
 package Poblacion;
+
+import java.util.ArrayList;
+
 public abstract class Individuo<T> {
 
 	 T[] cromosoma;
@@ -71,6 +74,7 @@ public abstract class Individuo<T> {
 	public abstract void mutarInsercion(int pos, int elem);
 	public abstract void mutarIntercambio(int pos1, int pos2);
 	public abstract void mutarInversion(int pos1, int pos2);
+	public abstract void mutarHeuristica(int[] posSelec);
 
 }
 
