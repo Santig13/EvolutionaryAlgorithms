@@ -42,8 +42,9 @@ public class Vuelo {
 	}
 	@Override
 	public String toString() {
-		StringBuilder str=new StringBuilder();
-		return null;
+		
+		
+		return this.nVuelo+"\t"+this.identificador+"\t"+this.TLA;
 	}
 	public Double getTLA() {
 		return TLA;

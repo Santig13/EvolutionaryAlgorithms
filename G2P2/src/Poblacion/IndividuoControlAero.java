@@ -15,15 +15,17 @@ public class IndividuoControlAero extends IndividuoNatural {
 	private ArrayList<ArrayList<Vuelo>> pistas;
 	private Random rand;
 	private Integer numVuelos;
+	private int numPistas;
+	private double evaluacion;
 	
 	public IndividuoControlAero(Integer numVuelos,Integer numPistas) {
-		this.pistas = new ArrayList<>();
+		this.pistas = new ArrayList<>(numPistas);
 		
 		this.rand=new Random();
 		this.numVuelos=numVuelos;
 		this.cromosoma = new Integer [numVuelos];
-       this.vuelos=new ArrayList<>(numVuelos);
-
+       this.vuelos=new ArrayList<Vuelo>(numVuelos);
+       this.numPistas=numPistas;
 		ArrayList<Integer> numeros = new ArrayList<>();
         for (int i = 0; i < numVuelos; i++) {
             numeros.add(i);
@@ -34,10 +36,10 @@ public class IndividuoControlAero extends IndividuoNatural {
             numeros.remove(indice);
         }
 		for (int i = 0; i < numVuelos; i++) 
-			this.vuelos.add(VuelosINFO.getVuelo(i));
+			this.vuelos.add(i,VuelosINFO.getVuelo(i));
 		
 		for (int i = 0; i < numPistas; i++) 
-			this.pistas.add(new ArrayList<Vuelo>());
+			this.pistas.add(i,new ArrayList<Vuelo>());
 	}
 	
 	
@@ -46,32 +48,30 @@ public class IndividuoControlAero extends IndividuoNatural {
 		this.rand=new Random();
 		this.numVuelos=copia.numVuelos;
 		this.cromosoma =copia.cromosoma.clone();
-		this.pistas = new ArrayList<>();
-		//igual es innecesario
-		 for (ArrayList<Vuelo> pistaOriginal : copia.pistas) {
-		        ArrayList<Vuelo> pistaClonada = new ArrayList<>();
-		        for (Vuelo vuelo : pistaOriginal) {
-		            pistaClonada.add(vuelo.clone());
-		        }
-		        this.pistas.add(pistaClonada);
-		    }
-		 //Serias dudas
+		this.numPistas=copia.numPistas;
+		this.pistas = new ArrayList<>(numPistas);
+		for (int i = 0; i < numPistas; i++) 
+			this.pistas.add(i,new ArrayList<Vuelo>());
 		// Clonar los vuelos
-		    this.vuelos =new ArrayList<>(this.numVuelos);
-		    for (int i=0;i<this.numVuelos;i++) {
-		        this.vuelos.add(copia.vuelos.get(i).clone());
-		    }
+		this.vuelos =new ArrayList<>(this.numVuelos);
+		for (int i=0;i<this.numVuelos;i++) {
+		     this.vuelos.add(i,copia.vuelos.get(i).clone());
+		}
 	}
 
 
 	@Override
 	public double evalua() {
 		double fitness = 0;
+		
+		for (int i = 0; i < numPistas; i++) 
+			this.pistas.set(i,new ArrayList<Vuelo>());
+		
 		for(int i=0;i<numVuelos;i++) {
 			int vuelo = cromosoma[i];
 			   // se asigna el vuelo actual a la pista con mínimo TLA (menor_TLA)
 			fitness = fitness + Math.pow((menor_TLA(vuelo) -menor_TEL(vuelo)),2);
-			 
+			  
 		}
 		return fitness;
 	}
@@ -84,11 +84,7 @@ public class IndividuoControlAero extends IndividuoNatural {
 		return  new IndividuoControlAero(this);
 	}
 
-	@Override
-	protected String fenotipoToString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	/*
 	 * Dados dos vuelos v1 y v2 el metodo devuelve la separacion necesaria entre ellos
 	 */
@@ -137,8 +133,48 @@ public class IndividuoControlAero extends IndividuoNatural {
 
 		return menor_TLA;
 	}
+	@Override
+	public String toString() {
+		StringBuilder str=new StringBuilder();
+		str.append("Valor optimo ("+ evalua()+") con los siguientes vuelos "+numeroDeVuelos()+"\n \n");
+		
+		for (int i = 0; i < numPistas; i++) {
+			int pista=i+1;
+			str.append("\tPista"+pista+"\t\t");
+		}
+		str.append("\n");
+		
+		for (int i = 0; i < numPistas; i++) {
+
+			str.append("VUELO\tNOMBRE\tTLA\t");
+		}
+		str.append("\n");
+		int x=0;
+		int i=0;
+		
+		while (x< numVuelos) {
+			for(int pista=0;pista<numPistas;pista++) {
+				if(i<pistas.get(pista).size()) {
+					str.append(" "+pistas.get(pista).get(i).toString()+" \t");
+					x++;
+				}
+			}
+			str.append("\n");
+			i++;
+		}
+		str.append("\n");
+		return str.toString();
+	}
 
 
-	
+	private String numeroDeVuelos() {
+		// TODO Auto-generated method stub
+		String s="[ ";
+		for(int i=0;i<numVuelos-1;i++) {
+			s=s+cromosoma[i]+" , ";
+		}
+		s=s+cromosoma[numVuelos-1]+" ] ";
+		return s;
+	}
 
 }

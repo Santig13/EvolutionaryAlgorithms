@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import javax.swing.JTextArea;
@@ -13,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.SoftBevelBorder;
@@ -27,6 +29,8 @@ import Controlador.TResultStatistics;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
 
@@ -75,7 +79,7 @@ public class MainWindowP2 extends JFrame implements GUI {
 		Controller ctr=new ControllerIMP();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1135, 579);
+		setBounds(50, 100, 1450, 579);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -87,15 +91,20 @@ public class MainWindowP2 extends JFrame implements GUI {
 		SolPanel.setBackground(new Color(224, 224, 224));
 		contentPane.add(SolPanel, BorderLayout.WEST);
 		SolPanel.setLayout(new BoxLayout(SolPanel, BoxLayout.Y_AXIS));
-		
+		//SolPanel.setMaximumSize(new Dimension(700, 400));
 		JLabel SolucionLabel = new JLabel("Solucion");
 		SolPanel.add(SolucionLabel);
 		
 		solTXT = new JTextArea();
-		SolPanel.add(solTXT);
-		solTXT.setColumns(10);
-		//solTXT.setText("PISTA 1.\nVuelo 1\nVuelo 2\nVuelo 3");
 		
+		solTXT.setColumns(10);
+		JScrollPane scrollPane = new JScrollPane(solTXT);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setPreferredSize(new Dimension(700, 400));
+        SolPanel.add(scrollPane);
+
+        
 		JButton EjecutarButton = new JButton("Ejecutar");
 		SolPanel.add(EjecutarButton);
 		
@@ -124,7 +133,7 @@ public class MainWindowP2 extends JFrame implements GUI {
 		ParametersPanel.add(TamGenLabel);
 		
 		TamGentextField = new JTextField();
-		TamGentextField.setText("400");
+		TamGentextField.setText("100");
 		ParametersPanel.add(TamGentextField);
 		TamGentextField.setColumns(3);
 		
@@ -132,7 +141,7 @@ public class MainWindowP2 extends JFrame implements GUI {
 		ParametersPanel.add(nGenLabel);
 		
 		nGentextField = new JTextField();
-		nGentextField.setText("200");
+		nGentextField.setText("400");
 		ParametersPanel.add(nGentextField);
 		nGentextField.setColumns(3);
 		

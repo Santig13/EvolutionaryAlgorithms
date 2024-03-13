@@ -63,4 +63,5 @@ public  class TPoblacion {
 	public  boolean isMin() {
 		return this.min;
 	}
+	
 }

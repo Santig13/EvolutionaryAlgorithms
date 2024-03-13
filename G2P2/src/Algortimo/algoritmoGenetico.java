@@ -116,7 +116,7 @@ public class algoritmoGenetico {
 		// TODO Auto-generated method stub
 		Individuo<?>[] individuos=poblacion.getIndivuduos();
 		double sumaFit = 0.0;
-		Double maximo = Double.MIN_VALUE;
+		double maximo = Double.MIN_VALUE;
 		Individuo<?> mejor=null;
 		gener[currentGeneration]=currentGeneration;
 
@@ -162,6 +162,7 @@ public class algoritmoGenetico {
 
 		this.aptitud_mejor_generacion[this.currentGeneration]=mejor.evalua();
 		this.presion_evolutiva_generacional[this.currentGeneration]=this.aptitud_mejor_generacion[this.currentGeneration]/this.aptitud_media_generacion[this.currentGeneration];
+		
 		if(this.currentGeneration==0||(this.currentGeneration>0&&
 				((this.elMejor.getFintess()<mejor.getFintess()&&!minimizar)||
 						(this.elMejor.evalua()>mejor.evalua()&&minimizar)))){

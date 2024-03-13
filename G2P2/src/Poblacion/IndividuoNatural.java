@@ -57,14 +57,18 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 			intercambiados.put(cro_nuevo[i], i);
 		}
 		
-		int indice=puntoDeCorte2;
-		int j=puntoDeCorte2;
+		int indice=puntoDeCorte2%lcrom;
+		int j=puntoDeCorte2%lcrom;
 		
+
 		while(indice!=puntoDeCorte1) {
+			
 			if(!intercambiados.containsKey(cromosoma[j])) {
+				
 				cro_nuevo[indice]=cromosoma[indice];
 				indice=(indice+1)%lcrom;
 			}
+			
 			j=(j+1)%lcrom;
 		}
 		
@@ -174,7 +178,12 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 	            }
 	        }
 	 }
-	
+	 @Override
+		protected String fenotipoToString() {
+			// TODO Auto-generated method stub
+		 	//return cromosoma.toString();
+		 return "";
+		}
 	
 
 }
