@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class IndividuoControlAero extends IndividuoNatural {
 	
-	private HashMap<Integer,Vuelo> vuelos;
+	private ArrayList<Vuelo>  vuelos;
 	private final double[][] SEP = {
             {1, 1.5, 2},
             {1, 1.5, 1.5},
@@ -16,15 +16,16 @@ public class IndividuoControlAero extends IndividuoNatural {
 	private Random rand;
 	private Integer numVuelos;
 	
-	public IndividuoControlAero(Integer numVuelos) {
-		pistas = new ArrayList<>();
+	public IndividuoControlAero(Integer numVuelos,Integer numPistas) {
+		this.pistas = new ArrayList<>();
 		
 		this.rand=new Random();
 		this.numVuelos=numVuelos;
 		this.cromosoma = new Integer [numVuelos];
-       
+       this.vuelos=new ArrayList<>(numVuelos);
+
 		ArrayList<Integer> numeros = new ArrayList<>();
-        for (int i = 1; i <= numVuelos; i++) {
+        for (int i = 0; i < numVuelos; i++) {
             numeros.add(i);
         }
         for (int i = 0; i < numVuelos; i++) {
@@ -32,16 +33,22 @@ public class IndividuoControlAero extends IndividuoNatural {
             this.cromosoma[i]=numeros.get(indice);
             numeros.remove(indice);
         }
+		for (int i = 0; i < numVuelos; i++) 
+			this.vuelos.add(VuelosINFO.getVuelo(i));
+		
+		for (int i = 0; i < numPistas; i++) 
+			this.pistas.add(new ArrayList<Vuelo>());
 	}
 	
 	
-	public IndividuoControlAero(IndividuoControlAero individuoControlAero) {
-		// TODO Auto-generated constructor stub
+	public IndividuoControlAero(IndividuoControlAero copia) {
+		
 		this.rand=new Random();
-		this.numVuelos=individuoControlAero.numVuelos;
-		this.cromosoma =individuoControlAero.cromosoma.clone();
+		this.numVuelos=copia.numVuelos;
+		this.cromosoma =copia.cromosoma.clone();
+		this.pistas = new ArrayList<>();
 		//igual es innecesario
-		 for (ArrayList<Vuelo> pistaOriginal : individuoControlAero.pistas) {
+		 for (ArrayList<Vuelo> pistaOriginal : copia.pistas) {
 		        ArrayList<Vuelo> pistaClonada = new ArrayList<>();
 		        for (Vuelo vuelo : pistaOriginal) {
 		            pistaClonada.add(vuelo.clone());
@@ -50,9 +57,9 @@ public class IndividuoControlAero extends IndividuoNatural {
 		    }
 		 //Serias dudas
 		// Clonar los vuelos
-		    this.vuelos = new HashMap<>();
-		    for (HashMap.Entry<Integer, Vuelo> entry : individuoControlAero.vuelos.entrySet()) {
-		        this.vuelos.put(entry.getKey(), entry.getValue().clone());
+		    this.vuelos =new ArrayList<>(this.numVuelos);
+		    for (int i=0;i<this.numVuelos;i++) {
+		        this.vuelos.add(copia.vuelos.get(i).clone());
 		    }
 	}
 
@@ -96,7 +103,7 @@ public class IndividuoControlAero extends IndividuoNatural {
 		double menor_TLE=Double.MAX_VALUE;
 
 		for(int pista=0;pista<pistas.size();pista++) {
-			Math.min(menor_TLE, TEL.get(pista,vuelo));
+			menor_TLE=Math.min(menor_TLE, TEL.get(pista,vuelo));
 		}
 		
 		return menor_TLE;
@@ -125,7 +132,7 @@ public class IndividuoControlAero extends IndividuoNatural {
 				pista=j;
 			}
 		}
-		
+		v_act.setTLA(menor_TLA);
 		pistas.get(pista).add(v_act);
 
 		return menor_TLA;

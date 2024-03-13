@@ -4,16 +4,18 @@ public class Vuelo {
 	protected int nVuelo;
 	protected String identificador;
 	private String tipo;
-	private Integer TLA;
-	private Integer retraso;
+	private double TLA;
+	private double retraso;
 	
 	public Vuelo(int nVuelo, String identificador, String tipo) {
 		this.nVuelo = nVuelo;
 		this.identificador = identificador;
 		this.tipo=tipo;
+		TLA = 0;
+		this.retraso = 0;
 	}
 	
-	public Vuelo(int nVuelo, String identificador, String tipo, Integer tLA, Integer retraso) {
+	public Vuelo(int nVuelo, String identificador, String tipo, double tLA, double retraso) {
 		super();
 		this.nVuelo = nVuelo;
 		this.identificador = identificador;
@@ -43,13 +45,13 @@ public class Vuelo {
 		StringBuilder str=new StringBuilder();
 		return null;
 	}
-	public Integer getTLA() {
+	public Double getTLA() {
 		return TLA;
 	}
-	public void setTLA(Integer tLA) {
+	public void setTLA(double tLA) {
 		TLA = tLA;
 	}
-	public Integer getRetraso() {
+	public Double getRetraso() {
 		return retraso;
 	}
 	public void setRetraso(Integer retraso) {

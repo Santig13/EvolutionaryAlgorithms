@@ -73,7 +73,6 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 	@Override
 	public void mutarInsercion(int pos, int elem) {
 		// TODO Auto-generated method stub
-		/* POR ARREGLAR
 		Integer [] newCromosoma = new Integer[this.getLongitudCromosoma()];
 		int x = 0;
 		for (int i = 0; i < pos; i++)
@@ -94,7 +93,7 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 				newCromosoma[x] = cromosoma[i];
 				x++;
 			}
-		}*/
+		}
 		
 	}
 	
@@ -139,7 +138,7 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 			{
 				cromosoma[posSelec[i]] = CromosomaOriginal[permutation.get(i)];
 				Double punt = this.evalua();
-				if (punt > mejorpunt)
+				if (punt < mejorpunt)
 				{
 					CromosomaMejor = cromosoma.clone();
 					mejorpunt = punt;

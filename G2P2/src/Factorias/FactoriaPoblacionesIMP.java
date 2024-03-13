@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Poblacion.Individuo;
+import Poblacion.IndividuoControlAero;
 import Poblacion.TEL;
 import Poblacion.TPoblacion;
 import Poblacion.Vuelo;
+import Poblacion.VuelosINFO;
 
 public class FactoriaPoblacionesIMP extends FactoriaPoblaciones {
 
@@ -53,45 +55,19 @@ public class FactoriaPoblacionesIMP extends FactoriaPoblaciones {
 		{
 			for (int j = 0; j < nVuelos; j++)
 			{
-				tel[i][j] = aux.get(x);
+				tel[i][j] = aux.get(x);x++;
 			}
 		}
 		
 		TEL.setTiempos(tel);
+		VuelosINFO.setInfoVuelos(vuelos);
 		
-		/*
-		switch(funcion) {
-		case "Funcion 1":
-			 for(int i=0;i<tamanio;i++) {
-				 individuos[i]=new IndividuoFuncion1(precision);
-			 }
-			 break;
-		case "Funcion 2":
-			min=true;
-			for(int i=0;i<tamanio;i++) {
-				 individuos[i]=new IndividuoFuncion2(precision);
-			 }
-			 break;
-		case "Funcion 3":
-			min=true;
-			for(int i=0;i<tamanio;i++) {
-				 individuos[i]=new IndividuoFuncion3(precision);
-			 }
-			 break;
-		case "Funcion 4":
-			min=true;
-			for(int i=0;i<tamanio;i++) {
-				 individuos[i]=new IndividuoFuncion4(precision,nDim);
-			 }
-			 break;
-		default:
-			min=true;
-			for(int i=0;i<tamanio;i++) {
-				 individuos[i]=new IndividuoFuncion5(nDim);
-			 }
-			 break;
+		min = true;
+		for(int i=0;i<tamanio;i++) {
+			individuos[i]=new IndividuoControlAero(nVuelos,nPistas);
 		}
-		*/
+		
+		
 		return new TPoblacion(individuos,min);
 	}
 }

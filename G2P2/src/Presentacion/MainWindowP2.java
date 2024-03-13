@@ -45,7 +45,7 @@ public class MainWindowP2 extends JFrame implements GUI {
 	private Plot2DPanel plot;
 	//private final String[] tiposDeFuncion=  {"vuelos1.txt", "vuelos2.txt"};
 	private final String[] tiposDeCruzador= {"PMX", "OX", "OXPosPrio", "CX", "CO", "Propio"};
-	private final String[] tiposDeMutador= {"Insercion", "Intercambio", "Inversion", "Heuristica", "Propio"};
+	private final String[] tiposDeMutador= { "Intercambio","Insercion", "Inversion", "Heuristica", "Propio"};
 	private final String[] tiposDeSelector= {"Ruleta", "Estocastico", "Truncamiento", "Torneo Det", "Torneo Pro", "Restos", "Ranking"};
 	
 	JComboBox MutacioncomboBox;
