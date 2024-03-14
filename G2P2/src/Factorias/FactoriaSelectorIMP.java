@@ -2,6 +2,7 @@ package Factorias;
 
 import FuncionesSeleccion.Selector;
 import FuncionesSeleccion.SelectorEstocastica;
+import FuncionesSeleccion.SelectorRanking;
 import FuncionesSeleccion.SelectorRestos;
 import FuncionesSeleccion.SelectorRuleta;
 import FuncionesSeleccion.SelectorTorneoDeterministico;
@@ -20,10 +21,12 @@ public class FactoriaSelectorIMP extends FactoriaSelector {
 			return new SelectorEstocastica();
 		case "Truncamiento":
 			return new SelectorTruncamiento();
-		case "Torneo Deterministico":
+		case "Torneo Det":
 			return new SelectorTorneoDeterministico();
-		case "Torneo Probabilistico":
+		case "Torneo Pro":
 			return new SelectorTorneoProbabilistico();
+		case "Ranking":
+			return new SelectorRanking();
 		default:
 			return new SelectorRestos();
 		}

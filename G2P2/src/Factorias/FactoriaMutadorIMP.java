@@ -14,6 +14,10 @@ public class FactoriaMutadorIMP extends FactoriaMutador {
 			return new MutadorIntercambio();
 		case "Inversion":
 			return new MutadorInversion();
+		case "Heuristica":
+			return new MutadorHeuristica();
+		case "Insercion":
+			return new MutadorInsercion();
 		default:
 			return null;
 		}

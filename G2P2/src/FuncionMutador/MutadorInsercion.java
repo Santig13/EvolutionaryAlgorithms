@@ -12,9 +12,9 @@ public class MutadorInsercion extends Mutador {
 		int N = individuo.getLongitudCromosoma();
 		Random rand = new Random();
 		int pos = rand.nextInt(N);
-		int elem = rand.nextInt(N);
+		int poselem = rand.nextInt(N);
  
-		individuo.mutarInsercion(pos,elem);
+		individuo.mutarInsercion(pos,poselem);
 	}
 
 }

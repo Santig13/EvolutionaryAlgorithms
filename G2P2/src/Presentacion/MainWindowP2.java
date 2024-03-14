@@ -79,7 +79,7 @@ public class MainWindowP2 extends JFrame implements GUI {
 		Controller ctr=new ControllerIMP();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(50, 100, 1450, 579);
+		setBounds(50, 100, 1433, 435);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

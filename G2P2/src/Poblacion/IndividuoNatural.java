@@ -75,29 +75,26 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 	}
 	
 	@Override
-	public void mutarInsercion(int pos, int elem) {
+	public void mutarInsercion(int pos, int poselem) {
 		// TODO Auto-generated method stub
 		Integer [] newCromosoma = new Integer[this.getLongitudCromosoma()];
-		int x = 0;
-		for (int i = 0; i < pos; i++)
-		{
-			if (cromosoma[i]!= elem)
-			{
-				newCromosoma[x] = cromosoma[i];
-				x++;
-			}
-		}
+		if (pos == poselem) {
+            return; // No hay necesidad de mover si el índice de origen y destino son iguales
+        }
 		
-		newCromosoma[x] = elem;
+		ArrayList<Integer> lista = new ArrayList<>();
+		for (int i:cromosoma)
+			lista.add(i);
 		
-		for (int i = x+1; i < this.getLongitudCromosoma(); i++)
-		{
-			if (cromosoma[i]!= elem)
-			{
-				newCromosoma[x] = cromosoma[i];
-				x++;
-			}
-		}
+        Integer elemento = lista.remove(poselem); // Remover el elemento en el índice de origen
+        lista.add(pos, elemento); // Insertar el elemento en el índice de destino
+		
+        for (int i = 0; i < lista.size(); i++)
+        {
+        	newCromosoma[i] = lista.get(i);
+        }
+		
+        this.setCromosoma(newCromosoma);
 		
 	}
 	
