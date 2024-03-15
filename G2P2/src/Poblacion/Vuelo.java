@@ -43,8 +43,8 @@ public class Vuelo {
 	@Override
 	public String toString() {
 		
-		
-		return this.nVuelo+"\t"+this.identificador+"\t"+this.TLA;
+		int num=this.nVuelo+1;
+		return "| "+num+"\t"+this.identificador+"\t"+this.TLA;
 	}
 	public Double getTLA() {
 		return TLA;

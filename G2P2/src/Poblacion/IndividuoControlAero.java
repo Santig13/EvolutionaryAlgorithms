@@ -146,7 +146,12 @@ public class IndividuoControlAero extends IndividuoNatural {
 		
 		for (int i = 0; i < numPistas; i++) {
 
-			str.append("VUELO\tNOMBRE\tTLA\t");
+			str.append(" |VUELO\tNOMBRE\tTLA\t");
+		}
+		str.append("\n|");
+		for (int i = 0; i < numPistas; i++) {
+
+			str.append("--------------------------------------------------------------|");
 		}
 		str.append("\n");
 		int x=0;
@@ -155,14 +160,23 @@ public class IndividuoControlAero extends IndividuoNatural {
 		while (x< numVuelos) {
 			for(int pista=0;pista<numPistas;pista++) {
 				if(i<pistas.get(pista).size()) {
-					str.append(" "+pistas.get(pista).get(i).toString()+" \t");
+					str.append(" "+pistas.get(pista).get(i).toString()+"\t");
 					x++;
 				}
+				else
+					str.append(" |\t\t\t");
 			}
-			str.append("\n");
+			str.append("|\n");
 			i++;
 		}
+		
+		str.append("|");
+		for (int j = 0; j < numPistas; j++) {
+
+			str.append("--------------------------------------------------------------|");
+		}
 		str.append("\n");
+		
 		return str.toString();
 	}
 

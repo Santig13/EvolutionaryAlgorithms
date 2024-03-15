@@ -16,7 +16,8 @@ public class algoritmoGenetico {
     private int tamPoblacion;
     private TPoblacion poblacion;
     private int maxGeneraciones;
-
+    
+    private final double P=2;
     private double probCruce;
     private double probMutacion;
     private Individuo<?>[] elite;
@@ -156,6 +157,20 @@ public class algoritmoGenetico {
 			}
 		}
 
+		/*
+		 * Escalado lineal de la poblacion
+		 */
+		double adaptacion_media=(sumaFit/tamPoblacion);
+		double a=(P*adaptacion_media)/(maximo-adaptacion_media);
+		double b=(1-a)*adaptacion_media;
+		
+		for(int i=0;i<tamPoblacion;i++) {
+			double fitnessEscalado=a*individuos[i].getFintess()+b;
+			individuos[i].setFitness(fitnessEscalado);
+		}
+			
+		
+		
 		for(int i=0;i<tamPoblacion;i++) {
 			individuos[i].setPuntuacion(individuos[i].getFintess()/sumaFit);
 		}

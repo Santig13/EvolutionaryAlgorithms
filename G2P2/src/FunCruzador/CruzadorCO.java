@@ -21,6 +21,9 @@ public class CruzadorCO extends Cruzador {
 		
 	    hijo1.cruzarCO();
 		hijo2.cruzarCO();
+		
+		individuo=hijo1;
+		individuo2=hijo2;
 	}
 
 	
