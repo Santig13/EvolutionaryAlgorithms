@@ -42,6 +42,8 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 			else
 				cro_nuevo[i]=padre2[intercambiados.get(cromosoma[i])];
 		}
+		setCromosoma(cro_nuevo);
+		
 	}
 	
 	
@@ -71,9 +73,142 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 			
 			j=(j+1)%lcrom;
 		}
+		setCromosoma(cro_nuevo);
+		
+	}
+	@Override
+	public  void cruzarOXPP(int posP1,int posP2, Individuo<?> individuo2) {
+		Map<Integer, Integer> intercambiados = new HashMap<Integer,Integer>();
+		int lcrom=getLongitudCromosoma();
+		Integer[]padre2=(Integer[]) individuo2.cromosoma;
+		Integer[] cro_nuevo=new Integer[lcrom];
+		
+		
+		cro_nuevo[posP1]=padre2[posP1];
+		intercambiados.put(cro_nuevo[posP1], posP1);
+		cro_nuevo[posP2]=padre2[posP2];
+		intercambiados.put(cro_nuevo[posP2], posP2);
+	
+		
+		int indice=(posP2+1)%lcrom;
+		int j=(posP2+1)%lcrom;
+		
+
+		while(indice!=posP2) {
+			
+			if(!intercambiados.containsKey(cromosoma[j])) {
+				
+				cro_nuevo[indice]=cromosoma[indice];
+				indice=(indice+1)%lcrom;
+			}
+			
+			j=(j+1)%lcrom;
+		}
+		setCromosoma(cro_nuevo);
+	}
+		@Override
+		public void cruzarOXOP(ArrayList<Integer> posiciones, Individuo<?> individuo2) {
+			Map<Integer, Integer> intercambiados = new HashMap<Integer,Integer>();
+			int lcrom=getLongitudCromosoma();
+			Integer[]padre2=(Integer[]) individuo2.cromosoma;
+			Integer[] cro_nuevo=new Integer[lcrom];
+			
+			for(int i=0;i<posiciones.size();i++) {
+				intercambiados.put(cromosoma[posiciones.get(i)], posiciones.get(i));
+			}
+		
+			
+			int indice=0;
+			
+			
+			for(int i=0;i<lcrom;i++) {
+				if(intercambiados.containsKey(padre2[i])) {
+					cro_nuevo[i]=cromosoma[posiciones.get(indice)];
+					indice++;
+				}
+				else
+					cro_nuevo[i]=padre2[i];
+			}
+			setCromosoma(cro_nuevo);
+
+	}
+		
+	@Override
+	public void cruzarCX(Individuo<?> individuo) {
+		int lcrom=getLongitudCromosoma();
+		Integer[]padre2=(Integer[]) individuo.cromosoma;
+		Integer[] cro_nuevo=new Integer[lcrom];
+		
+		cro_nuevo[0]=cromosoma[0];
+		int indice=0;
+		
+		//Vamos siguiendo los ciclos hasta que llegamos a un elemento ya introducido
+		while(busca(cro_nuevo,padre2[indice])==-1) {
+			int i=busca(cromosoma,padre2[indice]);
+			cro_nuevo[i]=padre2[indice];
+			indice=i;
+		}
+		
+		//Rellenamos los huecos con los elementos del padre
+		for(int i=0;i<lcrom;i++) {
+			if(cro_nuevo[i]==null)
+				cro_nuevo[i]=padre2[i];
+		}
+		setCromosoma(cro_nuevo);
+	}
+	private int busca(Integer[] elems,int x) {
+		int i=-1;
+		int j=0;
+		while(i==-1&&j<elems.length) {
+			if(elems[j]!=null&&elems[j]==x)
+				i=j;
+			
+			j++;
+		}
+		return i;
+	}
+	@Override
+	public void cruzarMonopunto(int i, Individuo<?> padre2) {
+		Integer[] cromosomaPadre=(Integer[]) padre2.getCromosoma();
+		for(int x=i;x<cromosoma.length;x++) {
+			cromosoma[x]=cromosomaPadre[x];
+		}
+
+	}
+	@Override
+	public void ordinal() {
+		// TODO Auto-generated method stub
+		int lcrom=getLongitudCromosoma();
+		ArrayList<Integer> lista=new ArrayList<>();
+		for(int i=0;i<lcrom;i++) {
+			lista.add(i,i);
+		}
+		for(int i=0;i<lcrom;i++) {
+			int value=cromosoma[i];
+			int index=lista.indexOf(value);
+			cromosoma[i]=index;
+			lista.remove(index);
+		}
 		
 	}
 	
+	
+	@Override
+	public void cruzarCO() {
+		// TODO Auto-generated method stub
+		int lcrom=getLongitudCromosoma();
+		ArrayList<Integer> lista=new ArrayList<>();
+		for(int i=0;i<lcrom;i++) {
+			lista.add(i,i);
+		}
+		
+		for(int i=0;i<lcrom;i++) {
+			int indice=cromosoma[i];
+			cromosoma[i]=lista.get(indice);
+			lista.remove(indice);
+		}
+		
+	}
 	@Override
 	public void mutarInsercion(int pos, int poselem) {
 		// TODO Auto-generated method stub

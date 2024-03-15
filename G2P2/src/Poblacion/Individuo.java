@@ -75,6 +75,28 @@ public abstract class Individuo<T> {
 	public abstract void mutarIntercambio(int pos1, int pos2);
 	public abstract void mutarInversion(int pos1, int pos2);
 	public abstract void mutarHeuristica(int[] posSelec);
+	public void cruzarOXPP(int posP1, int posP2, Individuo<?> individuo) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void cruzarOXOP(ArrayList<Integer> posiciones, Individuo<?> individuo2) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void cruzarCX(Individuo<?> individuo) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void ordinal() {
+		// TODO Auto-generated method stub
+		
+	}
+	public abstract void cruzarMonopunto(int puntoDeCorte, Individuo<?> individuo2);
+	
+	public void cruzarCO() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
 

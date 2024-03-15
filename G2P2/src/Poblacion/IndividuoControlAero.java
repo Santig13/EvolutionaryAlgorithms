@@ -171,9 +171,11 @@ public class IndividuoControlAero extends IndividuoNatural {
 		// TODO Auto-generated method stub
 		String s="[ ";
 		for(int i=0;i<numVuelos-1;i++) {
-			s=s+cromosoma[i]+" , ";
+			int vuelo=cromosoma[i]+1;
+			s=s+vuelo+" , ";
 		}
-		s=s+cromosoma[numVuelos-1]+" ] ";
+		int vuelo=cromosoma[numVuelos-1]+1;
+		s=s+vuelo+" ] ";
 		return s;
 	}
 

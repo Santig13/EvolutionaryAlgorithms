@@ -13,6 +13,14 @@ public class FactoriaCruzadorIMP extends FactoriaCruzador {
 				return new CruzadorPMX();
 			case "OX":
 				return new CruzadorOX();
+			case "OXPP":
+				return new CruzadorOXPP();
+			case "OXOP":
+				return new CruzadorOXOP();
+			case "CX":
+				return new CruzadorCX();
+			case "CO":
+				return new CruzadorCO();
 			default:
 				return null;
 			}
