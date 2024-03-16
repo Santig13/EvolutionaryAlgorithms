@@ -1,8 +1,10 @@
 package FuncionesSeleccion;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import Poblacion.Individuo;
+import Poblacion.PuntuacionComparator;
 
 public class SelectorRuleta implements Selector{
 
@@ -12,6 +14,7 @@ public class SelectorRuleta implements Selector{
 	public Individuo<?>[]  seleccionar(Individuo<?>[]  generacion) {
         double [] probSeleccion = new double [generacion.length];
 
+        Arrays.sort(generacion,new PuntuacionComparator());
         for(int i = 0 ; i < generacion.length; i++)
         {
         	 probSeleccion[i] = generacion[i].getPuntuacion();

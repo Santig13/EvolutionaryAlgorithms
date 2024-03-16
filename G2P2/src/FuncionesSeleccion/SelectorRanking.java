@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.Random;
 
 import Poblacion.Individuo;
+import Poblacion.PuntuacionComparator;
 
 public class SelectorRanking implements Selector{
 
@@ -13,8 +14,9 @@ public class SelectorRanking implements Selector{
 		public double fit; //Fitness del individuo
 		public double prob;
 	}
+	static private final double _beta = 2;
 	
-	@Override
+	/*@Override
 	public Individuo<?>[] seleccionar(Individuo<?>[] generacion) {
 		
 		Indi_Fit [] fit_ind = new Indi_Fit [generacion.length];
@@ -66,5 +68,28 @@ public class SelectorRanking implements Selector{
 		// TODO Auto-generated method stub
 		return NuevaGeneracion;
 	}
+	*/
+	
+	@Override
+	public Individuo<?>[] seleccionar(Individuo<?>[] generacion) {
+		rankingPunctuation(generacion);
+		Arrays.sort(generacion,new PuntuacionComparator());
+		Selector ruleta = new SelectorRuleta();
+		return ruleta.seleccionar(generacion);
+	}
+	
 
+	private void rankingPunctuation(Individuo<?>[] pop) {
+
+			for (int i = 0; i < pop.length; ++i) {
+				double probOfIth = (double)i/pop.length;
+				probOfIth *= 2*(_beta-1);
+				probOfIth = _beta - probOfIth;
+				probOfIth = (double)probOfIth * ((double)1/pop.length);
+				
+				pop[i].setPuntuacion(probOfIth);
+				
+			}
+		}
+		
 }
