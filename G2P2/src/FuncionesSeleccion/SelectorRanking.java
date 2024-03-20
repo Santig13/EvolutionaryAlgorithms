@@ -14,7 +14,7 @@ public class SelectorRanking implements Selector{
 		public double fit; //Fitness del individuo
 		public double prob;
 	}
-	static private final double _beta = 2;
+	static private final double _beta = 1.5;
 	
 	/*@Override
 	public Individuo<?>[] seleccionar(Individuo<?>[] generacion) {
@@ -72,8 +72,9 @@ public class SelectorRanking implements Selector{
 	
 	@Override
 	public Individuo<?>[] seleccionar(Individuo<?>[] generacion) {
-		rankingPunctuation(generacion);
 		Arrays.sort(generacion,new PuntuacionComparator());
+		rankingPunctuation(generacion);
+		
 		Selector ruleta = new SelectorRuleta();
 		return ruleta.seleccionar(generacion);
 	}

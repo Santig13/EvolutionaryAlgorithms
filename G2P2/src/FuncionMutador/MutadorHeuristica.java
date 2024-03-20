@@ -9,7 +9,7 @@ public class MutadorHeuristica extends Mutador{
 
 	private int n = 3;
 	@Override
-	protected void mutar(Individuo<?> individuo, double probMutac) {
+	protected void mutar(Individuo<?> individuo) {
 		// TODO Auto-generated method stub
 		Random rand = new Random();
 		

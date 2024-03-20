@@ -7,7 +7,7 @@ import Poblacion.Individuo;
 public class MutadorInsercion extends Mutador {
 
 	@Override
-	protected void mutar(Individuo<?> individuo, double probMutac) {
+	protected void mutar(Individuo<?> individuo) {
 
 		int N = individuo.getLongitudCromosoma();
 		Random rand = new Random();
