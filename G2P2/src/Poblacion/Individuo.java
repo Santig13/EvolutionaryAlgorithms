@@ -97,6 +97,8 @@ public abstract class Individuo<T> {
 		// TODO Auto-generated method stub
 		
 	}
+	public abstract void mutarFibonacci();
+	public abstract void cruzarZigZag(Individuo<?> individuo2, boolean b);
 
 }
 

@@ -2,7 +2,9 @@ package Poblacion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public abstract class IndividuoNatural extends Individuo<Integer> {
 
@@ -17,6 +19,52 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 		return v;
 	}
 	
+	@Override
+	public void cruzarZigZag(Individuo<?> individuo2, boolean b) {
+		Set<Integer> tiene = new HashSet<Integer>();
+		int lcrom=getLongitudCromosoma();
+		Integer[]padre2=(Integer[]) individuo2.cromosoma;
+		Integer[] cro_nuevo=new Integer[lcrom];
+		
+		int introducidos=0;
+		int actual =  0;
+		int pos1=b ? 0 : lcrom - 1;
+		int pos2=b ? 0 : lcrom - 1;
+		int avanza= b? 1:-1;
+		
+		boolean p1=true;
+		while(introducidos<lcrom) {
+			int nuevo=0;
+			
+			if(p1&&pos1<lcrom) {
+				nuevo=cromosoma[pos1];
+				
+				if(!tiene.contains(nuevo)) {
+					cro_nuevo[actual]= nuevo;
+					tiene.add(nuevo);
+					introducidos++;
+					actual++;
+				}
+				pos1+=avanza;
+					
+			}
+			else if(!p1&&pos2<lcrom) {
+				nuevo=padre2[pos2];
+				
+				if(!tiene.contains(nuevo)) {
+					cro_nuevo[actual]= nuevo;
+					tiene.add(nuevo);
+					introducidos++;
+					actual++;
+				}
+				pos2+=avanza;
+			}
+			
+			p1=!p1;
+			
+		}
+		this.cromosoma=cro_nuevo;
+	}
 	@Override
 	public  void cruzarPMX(int puntoDeCorte1, int puntoDeCorte2, Individuo<?> individuo2) {
 		Map<Integer, Integer> intercambiados = new HashMap<Integer,Integer>();
@@ -210,6 +258,46 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 		
 	}
 	@Override
+	public void mutarFibonacci() {
+		
+		int size=this.getLongitudCromosoma();
+		int[] secuencia= {1,2,3,5};
+		Integer [] copiaOriginal= cromosoma.clone();
+		Integer [][] nuevos=new Integer[4][size];
+		
+		Double mejorpunt=Double.MAX_VALUE;
+		Integer[] cromosomaM =new Integer[size];
+		
+		
+		
+		for(int i=0;i< secuencia.length;i++) {
+			
+			for(int j=0;j<this.getLongitudCromosoma();j++) {
+				
+				int desplaza=(j+secuencia[i])%getLongitudCromosoma();
+				
+				nuevos[i][desplaza]=copiaOriginal[j];
+			}
+			cromosoma=nuevos[i].clone();
+			
+		
+			
+			Double punt = this.evalua();
+			if (punt < mejorpunt)
+			{
+				cromosomaM = cromosoma.clone();
+				mejorpunt = punt;
+			}
+				
+	
+		}
+		
+		this.cromosoma = cromosomaM;
+	}
+		
+		
+	
+	@Override
 	public void mutarInsercion(int pos, int poselem) {
 		// TODO Auto-generated method stub
 		Integer [] newCromosoma = new Integer[this.getLongitudCromosoma()];
@@ -242,15 +330,6 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 	
 	public void mutarInversion(int pos1, int pos2)
 	{
-		System.out.println("-----INVERSION DE POS:" + pos1+" A POS:" +pos2 +"-----");
-
-		for (int i : cromosoma)
-		{
-			System.out.print(i + " ");
-		}
-		System.out.println();
-		
-		
 		int Tam = pos2 - pos1 +1;
 		Integer aux[] = new Integer[Tam];
 		int x = 0;
@@ -267,15 +346,6 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 			cromosoma[i] = aux[x] ;
 			x--;
 		}
-		
-		for (int i : cromosoma)
-		{
-			System.out.print(i + " ");
-		}
-		System.out.println();
-		System.out.println("-----FIN DE INVERSION-----");
-
-
 	}
 	
 	public void mutarHeuristica(int[] posSelec)

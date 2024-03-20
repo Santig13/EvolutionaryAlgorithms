@@ -21,6 +21,8 @@ public class FactoriaCruzadorIMP extends FactoriaCruzador {
 				return new CruzadorCX();
 			case "CO":
 				return new CruzadorCO();
+			case "ZigZag":
+				return new CruzadorZigZag();
 			default:
 				return null;
 			}

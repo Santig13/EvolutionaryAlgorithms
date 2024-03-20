@@ -18,6 +18,8 @@ public class FactoriaMutadorIMP extends FactoriaMutador {
 			return new MutadorHeuristica();
 		case "Insercion":
 			return new MutadorInsercion();
+		case "Fibonacci":
+			return new MutadorFibonacci();
 		default:
 			return null;
 		}

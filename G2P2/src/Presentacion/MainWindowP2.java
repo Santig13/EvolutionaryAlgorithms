@@ -48,8 +48,8 @@ public class MainWindowP2 extends JFrame implements GUI {
 	private JTextField txtTeltxt;
 	private Plot2DPanel plot;
 	//private final String[] tiposDeFuncion=  {"vuelos1.txt", "vuelos2.txt"};
-	private final String[] tiposDeCruzador= {"PMX", "OX", "OXPP","OXOP", "CX", "CO", "Propio"};
-	private final String[] tiposDeMutador= { "Intercambio","Insercion", "Inversion", "Heuristica", "Propio"};
+	private final String[] tiposDeCruzador= {"PMX", "OX", "OXPP","OXOP", "CX", "CO", "ZigZag"};
+	private final String[] tiposDeMutador= { "Intercambio","Insercion", "Inversion", "Heuristica", "Fibonacci"};
 	private final String[] tiposDeSelector= {"Ruleta", "Estocastico", "Truncamiento", "Torneo Det", "Torneo Pro", "Restos", "Ranking"};
 	
 	JComboBox MutacioncomboBox;
