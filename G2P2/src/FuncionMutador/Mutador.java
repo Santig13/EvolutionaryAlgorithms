@@ -14,7 +14,8 @@ public abstract class Mutador {
 		Random rand = new Random();
 		
 		for(int i=0;i<tamPoblacion;i++) {
-			if(rand.nextDouble() < probMutac)mutar(individuos[i]);
+			if(rand.nextDouble() < probMutac)
+				mutar(individuos[i]);
 		}
 	}
 
