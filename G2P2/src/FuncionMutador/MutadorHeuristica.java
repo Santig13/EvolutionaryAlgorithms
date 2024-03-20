@@ -23,7 +23,7 @@ public class MutadorHeuristica extends Mutador{
 		{
 			int pos = rand.nextInt(individuo.getLongitudCromosoma());
 			if (!seleccionado[pos]) {
-				seleccionado[i] = true;
+				seleccionado[pos] = true;
 				posSelec[i]=pos;
 				i++;
 			}

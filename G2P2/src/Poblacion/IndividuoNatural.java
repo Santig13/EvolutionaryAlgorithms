@@ -284,25 +284,12 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 		Integer[]CromosomaMejor = cromosoma.clone();
 		Double mejorpunt = this.evalua();
 		
-		System.out.println("------INICIO MUTACIÓN HEURISTICA-----");
-		System.out.print("cromosoma original: ");
-		for (int i : cromosoma)
-			System.out.print(i+" ");
-		System.out.println();
-		System.out.print("Posiciones seleccionadas:");
-		for (int i : posSelec)
-			System.out.print(i+" con eleme (" + CromosomaOriginal[i]+ ") ");
-		System.out.println();
-
 		
 		ArrayList<ArrayList<Integer>> permutations = permute(posSelec);
 		int cont = 0;
 		for (ArrayList<Integer> permutation : permutations)
 		{
-			System.out.print("Permutacion nº " + cont + ": ");
-			for (Integer pos : permutation)
-				System.out.print(pos + " ");
-			cont++;
+			
 
 			for (int i = 0; i < permutation.size();i++)
 			{		
@@ -315,15 +302,11 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 				CromosomaMejor = cromosoma.clone();
 				mejorpunt = punt;
 			}
-			
-			System.out.print("cromosoma permutado: ");
-			for (int pos : cromosoma)
-				System.out.print(pos+" ");
-			System.out.println();
+				
+	
 		}
 		
-		this.cromosoma = CromosomaMejor.clone();
-		System.out.println("------FIN MUTACIÓN HEURISTICA-----");
+		this.cromosoma = CromosomaMejor;
 
 	}
 	
