@@ -18,16 +18,14 @@ public class MutadorHeuristica extends Mutador{
 		int[]posSelec = new int[n];
 		for(int i = 0 ; i < individuo.getLongitudCromosoma(); i++)
 			seleccionado[i]=false;
-		
-		for(int i = 0; i < n; i++)
+		int i = 0;
+		while(i < n)
 		{
 			int pos = rand.nextInt(individuo.getLongitudCromosoma());
-			if (seleccionado[pos]) {
-				i--;
-			}
-			else
-			{
+			if (!seleccionado[pos]) {
+				seleccionado[i] = true;
 				posSelec[i]=pos;
+				i++;
 			}
 		}
 		

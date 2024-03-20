@@ -242,6 +242,15 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 	
 	public void mutarInversion(int pos1, int pos2)
 	{
+		System.out.println("-----INVERSION DE POS:" + pos1+" A POS:" +pos2 +"-----");
+
+		for (int i : cromosoma)
+		{
+			System.out.print(i + " ");
+		}
+		System.out.println();
+		
+		
 		int Tam = pos2 - pos1 +1;
 		Integer aux[] = new Integer[Tam];
 		int x = 0;
@@ -258,6 +267,15 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 			cromosoma[i] = aux[x] ;
 			x--;
 		}
+		
+		for (int i : cromosoma)
+		{
+			System.out.print(i + " ");
+		}
+		System.out.println();
+		System.out.println("-----FIN DE INVERSION-----");
+
+
 	}
 	
 	public void mutarHeuristica(int[] posSelec)
@@ -266,24 +284,47 @@ public abstract class IndividuoNatural extends Individuo<Integer> {
 		Integer[]CromosomaMejor = cromosoma.clone();
 		Double mejorpunt = this.evalua();
 		
-		ArrayList<ArrayList<Integer>> permutations = permute(posSelec);
+		System.out.println("------INICIO MUTACIÓN HEURISTICA-----");
+		System.out.print("cromosoma original: ");
+		for (int i : cromosoma)
+			System.out.print(i+" ");
+		System.out.println();
+		System.out.print("Posiciones seleccionadas:");
+		for (int i : posSelec)
+			System.out.print(i+" con eleme (" + CromosomaOriginal[i]+ ") ");
+		System.out.println();
+
 		
+		ArrayList<ArrayList<Integer>> permutations = permute(posSelec);
+		int cont = 0;
 		for (ArrayList<Integer> permutation : permutations)
 		{
+			System.out.print("Permutacion nº " + cont + ": ");
+			for (Integer pos : permutation)
+				System.out.print(pos + " ");
+			cont++;
+
 			for (int i = 0; i < permutation.size();i++)
-			{
+			{		
 				cromosoma[posSelec[i]] = CromosomaOriginal[permutation.get(i)];
-				Double punt = this.evalua();
-				if (punt < mejorpunt)
-				{
-					CromosomaMejor = cromosoma.clone();
-					mejorpunt = punt;
-				}
 			}
+			
+			Double punt = this.evalua();
+			if (punt < mejorpunt)
+			{
+				CromosomaMejor = cromosoma.clone();
+				mejorpunt = punt;
+			}
+			
+			System.out.print("cromosoma permutado: ");
+			for (int pos : cromosoma)
+				System.out.print(pos+" ");
+			System.out.println();
 		}
 		
 		this.cromosoma = CromosomaMejor.clone();
-		
+		System.out.println("------FIN MUTACIÓN HEURISTICA-----");
+
 	}
 	
 	 private static ArrayList<ArrayList<Integer>> permute(int[] nums) {
