@@ -11,12 +11,8 @@ public class MutadorInversion extends Mutador{
 		
 		Random rand = new Random();
 	
-			int pos1 = rand.nextInt(individuo.getLongitudCromosoma());
-			int pos2 = rand.nextInt(individuo.getLongitudCromosoma());
-			if (pos1 < pos2)
-				individuo.mutarInversion(pos1, pos2);
-			else
-				individuo.mutarInversion(pos2, pos1);
+			int pos1 = rand.nextInt(individuo.getLongitudCromosoma()-3);
+		individuo.mutarInversion(pos1, pos1+3);
 
 		
 		
