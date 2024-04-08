@@ -34,8 +34,6 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	private int movimientos;
 	private int giros;
 	
-	
-	
 	public boolean poda() {
 		if(cesped[pos.getY()][pos.getX()]) {
 			cesped[pos.getY()][pos.getX()]=false;
@@ -46,7 +44,6 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	public boolean terminado() {
 		return giros>100||movimientos>100;
 	}
-	
 	//Funciones SALTA(V),SUMA(V1,V2),PROGN(OP1,OP2),IF-DIRTY (A,B),(repeat A,B) 
 	public posicion salta(posicion nueva) {
 		movimientos++;
@@ -64,29 +61,39 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		ejecuta(n1);
 		return ejecuta(n2);
 	}
+	
 	private posicion ejecuta(nodo n) {
 		// TODO Auto-generated method stub
 		posicion casilla=null;
 		switch (n.getDescript()) {
 	    case "AVANZA":
+	    	
 	    	this.avanza();
 	    	break;
 	    case "IZQUIERDA":
+	    	
 	    	this.izquierda();
 	    	break;
 	    case "DERECHA":
+	    	
 	    	this.derecha();
 	        break;
 	    case "SALTA":
-	    	this.salta()
+	    	
+	    	this.salta(ejecuta(n.hijo1()));
 	    	break;
 	    case "PROGN":
+	    	
+	    	this.progn(n.hijo1(), n.hijo2());
 	    	break;
 	    case "SUMA":
+	    	this.suma(ejecuta(n.hijo1()), ejecuta(n.hijo2()));
 	    	break;
 	    case "IF-DIRTY":
+	    	
 	    	break;
 	    case "REPEAT":
+	    	
 	        break;
 	    default:
 	    	casilla=new posicion(n.getDescript());
@@ -118,7 +125,6 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		
 		return new posicion(0,0);
 	}
-	
 	public posicion izquierda() {
 		giros++;
 		switch(orientacion) {
@@ -156,12 +162,43 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		}
 		return new posicion(0,0);
 	}
-	
 	public posicion aleatoria() {
 		int n=cesped.length;
 		int m=cesped[0].length;
 		Random random = new Random();
 		return new posicion(random.nextInt(n),random.nextInt(m));
+	}
+	@Override
+	protected nodo nodoFuncional() {
+		int n=terminales.size();
+		Random r= new Random();
+		return new nodo(terminales.get(r.nextInt(n)),0);
+	}
+	@Override
+	protected nodo nodoTernminal() {
+		// TODO Auto-generated method stub
+		int n=funciones.size();
+		Random r= new Random();
+		int hijos ;
+		String funcion=funciones.get(r.nextInt(n));
+		switch(funcion){
+			case "SALTA":
+				hijos=1;
+				break;
+			default:
+				hijos=2;
+				break;
+		}
+		return new nodo(funcion,hijos);
+	
+	}
+	@Override
+	public IndividuoArbolGenetico copia() {
+		return null;
+	}
+	@Override
+	protected double evalua() {
+		return 0;
 	}
 	
 	
