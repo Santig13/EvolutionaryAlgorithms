@@ -3,22 +3,26 @@ package Individuo;
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class IndividuoArbolGenetico {
+import Individuo.IndividuoArbolGenetico.nodo;
+
+public abstract class IndividuoArbolGenetico extends Individuo {
+	
 	private int maximaProfundidad;
-    protected double fitness;
-    protected double puntuacion;
+	private int minimaProfundidad;
+
 	class nodo{
 		 
 		private String descripcion;
 		private ArrayList<nodo> hijos;
+		public int profundidad;
+		private int numNodos;
 		
 		public nodo(String descripcion, int size) {
 			// TODO Auto-generated constructor stub
+			this.numNodos=0;
+			this.profundidad=0;
 			this.descripcion = descripcion;
 			hijos=new ArrayList<nodo>(size);
-		}
-		public nodo() {
-			//Costructor para la raiz
 		}
 		public String getDescript() {
 			return descripcion;
@@ -32,8 +36,29 @@ public abstract class IndividuoArbolGenetico {
 		protected ArrayList<nodo> hijos(){
 			return hijos;
 		}
+		public nodo copia() {
+			nodo n=new nodo(this.descripcion,this.hijos.size());
+			for(nodo hijo:hijos) {
+				n.hijos.add(hijo.copia());
+			}
+			return n;
+		}
+		public void calculaNodos() {
+		    numNodos = 1; // Contar el nodo actual
+		    for (nodo hijo : hijos) {
+		        numNodos += hijo.numNodos;
+		    }
+		}
+
+		public void calcularProfundidad() {
+		    profundidad = 0; 
+		    for (nodo hijo : hijos) {
+		        profundidad = Math.max(profundidad, hijo.profundidad);
+		    }
+		    profundidad++; 
+		}
 	}
-	 private nodo raiz;
+	 protected nodo raiz;
 	
 	 
 	 //INICIALIZACIONES
@@ -41,7 +66,6 @@ public abstract class IndividuoArbolGenetico {
 	 
 	 //COMPLETA
 	 public void inicializacionCompleta() {
-		 raiz=new nodo();
 		 raiz=inicializacionCompleta(0);
 	 }
 	 private nodo inicializacionCompleta(int profundidad) {
@@ -53,12 +77,13 @@ public abstract class IndividuoArbolGenetico {
 		 }
 		 else
 			 nuevo=nodoTernminal();
+		 nuevo.calcularProfundidad();
+		 nuevo.calculaNodos();//suma los nodos de sus hijos +1 por cada hijo
 		 return nuevo;
 	 }
 	 
 	//GROW
 	 public void inicializacionCreciente() {
-		 raiz=new nodo();
 		 raiz=inicializacionCreciente(0);
 	 }
 	 private nodo inicializacionCreciente(int profundidad) {
@@ -82,13 +107,13 @@ public abstract class IndividuoArbolGenetico {
 		else
 			return nodoTernminal();
 		}
+	
 	protected abstract nodo nodoFuncional();
 	protected abstract nodo nodoTernminal();
-	public abstract IndividuoArbolGenetico copia();
-	protected abstract double evalua();
-	public double getFintess() {
-		// TODO Auto-generated method stub
-		return this.fitness;
+	protected nodo copiaArbol() {	
+		return raiz.copia();
 	}
-
+	//MUTADORES
+	//Mutador terminal
+	
 }

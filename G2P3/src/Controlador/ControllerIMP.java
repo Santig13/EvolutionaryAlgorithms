@@ -1,0 +1,29 @@
+package Controlador;
+
+import Algoritmo.algoritmoGenetico;
+import Cruzadores.Cruzador;
+import Individuo.TPoblacion;
+import Mutadores.Mutador;
+import Presentacion.GUI;
+import Selectores.Selector;
+
+public class ControllerIMP implements Controller {
+
+	@Override
+	public void run(GUI gui,TParametros parametros) {
+
+		//Pasar de parametros a las factorias
+		Selector selector=FactoriaSelector.getInstancia().generarSelector(parametros.getSelector());
+		Cruzador cruzador=FactoriaCruzador.getInstancia().generarCruzador(parametros.getCruzador());
+		Mutador mutador=FactoriaMutador.getInstancia().generarMutador(parametros.getMutador());
+		TPoblacion poblacion=null;
+
+		//Ejecutar algoritmo
+		algoritmoGenetico AG =new algoritmoGenetico(parametros.getTamPoblacion(),parametros.getMaxGen(),parametros.getProbCruce(),parametros.getProbMuta(),selector,mutador,cruzador,poblacion,parametros.getElitismo(),parametros.getvuelostxt(),parametros.getTELtxt());
+
+		//Informar a la vista
+		gui.update(AG.executeAlgorithm());
+	}
+
+
+}

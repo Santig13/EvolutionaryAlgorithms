@@ -2,7 +2,9 @@ package Algoritmo;
 
 import java.util.Arrays;
 
+import Controlador.TResultStatistics;
 import Cruzadores.Cruzador;
+import Individuo.Individuo;
 import Individuo.IndividuoArbolGenetico;
 import Individuo.TPoblacion;
 import Mutadores.Mutador;
@@ -18,8 +20,8 @@ public class algoritmoGenetico {
     private final double P=2;
     private double probCruce;
     private double probMutacion;
-    private IndividuoArbolGenetico[] elite;
-    private IndividuoArbolGenetico elMejor;
+    private Individuo[] elite;
+    private Individuo elMejor;
     
     //Datos para grafica
     private int pos_mejor;
@@ -102,7 +104,7 @@ public class algoritmoGenetico {
 
 	private void apartarElite() {
 		// TODO Auto-generated method stub
-		this.elite=new Individuo<?>[nElite];
+		this.elite=new Individuo[nElite];
 		Arrays.sort(poblacion.getIndivuduos(),new IndividuoComparator());
 		int x=0;
 		for(int i=tamPoblacion-nElite;i<tamPoblacion;i++) {
@@ -113,10 +115,10 @@ public class algoritmoGenetico {
 
 	private void evaluar() {
 		// TODO Auto-generated method stub
-		Individuo<?>[] individuos=poblacion.getIndivuduos();
+		Individuo[] individuos=poblacion.getIndivuduos();
 		double sumaFit = 0.0;
 		double maximo = Double.MIN_VALUE;
-		Individuo<?> mejor=null;
+		Individuo mejor=null;
 		gener[currentGeneration]=currentGeneration;
 
 		for(int i=0;i<tamPoblacion;i++) {
@@ -146,10 +148,10 @@ public class algoritmoGenetico {
 			}
 			maximo = Double.MIN_VALUE;
 			for(int i=0;i<tamPoblacion;i++) {
-				double aptitud=individuos[i].getFintess();
+				double aptitud=individuos[i].getFitness();
 				if( aptitud > maximo)
 				{
-					maximo=individuos[i].getFintess();
+					maximo=individuos[i].getFitness();
 					mejor = individuos[i].copia();
 				}
 			}
@@ -163,21 +165,21 @@ public class algoritmoGenetico {
 		double b=(1-a)*adaptacion_media;
 		
 		for(int i=0;i<tamPoblacion;i++) {
-			double fitnessEscalado=a*individuos[i].getFintess()+b;
+			double fitnessEscalado=a*individuos[i].getFitness()+b;
 			individuos[i].setFitness(fitnessEscalado);
 		}
 			
 		
 		
 		for(int i=0;i<tamPoblacion;i++) {
-			individuos[i].setPuntuacion(individuos[i].getFintess()/sumaFit);
+			individuos[i].setPuntuacion(individuos[i].getFitness()/sumaFit);
 		}
 
 		this.aptitud_mejor_generacion[this.currentGeneration]=mejor.evalua();
 		this.presion_evolutiva_generacional[this.currentGeneration]=this.aptitud_mejor_generacion[this.currentGeneration]/this.aptitud_media_generacion[this.currentGeneration];
 		
 		if(this.currentGeneration==0||(this.currentGeneration>0&&
-				((this.elMejor.getFintess()<mejor.getFintess()&&!minimizar)||
+				((this.elMejor.getFitness()<mejor.getFitness()&&!minimizar)||
 						(this.elMejor.evalua()>mejor.evalua()&&minimizar)))){
 			elMejor=mejor;
 			this.aptitud_absoluta_generacion[this.currentGeneration]=mejor.evalua();

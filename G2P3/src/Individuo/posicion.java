@@ -5,9 +5,14 @@ import Individuo.posicion;
 public class posicion {
 		private int y;
 		private int x;
-		public posicion(int x,int y) {
+		int maxancho;
+		int maxalto;
+		
+		public posicion(int x,int y,int maxalto,int maxancho) {
 			this.setX(x);
 			this.setY(y);
+			this.maxalto=maxalto;
+			this.maxancho=maxancho;
 		}
 		
 		// Constructor para inicializar desde una cadena de texto en formato "(y,x)"
@@ -19,10 +24,16 @@ public class posicion {
 	        this.setX(Integer.parseInt(coordenadas[1].trim()));
 	       
 	    }
+		public posicion(int x,int y) {
+			// TODO Auto-generated constructor stub
+			this.setX(x);
+			this.setY(y);
+		}
+
 		public void suma(posicion nueva) {
 			// TODO Auto-generated method stub
-			setX(getX() + nueva.getX());
-			setY(getY() + nueva.getY());
+			setX((getX() + nueva.getX())%8);
+			setY((getY() + nueva.getY())%8);
 		}
 		public String toString()
 		{
@@ -43,6 +54,39 @@ public class posicion {
 
 		public void setX(int x) {
 			this.x = x;
+		}
+
+		public posicion copia() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public void mueveY(int i) {
+		    this.y += i;
+		    if (y < 0) {
+		        while (y < 0)
+		            y = maxalto + y; 
+		    } else if (y >= maxalto) {
+		        while (y >= maxalto)
+		            y = y - maxalto; 
+		    }
+		}
+
+		public void mueveX(int i) {
+		    this.x += i;
+		    if (x < 0) {
+		        while (x < 0)
+		            x = maxancho + x; 
+		    } else if (x >= maxancho) {
+		        while (x >= maxancho)
+		            x = x - maxancho; 
+		    }
+		}
+
+		public void salta(posicion nueva) {
+			mueveX(nueva.x);
+			mueveY(nueva.y);
+			
 		}
 		
 }

@@ -4,19 +4,24 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class IndividuoCortaCesped extends IndividuoArbolGenetico {
-	private enum PuntoCardinal {
+	private static enum PuntoCardinal {
 	    NORTE,
 	    ESTE,
 	    OESTE,
 	    SUR
 	}
-	private ArrayList<String> terminales = new ArrayList<String>() {{
+	private static enum Casillas {
+	   CESPED,
+	   TIERRA,
+	   PARED
+	}
+	private static final ArrayList<String> terminales = new ArrayList<String>() {{
         add("AVANZA");
         add("ALEATORIA");
         add("IZQUIERDA");
         add("DERECHA");
     }};
-	private ArrayList<String> funciones = new ArrayList<String>() {{
+	private static final ArrayList<String> funciones = new ArrayList<String>() {{
         add("SALTA");
         add("PROGN");
         add("SUMA");
@@ -25,8 +30,10 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
     }};
 
 	
-	private int porPodar;
-	private boolean[][] cesped;
+	private int podado;
+	private int n;
+	private int m;
+	private Casillas[][] jardin;
 	private posicion pos;
 	private PuntoCardinal orientacion;
 	
@@ -34,9 +41,62 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	private int movimientos;
 	private int giros;
 	
+	//COSTRUCTOR VACIO
+	public IndividuoCortaCesped(int n, int m) {
+		// TODO Auto-generated constructor stub
+		this.podado=0;
+		this.pos=new posicion(4,4);
+		this.orientacion=PuntoCardinal.NORTE;
+		
+		this.n = n;
+		this.m = m;
+		
+		this.jardin = new Casillas[n][m];
+		
+		Random r=new Random();
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<m;j++) {
+				int tipoCasilla = r.nextInt(3);
+	            
+	            switch (tipoCasilla) {
+	                case 0:
+	                    jardin[i][j] = Casillas.CESPED;
+	                    break;
+	                case 1:
+	                    jardin[i][j] = Casillas.TIERRA;
+	                    break;
+	                case 2:
+	                    jardin[i][j] = Casillas.PARED;
+	                    break;
+	            }
+			}
+		}
+	}
+	//COSTRUCTOR COPIA
+	public IndividuoCortaCesped(IndividuoCortaCesped indv) {
+		// TODO Auto-generated constructor stub
+		this.pos=indv.pos.copia();
+		this.orientacion=indv.orientacion;
+		this.movimientos=indv.movimientos;
+		this.giros=indv.movimientos;
+		
+		this.jardin=new Casillas[n][m];
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<m;j++) {
+				jardin[i][j]=indv.jardin[i][j];
+			}
+		}
+		
+		this.raiz=copiaArbol();
+		
+	}
+	
+	//RESTO DE COSTRUCTORES
+	
 	public boolean poda() {
-		if(cesped[pos.getY()][pos.getX()]) {
-			cesped[pos.getY()][pos.getX()]=false;
+		if(jardin[pos.getY()][pos.getX()]==Casillas.CESPED) {
+			jardin[pos.getY()][pos.getX()]=Casillas.TIERRA;
+			podado++;
 			return true;
 		}
 		return false;		
@@ -47,9 +107,8 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	//Funciones SALTA(V),SUMA(V1,V2),PROGN(OP1,OP2),IF-DIRTY (A,B),(repeat A,B) 
 	public posicion salta(posicion nueva) {
 		movimientos++;
-		pos.suma(nueva);
-		if(poda())
-			porPodar--;
+		pos.salta(nueva);
+		poda();
 		return nueva;
 	}
 	
@@ -108,22 +167,38 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		movimientos++;
 		switch(orientacion) {
 			case NORTE:
-				pos.setY(pos.getY() + 1);
+				
+				if(puedemoverseY(1))pos.mueveY(1);
 				break;
 			case ESTE :
-				pos.setX(pos.getX() + 1);
+				if(puedemoverseX(1))pos.mueveX(1);
 				break;
 			case OESTE:
-				pos.setX(pos.getX() - 1);
+				if(puedemoverseX(-1))pos.mueveX(-1);
 				break;
 			case SUR:
-				pos.setY(pos.getY() - 1);
+				if(puedemoverseY(-1))pos.mueveY(-1);
 				break;
 		}
-		if(poda())
-			porPodar--;
 		
 		return new posicion(0,0);
+	}
+	//No se puede avanzar a una pared pero si avanzar desdeella
+	private boolean puedemoverseX(int i) {
+		posicion nueva=this.pos.copia();
+		nueva.mueveX(i);
+		if(jardin[nueva.getY()][nueva.getX()]==Casillas.PARED)
+			return false;
+		else
+			return true;
+	}
+	private boolean puedemoverseY(int i) {
+		posicion nueva=this.pos.copia();
+		nueva.mueveY(i);
+		if(jardin[nueva.getY()][nueva.getX()]==Casillas.PARED)
+			return false;
+		else
+			return true;
 	}
 	public posicion izquierda() {
 		giros++;
@@ -163,8 +238,8 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		return new posicion(0,0);
 	}
 	public posicion aleatoria() {
-		int n=cesped.length;
-		int m=cesped[0].length;
+		int n=jardin.length;
+		int m=jardin[0].length;
 		Random random = new Random();
 		return new posicion(random.nextInt(n),random.nextInt(m));
 	}
@@ -193,12 +268,16 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	
 	}
 	@Override
-	public IndividuoArbolGenetico copia() {
-		return null;
+	public Individuo copia() {
+		
+		return new IndividuoCortaCesped(this);
 	}
 	@Override
-	protected double evalua() {
-		return 0;
+	public  double evalua() {
+		while(!terminado()) {
+			ejecuta(raiz);
+		}
+		return podado;
 	}
 	
 	
