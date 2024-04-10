@@ -1,9 +1,10 @@
 package Selectores;
 
-import Individuo.IndividuoArbolGenetico;
+import Individuo.Individuo;
 
 public interface Selector {
 
-	public IndividuoArbolGenetico[]  seleccionar(IndividuoArbolGenetico[]  generacion);
+	public Individuo[]  seleccionar(Individuo[]  generacion);
+
 
 }

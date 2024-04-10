@@ -50,7 +50,7 @@ public  class TPoblacion {
 		return mejor;
 	}
 
-	public  IndividuoArbolGenetico getCopiaIndivuduo(int i){
+	public  Individuo getCopiaIndivuduo(int i){
 		if(i>=individuos.length)return null;
 		return individuos[i].copia();
 	}

@@ -26,8 +26,8 @@ public class Interfaz extends JFrame {
    // private static final String[] opciones = {"8x8", "16x16", "32x32"};
     
   //private final String[] tiposDeFuncion=  {"vuelos1.txt", "vuelos2.txt"};
-  	private final String[] tiposDeCruzador= {"PMX", "OX", "OXPP","OXOP", "CX", "CO", "ZigZag"};
-  	private final String[] tiposDeMutador= { "Intercambio","Insercion", "Inversion", "Heuristica", "Fibonacci"};
+  	private final String[] tiposDeCruzador= {"Normal"};
+  	private final String[] tiposDeMutador= {"Terminal","Funcional", "Arbol-SubArbol", "Inicializacion", "Fibonacci"};
   	private final String[] tiposDeSelector= {"Ruleta", "Estocastico", "Truncamiento", "Torneo Det", "Torneo Pro", "Restos", "Ranking"};
   	
   	JComboBox MutacioncomboBox;

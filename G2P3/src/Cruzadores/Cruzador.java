@@ -2,7 +2,7 @@ package Cruzadores;
 
 import java.util.Random;
 
-import Individuo.IndividuoArbolGenetico;
+import Individuo.Individuo;
 import Individuo.TPoblacion;
 
 
@@ -13,12 +13,12 @@ public abstract class Cruzador {
 		// TODO Auto-generated method stub
 
 		Random r = new Random();
-		IndividuoArbolGenetico[] seleccionados = new IndividuoArbolGenetico[tamPoblacion] ;
+		Individuo[] seleccionados = new Individuo[tamPoblacion] ;
 		int[] indices = new int[tamPoblacion] ;
 
 		int numSeleccionados=0;
 
-		IndividuoArbolGenetico[] individuos=poblacion.getIndivuduos();
+		Individuo[] individuos=poblacion.getIndivuduos();
 
 		//Se seleccionan los individuos que van a ser cruzados
 		for(int i=0;i<tamPoblacion;i++) {
@@ -44,7 +44,7 @@ public abstract class Cruzador {
 
 	}
 
-	public abstract void  cruzar(IndividuoArbolGenetico individuo, IndividuoArbolGenetico individuo2);
+	public abstract void  cruzar(Individuo individuo, Individuo individuo2);
 
 
 }
