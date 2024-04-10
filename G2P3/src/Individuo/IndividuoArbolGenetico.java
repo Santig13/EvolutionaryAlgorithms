@@ -1,6 +1,7 @@
 package Individuo;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import Individuo.IndividuoArbolGenetico.nodo;
@@ -9,7 +10,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	
 	private int maximaProfundidad;
 	private int minimaProfundidad;
-
+	
 	class nodo{
 		 
 		private String descripcion;
@@ -48,6 +49,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		    for (nodo hijo : hijos) {
 		        numNodos += hijo.numNodos;
 		    }
+		    
 		}
 
 		public void calcularProfundidad() {
@@ -115,5 +117,53 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	}
 	//MUTADORES
 	//Mutador terminal
+	public void mutacionTerminal() {
+		this.mutarTerminal(raiz);
+	}
+	private void mutarTerminal(nodo n) {
+		int hijos=n.hijos.size();
+		if(hijos==0)//es terminal
+			n=nodoTernminal();
+		else {
+			 Random rand = new Random();
+	         int indiceAleatorio = rand.nextInt(hijos);
+	         mutarTerminal(n.hijos.get(indiceAleatorio));
+		}
+		
+	}
+	//Mutador funcional
+	public void mutacionFuncinal() {
+		this.mutacionFuncinal(raiz);
+	}
+    private void mutacionFuncinal(nodo n) {
+        Random rand = new Random();
+
+        // Lista de nodos funcionales
+        List<nodo> nodosFuncionales = new ArrayList<>();
+        obtenerNodosFuncionales(n, nodosFuncionales);
+
+        // Si hay nodos funcionales, elige uno aleatoriamente y cambia su valor
+        if (!nodosFuncionales.isEmpty()) {
+            int indiceAleatorio = rand.nextInt(nodosFuncionales.size());
+            nodo nodoAleatorio = nodosFuncionales.get(indiceAleatorio);
+            cambiarFuncional(nodoAleatorio); // Cambia aquí el valor como desees
+        }
+    }    
+	// Método para obtener todos los nodos funcionales del árbol
+    private void obtenerNodosFuncionales(nodo n, List<nodo> nodosFuncionales) {
+        if (!n.hijos.isEmpty()) {
+            nodosFuncionales.add(n);
+            for (nodo hijo : n.hijos) {
+                obtenerNodosFuncionales(hijo, nodosFuncionales);
+            }
+        }
+    }
+    private void cambiarFuncional(nodo nodoAleatorio) {
+		// TODO Auto-generated method stub
+		
+	}
+    //Mutacion arbol-subarbol
+    	//1 Inicializacion
+    
 	
 }
