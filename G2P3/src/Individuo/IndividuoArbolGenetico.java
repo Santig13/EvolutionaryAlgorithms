@@ -20,8 +20,8 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		
 		public nodo(String descripcion, int size) {
 			// TODO Auto-generated constructor stub
-			this.numNodos=0;
-			this.profundidad=0;
+			this.numNodos=1;
+			this.profundidad=1;
 			this.descripcion = descripcion;
 			hijos=new ArrayList<nodo>(size);
 		}
@@ -158,12 +158,39 @@ public abstract class IndividuoArbolGenetico extends Individuo {
             }
         }
     }
-    private void cambiarFuncional(nodo nodoAleatorio) {
+    private void obtenerNodos(nodo n, List<nodo> nodosFuncionales) {
+        nodosFuncionales.add(n);
+        for (nodo hijo : n.hijos) {
+            obtenerNodosFuncionales(hijo, nodosFuncionales);
+        }
+        
+    }
+    private void cambiarFuncional(nodo nodofuncional) {
 		// TODO Auto-generated method stub
 		
 	}
     //Mutacion arbol-subarbol
     	//1 Inicializacion
+    public void mutacionInicializacion() {
+    	raiz=inicializacionCompleta(0);
+    }
+    	//2 Parcial
+    public void mutacionArbolSubArbol() {
+    	  Random rand = new Random();
+
+          // Lista de nodos funcionales
+          List<nodo> nodosFuncionales = new ArrayList<>();
+          obtenerNodos(raiz, nodosFuncionales);
+
+          // Si hay nodos funcionales, elige uno aleatoriamente y cambia su valor
+          if (!nodosFuncionales.isEmpty()) {
+              int indiceAleatorio = rand.nextInt(nodosFuncionales.size());
+              nodo nodoAleatorio = nodosFuncionales.get(indiceAleatorio);
+              nodoAleatorio.calcularProfundidad();
+              nodoAleatorio= inicializacionCompleta(nodoAleatorio.profundidad);
+          }
+      }  
+ 
     
 	
 }
