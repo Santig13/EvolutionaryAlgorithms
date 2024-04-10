@@ -19,8 +19,6 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.SoftBevelBorder;
 
-import org.math.plot.Plot2DPanel;
-
 import Controlador.Controller;
 import Controlador.ControllerIMP;
 import Controlador.TParametros;
@@ -34,7 +32,7 @@ import java.awt.Dimension;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
 
-public class MainWindowP2 extends JFrame implements GUI {
+public class MainWindow extends JFrame implements GUI {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -63,7 +61,7 @@ public class MainWindowP2 extends JFrame implements GUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainWindowP2 frame = new MainWindowP2();
+					MainWindow frame = new MainWindow();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -75,7 +73,7 @@ public class MainWindowP2 extends JFrame implements GUI {
 	/**
 	 * Create the frame.
 	 */
-	public MainWindowP2() {
+	public MainWindow() {
 		Controller ctr=new ControllerIMP();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
