@@ -18,13 +18,31 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		public int profundidad;
 		private int numNodos;
 		
-		public nodo(String descripcion, int size) {
+		private nodo padre = null;
+		private int idHijo = -1;
+		
+		public nodo(String descripcion, int size) {// nodo raiz
 			// TODO Auto-generated constructor stub
+			this.padre = null;
+			this.idHijo = -1;
+
 			this.numNodos=1;
 			this.profundidad=1;
 			this.descripcion = descripcion;
 			hijos=new ArrayList<nodo>(size);
 		}
+		
+		public nodo(String descripcion, int size, nodo padre, int idHijo) {
+			// TODO Auto-generated constructor stub
+			this.padre = padre;
+			this.idHijo = idHijo;
+			
+			this.numNodos=1;
+			this.profundidad=1;
+			this.descripcion = descripcion;
+			hijos=new ArrayList<nodo>(size);
+		}
+		
 		public String getDescript() {
 			return descripcion;
 		}
@@ -37,13 +55,27 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		protected ArrayList<nodo> hijos(){
 			return hijos;
 		}
+	
+		
 		public nodo copia() {
-			nodo n=new nodo(this.descripcion,this.hijos.size());
+			nodo n;
+			if (padre != null)
+			{
+				 n=new nodo(this.descripcion,this.hijos.size(), this.padre, this.idHijo);
+			}
+			else
+			{
+				n=new nodo(this.descripcion,this.hijos.size());
+			}
+			// n=new nodo(this.descripcion,this.hijos.size());
 			for(nodo hijo:hijos) {
 				n.hijos.add(hijo.copia());
 			}
 			return n;
 		}
+		
+		
+		
 		public void calculaNodos() {
 		    numNodos = 1; // Contar el nodo actual
 		    for (nodo hijo : hijos) {
@@ -190,7 +222,75 @@ public abstract class IndividuoArbolGenetico extends Individuo {
               nodoAleatorio= inicializacionCompleta(nodoAleatorio.profundidad);
           }
       }  
- 
+    
+	public void cruceSubArbol1(Individuo individuo2)
+	{
+		
+		Individuo H1 = this.copia();
+		
+		//Obtener los nodos
+		List<nodo> nodos = new ArrayList<nodo>();
+		Random rand = new Random();
+		if (rand.nextDouble() <= 0.9)
+		{
+			obtenerNodosFuncionales(raiz,nodos);
+		}
+		else
+		{
+			obtenerNodosTerminales(raiz,nodos);
+		}
+		
+		//Seleccionar un Nodo aleatorio donde haremos el cruce
+		int pos = rand.nextInt(nodos.size());
+		nodo subArbolSeleccionado = nodos.get(pos).copia();
+		nodo subArbolParaCruce = individuo2.cruceSubArbol2(subArbolSeleccionado);
+		
+		//CRUCE
+		nodo padre = subArbolSeleccionado.padre;
+		int Hijoid = subArbolSeleccionado.idHijo;
+		padre.hijos.set(Hijoid, subArbolParaCruce);
+		
+	}
+	
+	public nodo cruceSubArbol2(nodo subArbolParaCruce)
+	{
+		List<nodo> nodos = new ArrayList<nodo>();
+		Random rand = new Random();
+		if (rand.nextDouble() <= 0.9)
+		{
+			obtenerNodosFuncionales(raiz,nodos);
+		}
+		else
+		{
+			obtenerNodosTerminales(raiz,nodos);
+		}
+		//Seleccionar un Nodo aleatorio donde haremos el cruce
+		int pos = rand.nextInt(nodos.size());
+		nodo subArbolSeleccionado = nodos.get(pos).copia();
+		
+		// CRUCE
+		nodo padre = subArbolSeleccionado.padre;
+		int Hijoid = subArbolSeleccionado.idHijo;
+		padre.hijos.set(Hijoid, subArbolParaCruce);
+		
+		
+		// DEVOLVEMOS EL SUBARBOL QUE IRÁ EN EL OTRO INDIVIDUO
+		return subArbolSeleccionado;
+	}
+
+	
+	
+	
+	private void obtenerNodosTerminales(nodo n, List<nodo> nodosTerm) {
+		if (!n.hijos.isEmpty()) {
+            for (nodo hijo : n.hijos) {
+                obtenerNodosTerminales(hijo, nodosTerm);
+            }
+        }
+		else
+			nodosTerm.add(n);
+	}
+
     
 	
 }

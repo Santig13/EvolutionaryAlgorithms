@@ -1,5 +1,7 @@
 package Individuo;
 
+import Individuo.IndividuoArbolGenetico.nodo;
+
 public abstract class Individuo {
 	
     protected double fitness;
@@ -19,6 +21,10 @@ public abstract class Individuo {
 	}
 	public abstract double evalua();
 	public abstract Individuo copia();
+
+	public abstract void cruceSubArbol1(Individuo individuo2);
+	public abstract nodo cruceSubArbol2(nodo subArbolParaCruce);
+
     
     
 }

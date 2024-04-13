@@ -244,13 +244,13 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		return new posicion(random.nextInt(n),random.nextInt(m));
 	}
 	@Override
-	protected nodo nodoFuncional() {
+	protected nodo nodoTernminal() {
 		int n=terminales.size();
 		Random r= new Random();
 		return new nodo(terminales.get(r.nextInt(n)),0);
 	}
 	@Override
-	protected nodo nodoTernminal() {
+	protected nodo nodoFuncional() {
 		// TODO Auto-generated method stub
 		int n=funciones.size();
 		Random r= new Random();
@@ -279,6 +279,8 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		}
 		return podado;
 	}
+	
+	
 	
 	
 }
