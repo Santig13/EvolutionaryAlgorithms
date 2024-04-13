@@ -265,8 +265,8 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 				break;
 		}
 		return new nodo(funcion,hijos);
-	
 	}
+	
 	@Override
 	public Individuo copia() {
 		

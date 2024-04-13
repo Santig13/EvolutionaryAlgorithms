@@ -59,21 +59,27 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		
 		public nodo copia() {
 			nodo n;
-			if (padre != null)
-			{
-				 n=new nodo(this.descripcion,this.hijos.size(), this.padre, this.idHijo);
-			}
-			else
-			{
-				n=new nodo(this.descripcion,this.hijos.size());
-			}
-			// n=new nodo(this.descripcion,this.hijos.size());
+			n=new nodo(this.descripcion,this.hijos.size());
+			int cont = 0;
 			for(nodo hijo:hijos) {
-				n.hijos.add(hijo.copia());
+				n.hijos.add(hijo.copiaConPadre(n,cont));
+				cont++;
 			}
 			return n;
 		}
 		
+		private nodo copiaConPadre(nodo Padre, int HijoId)
+		{
+			nodo n;
+			n=new nodo(this.descripcion,this.hijos.size(), Padre, HijoId);
+			int cont = 0;
+			for(nodo hijo:hijos) {
+				n.hijos.add(hijo.copiaConPadre(n,cont));
+				cont++;
+			}
+			return n;
+
+		}
 		
 		
 		public void calculaNodos() {
@@ -100,17 +106,23 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	 
 	 //COMPLETA
 	 public void inicializacionCompleta() {
-		 raiz=inicializacionCompleta(0);
+		 raiz=inicializacionCompleta(0,null,-1);
 	 }
-	 private nodo inicializacionCompleta(int profundidad) {
+	 private nodo inicializacionCompleta(int profundidad, nodo Padre, int HijoId) {
 		nodo nuevo;
 		 if(profundidad<maximaProfundidad) {
 			 nuevo=nodoFuncional();
+			 int cont = 0;
 			 for(nodo h:nuevo.hijos)
-				 h=inicializacionCompleta(profundidad + 1);
+			 {
+				 h=inicializacionCompleta(profundidad + 1, nuevo, cont);
+				 cont++;
+			 }
 		 }
 		 else
 			 nuevo=nodoTernminal();
+		 nuevo.padre = Padre;
+		 nuevo.idHijo = HijoId;
 		 nuevo.calcularProfundidad();
 		 nuevo.calculaNodos();//suma los nodos de sus hijos +1 por cada hijo
 		 return nuevo;
@@ -118,17 +130,23 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	 
 	//GROW
 	 public void inicializacionCreciente() {
-		 raiz=inicializacionCreciente(0);
+		 raiz=inicializacionCreciente(0,null,-1);
 	 }
-	 private nodo inicializacionCreciente(int profundidad) {
+	 private nodo inicializacionCreciente(int profundidad,  nodo Padre, int HijoId) {
 		nodo nuevo;
 		 if(profundidad<maximaProfundidad) {
 			 nuevo=nodoaleatorio();
+			 int cont = 0;
 			 for(nodo h:nuevo.hijos)
-				 h=inicializacionCompleta(profundidad + 1);
+			 {
+				 h=inicializacionCreciente(profundidad + 1, nuevo, cont);
+				 cont++;
+			 }
 		 }
 		 else
 			 nuevo=nodoTernminal();
+		 nuevo.padre = Padre;
+		 nuevo.idHijo = HijoId;
 		 return nuevo;
 	 }
 
@@ -246,8 +264,11 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		nodo subArbolParaCruce = individuo2.cruceSubArbol2(subArbolSeleccionado);
 		
 		//CRUCE
-		nodo padre = subArbolSeleccionado.padre;
-		int Hijoid = subArbolSeleccionado.idHijo;
+		nodo padre = nodos.get(pos).padre;
+		int Hijoid = nodos.get(pos).idHijo;
+		
+		subArbolParaCruce.padre = padre;
+		subArbolParaCruce.idHijo = Hijoid;
 		padre.hijos.set(Hijoid, subArbolParaCruce);
 		
 	}
@@ -269,8 +290,11 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		nodo subArbolSeleccionado = nodos.get(pos).copia();
 		
 		// CRUCE
-		nodo padre = subArbolSeleccionado.padre;
-		int Hijoid = subArbolSeleccionado.idHijo;
+		nodo padre = nodos.get(pos).padre;
+		int Hijoid = nodos.get(pos).idHijo;
+		
+		subArbolParaCruce.padre = padre;
+		subArbolParaCruce.idHijo = Hijoid;
 		padre.hijos.set(Hijoid, subArbolParaCruce);
 		
 		
