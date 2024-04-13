@@ -1,7 +1,9 @@
 package Individuo;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 
 import Individuo.IndividuoArbolGenetico.nodo;
@@ -55,7 +57,10 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		protected ArrayList<nodo> hijos(){
 			return hijos;
 		}
-	
+		protected boolean funcional() {
+			return hijos.size()>0;
+			
+		}
 		
 		public nodo copia() {
 			nodo n;
@@ -240,7 +245,69 @@ public abstract class IndividuoArbolGenetico extends Individuo {
               nodoAleatorio= inicializacionCompleta(nodoAleatorio.profundidad);
           }
       }  
-    
+    private class seleccion{
+    	nodo nodo;
+    	int hijo;
+		public seleccion(nodo nodo, int hijo) {
+			super();
+			this.nodo = nodo;
+			this.hijo = hijo;
+		}
+		public nodo getNodo() {
+			return nodo;
+		}
+		public void setNodo(nodo nodo) {
+			this.nodo = nodo;
+		}
+		public int getHijo() {
+			return hijo;
+		}
+		public void setHijo(int hijo) {
+			this.hijo = hijo;
+		}
+    	
+    }
+    public void cruce(IndividuoArbolGenetico individuo2) {
+    	seleccion sel1=seleccionarNodoCruce(this.raiz);
+    	seleccion sel2=seleccionarNodoCruce(individuo2.raiz);
+    	//Me guardo el padre y el nodo seleccionado
+    		//Padre 1
+    	nodo padre1=sel1.getNodo();
+    	nodo hijo1=padre1.hijos.get(sel1.getHijo());
+    		//Padre 2
+    	nodo padre2=sel2.getNodo();
+    	nodo hijo2=padre2.hijos.get(sel2.getHijo());
+    	
+        //Intercambio de subArboles
+    	nodo auxiliar=hijo2;
+    	padre2.hijos.remove(sel2.getHijo());
+    	padre2.hijos.add(sel2.getHijo(), hijo1);
+          
+    }
+    private seleccion seleccionarNodoCruce(nodo raiz) {
+    	 Queue<nodo> cola = new LinkedList<>();
+         cola.add(raiz);
+         Random r=new Random();
+         //Hacemos un recorrido en anchura
+         while (!cola.isEmpty()) {
+             nodo nodoActual = cola.poll();
+	        
+             for(int i=0;i<nodoActual.hijos.size();i++) {
+            	 nodo h=nodoActual.hijos.get(i);
+            	 double probabilidad=0;
+            	 if(h.funcional()) {
+            		 probabilidad=0.9;
+            	 }
+            	 else {
+            		 probabilidad=0.1;
+            	 }
+            	 if(r.nextDouble()<probabilidad) {
+            		 return new seleccion(nodoActual,i);
+            	 }
+	         }
+         }
+         return new seleccion(raiz,0);
+    }
 	public void cruceSubArbol1(Individuo individuo2)
 	{
 		
