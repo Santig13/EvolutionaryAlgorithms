@@ -195,7 +195,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 
         // Lista de nodos funcionales
         List<nodo> nodosFuncionales = new ArrayList<>();
-        obtenerNodosFuncionales(n, nodosFuncionales);
+        obtenerNodosFun(n, nodosFuncionales);
 
         // Si hay nodos funcionales, elige uno aleatoriamente y cambia su valor
         if (!nodosFuncionales.isEmpty()) {
@@ -213,7 +213,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
             }
         }
     }
-    private void obtenerNodos(nodo n, List<nodo> nodosFuncionales) {
+    private void obtenerNodosFun(nodo n, List<nodo> nodosFuncionales) {
         nodosFuncionales.add(n);
         for (nodo hijo : n.hijos) {
             obtenerNodosFuncionales(hijo, nodosFuncionales);
@@ -227,87 +227,31 @@ public abstract class IndividuoArbolGenetico extends Individuo {
     //Mutacion arbol-subarbol
     	//1 Inicializacion
     public void mutacionInicializacion() {
-    	raiz=inicializacionCompleta(0);
+    	inicializacionCompleta();
     }
     	//2 Parcial
     public void mutacionArbolSubArbol() {
     	  Random rand = new Random();
 
           // Lista de nodos funcionales
-          List<nodo> nodosFuncionales = new ArrayList<>();
-          obtenerNodos(raiz, nodosFuncionales);
+          List<nodo> nodos = new ArrayList<>();
+          obtenerTodosLosNodos(raiz, nodos);
 
           // Si hay nodos funcionales, elige uno aleatoriamente y cambia su valor
-          if (!nodosFuncionales.isEmpty()) {
-              int indiceAleatorio = rand.nextInt(nodosFuncionales.size());
-              nodo nodoAleatorio = nodosFuncionales.get(indiceAleatorio);
+          if (!nodos.isEmpty()) {
+              int indiceAleatorio = rand.nextInt(nodos.size());
+              nodo nodoAleatorio = nodos.get(indiceAleatorio);
               nodoAleatorio.calcularProfundidad();
-              nodoAleatorio= inicializacionCompleta(nodoAleatorio.profundidad);
+              int HijoId = nodoAleatorio.idHijo;
+              nodo padre = nodoAleatorio.padre;
+              nodoAleatorio= inicializacionCompleta(nodoAleatorio.profundidad, padre, HijoId);
           }
       }  
-    private class seleccion{
-    	nodo nodo;
-    	int hijo;
-		public seleccion(nodo nodo, int hijo) {
-			super();
-			this.nodo = nodo;
-			this.hijo = hijo;
-		}
-		public nodo getNodo() {
-			return nodo;
-		}
-		public void setNodo(nodo nodo) {
-			this.nodo = nodo;
-		}
-		public int getHijo() {
-			return hijo;
-		}
-		public void setHijo(int hijo) {
-			this.hijo = hijo;
-		}
-    	
-    }
-    public void cruce(IndividuoArbolGenetico individuo2) {
-    	seleccion sel1=seleccionarNodoCruce(this.raiz);
-    	seleccion sel2=seleccionarNodoCruce(individuo2.raiz);
-    	//Me guardo el padre y el nodo seleccionado
-    		//Padre 1
-    	nodo padre1=sel1.getNodo();
-    	nodo hijo1=padre1.hijos.get(sel1.getHijo());
-    		//Padre 2
-    	nodo padre2=sel2.getNodo();
-    	nodo hijo2=padre2.hijos.get(sel2.getHijo());
-    	
-        //Intercambio de subArboles
-    	nodo auxiliar=hijo2;
-    	padre2.hijos.remove(sel2.getHijo());
-    	padre2.hijos.add(sel2.getHijo(), hijo1);
-          
-    }
-    private seleccion seleccionarNodoCruce(nodo raiz) {
-    	 Queue<nodo> cola = new LinkedList<>();
-         cola.add(raiz);
-         Random r=new Random();
-         //Hacemos un recorrido en anchura
-         while (!cola.isEmpty()) {
-             nodo nodoActual = cola.poll();
-	        
-             for(int i=0;i<nodoActual.hijos.size();i++) {
-            	 nodo h=nodoActual.hijos.get(i);
-            	 double probabilidad=0;
-            	 if(h.funcional()) {
-            		 probabilidad=0.9;
-            	 }
-            	 else {
-            		 probabilidad=0.1;
-            	 }
-            	 if(r.nextDouble()<probabilidad) {
-            		 return new seleccion(nodoActual,i);
-            	 }
-	         }
-         }
-         return new seleccion(raiz,0);
-    }
+    
+    
+
+    //CRUCE
+
 	public void cruceSubArbol1(Individuo individuo2)
 	{
 		
@@ -380,6 +324,16 @@ public abstract class IndividuoArbolGenetico extends Individuo {
         }
 		else
 			nodosTerm.add(n);
+	}
+
+
+	private void obtenerTodosLosNodos(nodo n, List<nodo> nodos) {
+		nodos.add(n);
+		if (!n.hijos.isEmpty()) {
+            for (nodo hijo : n.hijos) {
+            	obtenerTodosLosNodos(hijo, nodos);
+            }
+        }
 	}
 
     
