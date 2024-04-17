@@ -43,7 +43,7 @@ public class algoritmoGenetico {
 	private boolean minimizar;
 	
 	private Iniciador iniciador;
-	private int profundidad;
+	private int profundidad=3;
 
     public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
     			Selector sel,Mutador mut,Cruzador cruz,TPoblacion poblacion,  double porcenElite,Iniciador iniciador)
@@ -92,7 +92,7 @@ public class algoritmoGenetico {
 
 
 
-    	return new TResultStatistics(elMejor.toString(),gener,this.aptitud_absoluta_generacion,this.aptitud_mejor_generacion,this.aptitud_media_generacion,this.pos_mejor,this.presion_evolutiva_generacional);
+    	return new TResultStatistics(elMejor.toString(),gener,this.aptitud_absoluta_generacion,this.aptitud_mejor_generacion,this.aptitud_media_generacion,this.pos_mejor,this.presion_evolutiva_generacional,TJardin.getColores(elMejor.getJardin()));
 
     }
 
@@ -201,7 +201,8 @@ public class algoritmoGenetico {
 
 	private void initialize() {
 		// TODO Auto-generated method stub
-		poblacion=FactoriaPoblaciones.getInstancia().generarPoblacion(this.profundidad,tamPoblacion);
+		poblacion=FactoriaPoblaciones.getInstancia().generarPoblacion(tamPoblacion);
+		this.iniciador.IniciarPoblacion(poblacion,this.profundidad);
 		this.minimizar=poblacion.isMin();
 	}
 

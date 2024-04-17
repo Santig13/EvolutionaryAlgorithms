@@ -17,7 +17,7 @@ public class FactoriaMutadorIMP extends FactoriaMutador {
 			return new MutadorTerminal();
 		case "Funcional":
 			return new MutadorFuncional();
-		case "Inicializador":
+		case "Inicializacion":
 			return new MutadorInicializador();
 		case "Arbol-SubArbol":
 			return new MutadorArbol_SubArbol();    

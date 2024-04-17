@@ -2,13 +2,10 @@ package Individuo;
 
 public  class TPoblacion {
 	
-	
-	
-	
-	protected IndividuoArbolGenetico[] individuos;
+	protected Individuo[] individuos;
 	private boolean min;
 	
-	public TPoblacion(IndividuoArbolGenetico[] individuos, boolean min) {
+	public TPoblacion(Individuo[] individuos, boolean min) {
 		super();
 		this.individuos = individuos;
 		this.min = min;
@@ -20,18 +17,18 @@ public  class TPoblacion {
 	}
 
 	
-	public IndividuoArbolGenetico[] getIndivuduos() {
+	public Individuo[] getIndivuduos() {
 		return individuos;
 	}
 
-	public void setNuevaPoblacion(IndividuoArbolGenetico[] nuevaPob) {
-		this.individuos=nuevaPob;
+	public void setNuevaPoblacion(Individuo[] individuos2) {
+		this.individuos=individuos2;
 
 	}
 
 	public double getFitnessAvg() {
 		double sum = 0;
-		for (IndividuoArbolGenetico x : individuos)
+		for (Individuo x : individuos)
 		{
 			sum = sum + x.evalua();
 		}
@@ -42,7 +39,7 @@ public  class TPoblacion {
 
 	public double getBestFitness() {
 		double mejor = 0;
-		for (IndividuoArbolGenetico x : individuos)
+		for (Individuo x : individuos)
 		{
 			if (x.evalua() > mejor)
 				mejor = x.evalua();
@@ -62,6 +59,12 @@ public  class TPoblacion {
 
 	public  boolean isMin() {
 		return this.min;
+	}
+
+
+	public void swap(int i, Individuo individuo) {
+		// TODO Auto-generated method stub
+		individuos[i]=(IndividuoArbolGenetico) individuo;
 	}
 	
 }

@@ -2,12 +2,14 @@ package Presentacion;
 
 
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -49,15 +51,16 @@ public class Interfaz extends JFrame {
         panelJardin = new JPanel();
         panelJardin.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         crearCasillas(8);
+        tamaño=8;
          // Agregar paneles al JFrame
         JPanel ParametersPanel = new JPanel();
  		ParametersPanel.setBackground(new Color(224, 224, 224));
  		getContentPane().add(ParametersPanel, BorderLayout.NORTH);
  		ParametersPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
  		
-        String[] opciones = {"8x8", "12x12", "16x16"};
-	    JComboBox comboBox = new JComboBox<>(opciones);
-        ParametersPanel.add(comboBox);
+ 		String[] opciones = {"8x8", "12x12", "16x16"};
+        JComboBox comboBox = new JComboBox<>(opciones);
+	    ParametersPanel.add(comboBox);
 	
   		
           // Agregar ActionListener al JComboBox
@@ -69,11 +72,17 @@ public class Interfaz extends JFrame {
               }
           });
         
- 		
- 		
-         getContentPane().setLayout(new BorderLayout());
-         getContentPane().add(ParametersPanel, BorderLayout.NORTH);
-         getContentPane().add(panelJardin, BorderLayout.CENTER);
+          JButton reiniciar=new JButton("RESETEAR");
+          reiniciar.addActionListener(e -> {
+          // Manejar la acción del botón aquí
+        	  String seleccion = (String) comboBox.getSelectedItem();
+        	  cambiarTamañoTabla(seleccion);
+         
+          });
+		  ParametersPanel.add(reiniciar);
+		  getContentPane().setLayout(new BorderLayout());
+		  getContentPane().add(ParametersPanel, BorderLayout.NORTH);
+		  getContentPane().add(panelJardin, BorderLayout.CENTER);
         
      }
 
@@ -118,6 +127,22 @@ public class Interfaz extends JFrame {
             }
         }
          return sol;
+	}
+
+	public void colorear(Color[][] colors) {
+		// TODO Auto-generated method stub
+		 
+		
+	      
+	         for (int i = 0; i < tamaño; i++) {
+	             for (int j = 0; j < tamaño; j++) {
+	                 
+	                 casillas[i][j].setBackground(colors[i][j]);
+	             }
+	         }
+	         
+	         panelJardin.revalidate();
+	         panelJardin.repaint();
 	}
 
     

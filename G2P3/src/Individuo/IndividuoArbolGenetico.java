@@ -19,7 +19,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		private ArrayList<nodo> hijos;
 		public int profundidad;
 		private int numNodos;
-		
+		private int numHijos;
 		private nodo padre = null;
 		private int idHijo = -1;
 		
@@ -27,11 +27,11 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 			// TODO Auto-generated constructor stub
 			this.padre = null;
 			this.idHijo = -1;
-
+			this.numHijos=size;
 			this.numNodos=1;
 			this.profundidad=1;
 			this.descripcion = descripcion;
-			hijos=new ArrayList<nodo>(size);
+			hijos=new ArrayList<nodo>();
 		}
 		
 		public nodo(String descripcion, int size, nodo padre, int idHijo) {
@@ -66,6 +66,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 			nodo n;
 			n=new nodo(this.descripcion,this.hijos.size());
 			int cont = 0;
+			n.numHijos=numHijos;
 			for(nodo hijo:hijos) {
 				n.hijos.add(hijo.copiaConPadre(n,cont));
 				cont++;
@@ -78,6 +79,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 			nodo n;
 			n=new nodo(this.descripcion,this.hijos.size(), Padre, HijoId);
 			int cont = 0;
+			n.numHijos=numHijos;
 			for(nodo hijo:hijos) {
 				n.hijos.add(hijo.copiaConPadre(n,cont));
 				cont++;
@@ -110,17 +112,18 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	 
 	 
 	 //COMPLETA
-	 public void inicializacionCompleta() {
-		 raiz=inicializacionCompleta(0,null,-1);
+	 public void inicializacionCompleta(int profundidad) {
+		 this.maximaProfundidad=profundidad;
+		 raiz=inicializacionCompleta(1,null,-1);
 	 }
 	 private nodo inicializacionCompleta(int profundidad, nodo Padre, int HijoId) {
 		nodo nuevo;
 		 if(profundidad<maximaProfundidad) {
 			 nuevo=nodoFuncional();
 			 int cont = 0;
-			 for(nodo h:nuevo.hijos)
+			 for(int i=0;i<nuevo.numHijos;i++)
 			 {
-				 h=inicializacionCompleta(profundidad + 1, nuevo, cont);
+				 nuevo.hijos().add(inicializacionCompleta(profundidad + 1, nuevo, cont));
 				 cont++;
 			 }
 		 }
@@ -134,8 +137,9 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	 }
 	 
 	//GROW
-	 public void inicializacionCreciente() {
-		 raiz=inicializacionCreciente(0,null,-1);
+	 public void inicializacionCreciente(int profundidad) {
+		 this.maximaProfundidad=profundidad;
+		 raiz=inicializacionCreciente(1,null,-1);
 	 }
 	 private nodo inicializacionCreciente(int profundidad,  nodo Padre, int HijoId) {
 		nodo nuevo;
@@ -251,7 +255,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
     //Mutacion arbol-subarbol
     	//1 Inicializacion
     public void mutacionInicializacion() {
-    	inicializacionCompleta();
+    	inicializacionCompleta(this.maximaProfundidad);
     }
     	//2 Parcial
     public void mutacionArbolSubArbol() {
@@ -279,13 +283,16 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	public void cruceSubArbol1(Individuo individuo2)
 	{
 		
-		
+		reset();
 		//Obtener los nodos
+		if(this.maximaProfundidad<2)return;
 		List<nodo> nodos = new ArrayList<nodo>();
 		Random rand = new Random();
+		boolean fun=false;
 		if (rand.nextDouble() <= 0.9)
 		{
 			obtenerNodosFuncionales(raiz,nodos);
+			fun=true;
 		}
 		else
 		{
@@ -293,7 +300,13 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		}
 		
 		//Seleccionar un Nodo aleatorio donde haremos el cruce
-		int pos = rand.nextInt(nodos.size());
+		int pos=0;
+		if(fun) {
+			while(pos==0)
+				pos = rand.nextInt(nodos.size());
+		}
+		else
+			pos = rand.nextInt(nodos.size());
 		nodo subArbolSeleccionado = nodos.get(pos).copia();
 		nodo subArbolParaCruce = individuo2.cruceSubArbol2(subArbolSeleccionado);
 		
@@ -309,18 +322,28 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	
 	public nodo cruceSubArbol2(nodo subArbolParaCruce)
 	{
+		reset();
 		List<nodo> nodos = new ArrayList<nodo>();
 		Random rand = new Random();
+		boolean fun=false;
 		if (rand.nextDouble() <= 0.9)
 		{
 			obtenerNodosFuncionales(raiz,nodos);
+			fun=true;
 		}
 		else
 		{
 			obtenerNodosTerminales(raiz,nodos);
 		}
 		//Seleccionar un Nodo aleatorio donde haremos el cruce
-		int pos = rand.nextInt(nodos.size());
+		int pos=0;
+		if(fun) {
+			while(pos==0)
+				pos = rand.nextInt(nodos.size());
+		}
+		else
+			pos = rand.nextInt(nodos.size());
+		
 		nodo subArbolSeleccionado = nodos.get(pos).copia();
 		
 		// CRUCE
@@ -358,7 +381,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
             }
         }
 	}
-
+	public  abstract void reset();
     
 	
 }

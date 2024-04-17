@@ -5,14 +5,13 @@ import Individuo.posicion;
 public class posicion {
 		private int y;
 		private int x;
-		int maxancho;
-		int maxalto;
+		protected static int maxancho;
+		protected static int maxalto;
 		
 		public posicion(int x,int y,int maxalto,int maxancho) {
 			this.setX(x);
 			this.setY(y);
-			this.maxalto=maxalto;
-			this.maxancho=maxancho;
+		
 		}
 		
 		// Constructor para inicializar desde una cadena de texto en formato "(y,x)"
@@ -58,7 +57,7 @@ public class posicion {
 
 		public posicion copia() {
 			// TODO Auto-generated method stub
-			return null;
+			return new posicion(this.x,this.y);
 		}
 
 		public void mueveY(int i) {

@@ -1,5 +1,6 @@
 package Factorias;
 
+import Cruzadores.CruceSubarbol;
 import Cruzadores.Cruzador;
 
 public class FactoriaCruzadorIMP extends FactoriaCruzador {
@@ -10,7 +11,7 @@ public class FactoriaCruzadorIMP extends FactoriaCruzador {
 			switch(cruzador) {
 			
 			default:
-				return null;
+				return new CruceSubarbol();
 			}
 		}
 	}

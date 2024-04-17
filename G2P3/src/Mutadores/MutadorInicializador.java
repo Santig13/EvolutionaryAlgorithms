@@ -1,13 +1,14 @@
 package Mutadores;
 
+import Individuo.Individuo;
 import Individuo.IndividuoArbolGenetico;
 
 public class MutadorInicializador extends Mutador {
 
 	@Override
-	protected void mutar(IndividuoArbolGenetico individuo) {
+	protected void mutar(Individuo individuo) {
 		// TODO Auto-generated method stub
-		individuo.mutacionFuncinal();
+		((IndividuoArbolGenetico) individuo).mutacionFuncinal();
 	}
 
 }

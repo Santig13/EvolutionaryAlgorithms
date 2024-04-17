@@ -7,7 +7,7 @@ public class IniciadorRampedAndHalf extends Iniciador {
 
 	
 	@Override
-	public void IniciarPoblacion(TPoblacion poblacion) {
+	public void IniciarPoblacion(TPoblacion poblacion,int profundidad) {
 		// TODO Auto-generated method stub
 		IndividuoArbolGenetico[] individuos= new IndividuoArbolGenetico[tamaño];
 		for(IndividuoArbolGenetico indv:individuos) {

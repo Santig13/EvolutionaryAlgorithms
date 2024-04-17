@@ -2,14 +2,17 @@ package Algoritmo;
 
 import java.util.Comparator;
 
-import Individuo.IndividuoArbolGenetico;
+import Individuo.Individuo;
 
 
-public class IndividuoComparator implements Comparator<IndividuoArbolGenetico> {
+
+public class IndividuoComparator implements Comparator<Individuo> {
 
 	@Override
-	public int compare(IndividuoArbolGenetico o1, IndividuoArbolGenetico o2) {
-		return Double.compare(o1.getFintess(), o2.getFintess());
+	public int compare(Individuo o1, Individuo o2) {
+		return Double.compare(o1.getFitness(), o2.getFitness());
 	}
+
+	
 
 }

@@ -13,5 +13,5 @@ public abstract class FactoriaPoblaciones {
 		return fp;
 	}
 
-	 public abstract TPoblacion generarPoblacion(int profundidad, int tamPoblacion);
+	 public abstract TPoblacion generarPoblacion(int profundidad);
 }

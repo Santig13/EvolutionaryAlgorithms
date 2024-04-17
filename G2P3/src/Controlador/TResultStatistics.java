@@ -1,5 +1,7 @@
 package Controlador;
 
+import java.awt.Color;
+
 public class TResultStatistics {
 
 	private double[] generaciones;
@@ -10,10 +12,10 @@ public class TResultStatistics {
 	double[] presion_evolutiva_generacional;
 	private String elMejor;
 	private double posicion;
-
+	 private Color[][] colors;
 
 	public TResultStatistics(String elMejor,double[] generaciones, double[] aptitud_absoluta_generacion, double[] aptitud_mejor_generacion,
-			double[] aptitud_media_generacion, int pos_mejor, double[] presion_evolutiva_generacional) {
+			double[] aptitud_media_generacion, int pos_mejor, double[] presion_evolutiva_generacional, Color[][] colors) {
 		super();
 
 		this.generaciones = generaciones;
@@ -23,6 +25,7 @@ public class TResultStatistics {
 		this.posicion = pos_mejor;
 		this.setElMejor(elMejor);
 		this.presion_evolutiva_generacional=presion_evolutiva_generacional;
+		this.colors=colors;
 	}
 
 	public double[] getGenreaciones() {
@@ -56,6 +59,14 @@ public class TResultStatistics {
 	public double[] getPresion() {
 		// TODO Auto-generated method stub
 		return this.presion_evolutiva_generacional;
+	}
+
+	public Color[][] getColors() {
+		return colors;
+	}
+
+	public void setColors(Color[][] colors) {
+		this.colors = colors;
 	}
 
 }

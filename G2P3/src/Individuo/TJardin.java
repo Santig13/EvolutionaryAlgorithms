@@ -25,11 +25,16 @@ public class TJardin {
 	            	else if(c==Color.red) {
 	            		cas=Casillas.PARED;
 	            	}
+	            	else  {
+	            		cas=Casillas.TIERRA;
+	            	}
 	            	
 	            	jardin[i][j]=cas;
 	              
 	            }
 	        }
+		 posicion.maxalto=tamaño;
+		 posicion.maxancho=tamaño;
 	}
 	public static Color[][] getColores(Casillas[][] jar) {
 		int tamaño=jar.length;
@@ -46,7 +51,7 @@ public class TJardin {
 	            		c=Color.red;
 	            	}
 	            	else if(cas==Casillas.TIERRA) {
-	            		c=Color.DARK_GRAY;
+	            		c=Color.WHITE;
 	            	}
 	            	
 	            	colors[i][j]=c;
@@ -54,5 +59,9 @@ public class TJardin {
 	            }
 	        }
 		return colors;
+	}
+	public static Object translate(Casillas[][] jardin2) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

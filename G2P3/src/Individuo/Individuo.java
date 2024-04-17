@@ -1,6 +1,7 @@
 package Individuo;
 
 import Individuo.IndividuoArbolGenetico.nodo;
+import Individuo.TJardin.Casillas;
 
 public abstract class Individuo {
 	
@@ -24,6 +25,8 @@ public abstract class Individuo {
 
 	public abstract void cruceSubArbol1(Individuo individuo2);
 	public abstract nodo cruceSubArbol2(nodo subArbolParaCruce);
+	public abstract void reset();
+	public abstract Casillas[][] getJardin();
 
     
     

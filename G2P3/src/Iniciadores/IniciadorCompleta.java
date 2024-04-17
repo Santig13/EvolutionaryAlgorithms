@@ -6,11 +6,11 @@ import Individuo.TPoblacion;
 public class IniciadorCompleta extends Iniciador{
 
 	@Override
-	public void IniciarPoblacion(TPoblacion poblacion) {
+	public void IniciarPoblacion(TPoblacion poblacion,int profundidad) {
 		// TODO Auto-generated method stub
-		IndividuoArbolGenetico[] individuos= poblacion.getIndivuduos();
+		IndividuoArbolGenetico[] individuos= (IndividuoArbolGenetico[]) poblacion.getIndivuduos();
 		for(IndividuoArbolGenetico indv:individuos) {
-			indv.inicializacionCompleta();
+			indv.inicializacionCompleta(profundidad);
 		}
 	}
 

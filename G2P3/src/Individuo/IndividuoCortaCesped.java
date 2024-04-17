@@ -14,17 +14,17 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	}
 	
 	private static final ArrayList<String> terminales = new ArrayList<String>() {{
-        add("AVANZA");
-        add("ALEATORIA");
-        add("IZQUIERDA");
-        add("DERECHA");
+       add("AVANZA");
+       add("ALEATORIA");
+       add("IZQUIERDA");
+       add("DERECHA");
     }};
 	private static final ArrayList<String> funciones = new ArrayList<String>() {{
         add("SALTA");
         add("PROGN");
         add("SUMA");
-        add("IF-DIRTY");
-        add("REPEAT");
+        //add("IF-DIRTY");
+       // add("REPEAT");
     }};
 
 	
@@ -32,6 +32,7 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	private int n;
 	private int m;
 	private Casillas[][] jardin;
+	
 	private posicion pos;
 	private PuntoCardinal orientacion;
 	
@@ -40,12 +41,11 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	private int giros;
 	
 	//COSTRUCTOR VACIO
-	public IndividuoCortaCesped(int profundidad) {
+	public IndividuoCortaCesped() {
 		// TODO Auto-generated constructor stub
 		this.podado=0;
 		this.pos=new posicion(4,4);
 		this.orientacion=PuntoCardinal.NORTE;
-		this.maximaProfundidad=profundidad;
 		Casillas[][] original= TJardin.jardin;
 		n=original.length;
 		m=original[0].length;
@@ -60,25 +60,8 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	            }
 			}
 		}
-	}
-	//COSTRUCTOR COPIA
-	public IndividuoCortaCesped(IndividuoCortaCesped indv) {
-		// TODO Auto-generated constructor stub
-		this.pos=indv.pos.copia();
-		this.orientacion=indv.orientacion;
-		this.movimientos=indv.movimientos;
-		this.giros=indv.movimientos;
-		
-		this.jardin=new Casillas[n][m];
-		for(int i=0;i<n;i++) {
-			for(int j=0;j<m;j++) {
-				jardin[i][j]=indv.jardin[i][j];
-			}
-		}
-		
-		this.raiz=copiaArbol();
-		
-	}
+	
+	
 	
 	//RESTO DE COSTRUCTORES
 	
@@ -116,26 +99,26 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		switch (n.getDescript()) {
 	    case "AVANZA":
 	    	
-	    	this.avanza();
+	    	casilla=this.avanza();
 	    	break;
 	    case "IZQUIERDA":
 	    	
-	    	this.izquierda();
+	    	casilla=this.izquierda();
 	    	break;
 	    case "DERECHA":
 	    	
-	    	this.derecha();
+	    	casilla=this.derecha();
 	        break;
 	    case "SALTA":
 	    	
-	    	this.salta(ejecuta(n.hijo1()));
+	    	casilla=this.salta(ejecuta(n.hijo1()));
 	    	break;
 	    case "PROGN":
 	    	
-	    	this.progn(n.hijo1(), n.hijo2());
+	    	casilla=this.progn(n.hijo1(), n.hijo2());
 	    	break;
 	    case "SUMA":
-	    	this.suma(ejecuta(n.hijo1()), ejecuta(n.hijo2()));
+	    	casilla=this.suma(ejecuta(n.hijo1()), ejecuta(n.hijo2()));
 	    	break;
 	    case "IF-DIRTY":
 	    	
@@ -169,7 +152,7 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 				if(puedemoverseY(-1))pos.mueveY(-1);
 				break;
 		}
-		
+		this.poda();
 		return new posicion(0,0);
 	}
 	//No se puede avanzar a una pared pero si avanzar desdeella
@@ -226,17 +209,22 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		}
 		return new posicion(0,0);
 	}
-	public posicion aleatoria() {
+	public String aleatoria() {
 		int n=jardin.length;
 		int m=jardin[0].length;
 		Random random = new Random();
-		return new posicion(random.nextInt(n),random.nextInt(m));
+		//return new posicion(random.nextInt(n),random.nextInt(m));
+		return "("+random.nextInt(n)+","+random.nextInt(m)+")";
 	}
 	@Override
 	protected nodo nodoTernminal() {
 		int n=terminales.size();
 		Random r= new Random();
-		return new nodo(terminales.get(r.nextInt(n)),0);
+		String t=terminales.get(r.nextInt(n));
+		if(t.equalsIgnoreCase("ALEATORIA")) {
+			t=aleatoria();
+		}
+		return new nodo(t,0);
 	}
 	@Override
 	protected nodo nodoFuncional() {
@@ -257,18 +245,54 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	}
 	
 	@Override
-	public Individuo copia() {
+	public Individuo copia() { 
 		
-		return new IndividuoCortaCesped(this);
+		IndividuoCortaCesped copia=new IndividuoCortaCesped();
+		copia.fitness=this.fitness;
+		copia.puntuacion=this.puntuacion;
+		copia.pos=this.pos.copia();
+		copia.orientacion=this.orientacion;
+		copia.movimientos=this.movimientos;
+		copia.giros=this.giros;
+		 copia.podado=podado;
+		 copia.n=n;
+		 copia.m=m;
+		copia.jardin=new Casillas[n][m];
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<m;j++) {
+				copia.jardin[i][j]=this.jardin[i][j];
+			}
+		}
+		
+		copia.raiz=copiaArbol();
+		return copia;
 	}
 	@Override
-	public  double evalua() {
+	public double evalua() {
 		while(!terminado()) {
 			ejecuta(raiz);
 		}
 		return podado;
 	}
-	
+	@Override
+	public void reset() {
+		this.podado=0;
+		this.pos=new posicion(4,4);
+		this.orientacion=PuntoCardinal.NORTE;
+		Casillas[][] original= TJardin.jardin;
+		n=original.length;
+		m=original[0].length;
+		this.jardin = new Casillas[n][m];
+		
+		
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<m;j++) {
+				
+	              jardin[i][j] = original[i][j];
+	                  
+	            }
+			}
+	}
 	@Override
 	protected nodo nodoFuncionalConAridadN(int n) {
 		
@@ -308,7 +332,15 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		return new nodo(funcion,hijos);
 	}
 	
-	
+	public Casillas[][] getJardin() {
+		return jardin;
+	}
+
+
+
+	public void setJardin(Casillas[][] jardin) {
+		this.jardin = jardin;
+	}
 	
 	
 }

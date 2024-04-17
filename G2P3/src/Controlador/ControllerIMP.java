@@ -23,6 +23,7 @@ public class ControllerIMP implements Controller {
 		Cruzador cruzador=FactoriaCruzador.getInstancia().generarCruzador(parametros.getCruzador());
 		Mutador mutador=FactoriaMutador.getInstancia().generarMutador(parametros.getMutador());
 		Iniciador iniciador=FactoriaIniciador.getInstancia().generarIniciador(parametros.iniciador());
+		iniciador.setTam(parametros.getTamPoblacion());
 		TJardin.setCasillas(parametros.getSol());
 		TPoblacion poblacion=null;
 		//Ejecutar algoritmo

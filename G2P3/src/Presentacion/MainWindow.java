@@ -61,6 +61,7 @@ public class MainWindow extends JFrame implements GUI {
 	JComboBox CrucecomboBox;
 	JComboBox SelecomboBox;
 	private Interfaz interfaz;
+	private JComboBox inicomboBox;
 	
 	/**
 	 * Launch the application.
@@ -115,7 +116,7 @@ public class MainWindow extends JFrame implements GUI {
 		ParametersPanel.add(TamGenLabel);
 		
 		TamGentextField = new JTextField();
-		TamGentextField.setText("100");
+		TamGentextField.setText("5");
 		ParametersPanel.add(TamGentextField);
 		TamGentextField.setColumns(3);
 		
@@ -123,7 +124,7 @@ public class MainWindow extends JFrame implements GUI {
 		ParametersPanel.add(nGenLabel);
 		
 		nGentextField = new JTextField();
-		nGentextField.setText("400");
+		nGentextField.setText("5");
 		ParametersPanel.add(nGentextField);
 		nGentextField.setColumns(3);
 		
@@ -163,6 +164,15 @@ public class MainWindow extends JFrame implements GUI {
 		MutacioncomboBox = new JComboBox();
 		MutacioncomboBox.setModel(new DefaultComboBoxModel(tiposDeMutador));
 		ParametersPanel.add(MutacioncomboBox);
+		
+		
+		
+		JLabel inicializadotrs = new JLabel("Iniciadores");
+		ParametersPanel.add(inicializadotrs);
+		 inicomboBox = new JComboBox();
+		inicomboBox.setModel(new DefaultComboBoxModel(tiposIniciadores));
+		ParametersPanel.add(inicomboBox);
+		
 		
 		JLabel ElitismoLabel = new JLabel("% Elitismo");
 		ParametersPanel.add(ElitismoLabel);
@@ -207,6 +217,7 @@ public class MainWindow extends JFrame implements GUI {
 		String selector =  (String) SelecomboBox.getSelectedItem();
 		String mutador = (String) MutacioncomboBox.getSelectedItem();
 		String cruzador = (String) CrucecomboBox.getSelectedItem();
+		String ini = (String) inicomboBox.getSelectedItem();
 		
 		
 		double probMuta = Double.parseDouble(ProbMutaciontextField.getText());
@@ -217,7 +228,7 @@ public class MainWindow extends JFrame implements GUI {
 		int tamPobla = Integer.parseInt(TamGentextField.getText());
 
 		Color[][] sol=this.interfaz.getColores();
-		return new TParametros(selector,mutador,cruzador,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100,sol);
+		return new TParametros(selector,mutador,cruzador,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100,sol,ini);
 		}
 		catch(Exception e){
 			throw new CamposException("No se han podido analizar los datos introducidos, asegurese de que ha rellenado correctamente todos los campos");
@@ -229,7 +240,7 @@ public class MainWindow extends JFrame implements GUI {
 		// TODO Auto-generated method stub
 		plot.removeAllPlots();
         plot.repaint();
-        solTXT.setText("");
+      //  solTXT.setText("");
 	}
 
 	@Override
@@ -240,7 +251,8 @@ public class MainWindow extends JFrame implements GUI {
 		plot.addLinePlot("Mejores Generacionales",trs.getGenreaciones(),trs.getMejorLocal());
 		plot.addLinePlot("Media Generacional",trs.getGenreaciones(),trs.getMedio());
 		plot.addLinePlot("Presion Generacional",trs.getGenreaciones(),trs.getPresion());
-		solTXT.setText(trs.getElMejor()+"Durante la generacion: " + trs.getPosicion());
+		//solTXT.setText(trs.getElMejor()+"Durante la generacion: " + trs.getPosicion());
+	this.interfaz.colorear(trs.getColors());
 	}
 	
 

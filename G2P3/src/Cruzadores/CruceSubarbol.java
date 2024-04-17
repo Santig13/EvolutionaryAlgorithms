@@ -12,7 +12,7 @@ public class CruceSubarbol extends Cruzador{
 	public void cruzar(Individuo individuo, Individuo individuo2) {
 		
 		individuo.cruceSubArbol1(individuo2);
-
+		
 		
 	}
 
