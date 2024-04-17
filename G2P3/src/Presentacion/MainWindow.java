@@ -62,6 +62,7 @@ public class MainWindow extends JFrame implements GUI {
 	JComboBox SelecomboBox;
 	private Interfaz interfaz;
 	private JComboBox inicomboBox;
+	private JTextArea textArea;
 	
 	/**
 	 * Launch the application.
@@ -86,7 +87,7 @@ public class MainWindow extends JFrame implements GUI {
 		Controller ctr=new ControllerIMP();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(700, 100, 800, 435);
+		setBounds(700, 100, 800, 470);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -193,7 +194,11 @@ public class MainWindow extends JFrame implements GUI {
 		Graficapanel.add(plot);
 		JLabel LabelSol = new JLabel("Solucion:");
 		
-		
+		textArea = new JTextArea();
+		textArea.setRows(5); // Establecer el número de filas (altura) del área de texto
+
+		// Agregar el JTextArea al contenedor principal (contentPane) debajo de ParametersPanel
+		contentPane.add(new JScrollPane(textArea), BorderLayout.SOUTH);
 		
 		EjecutarButton.addActionListener(e -> {
             // Manejar la acción del botón aquí
@@ -240,6 +245,7 @@ public class MainWindow extends JFrame implements GUI {
 		// TODO Auto-generated method stub
 		plot.removeAllPlots();
         plot.repaint();
+        this.interfaz.reset();
       //  solTXT.setText("");
 	}
 
@@ -251,7 +257,7 @@ public class MainWindow extends JFrame implements GUI {
 		plot.addLinePlot("Mejores Generacionales",trs.getGenreaciones(),trs.getMejorLocal());
 		plot.addLinePlot("Media Generacional",trs.getGenreaciones(),trs.getMedio());
 		plot.addLinePlot("Presion Generacional",trs.getGenreaciones(),trs.getPresion());
-		//solTXT.setText(trs.getElMejor()+"Durante la generacion: " + trs.getPosicion());
+		textArea.setText("Durante la generacion: " + trs.getPosicion()+" "+trs.getElMejor());
 	this.interfaz.colorear(trs.getColors());
 	}
 	

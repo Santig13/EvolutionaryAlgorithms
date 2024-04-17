@@ -46,7 +46,7 @@ public class Interfaz extends JFrame {
     	 parent=parent;
     	setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     	
-        setBounds(10,100, 700, 435); // Ajustar posición
+        setBounds(10,100, 700, parent.getHeight()); // Ajustar posición
         // Panel principal inicial con tabla de 8x8 casillas pintadas de verde
         panelJardin = new JPanel();
         panelJardin.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -59,7 +59,7 @@ public class Interfaz extends JFrame {
  		ParametersPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
  		
  		String[] opciones = {"8x8", "12x12", "16x16"};
-        JComboBox comboBox = new JComboBox<>(opciones);
+         comboBox = new JComboBox<>(opciones);
 	    ParametersPanel.add(comboBox);
 	
   		
@@ -75,8 +75,7 @@ public class Interfaz extends JFrame {
           JButton reiniciar=new JButton("RESETEAR");
           reiniciar.addActionListener(e -> {
           // Manejar la acción del botón aquí
-        	  String seleccion = (String) comboBox.getSelectedItem();
-        	  cambiarTamañoTabla(seleccion);
+        	reset();  
          
           });
 		  ParametersPanel.add(reiniciar);
@@ -86,7 +85,13 @@ public class Interfaz extends JFrame {
         
      }
 
-     // Método para cambiar el tamaño de la tabla según la opción seleccionada en el JComboBox
+     public  void reset() {
+		// TODO Auto-generated method stub
+    	String seleccion = (String) comboBox.getSelectedItem();
+   	  	cambiarTamañoTabla(seleccion);
+	}
+
+	// Método para cambiar el tamaño de la tabla según la opción seleccionada en el JComboBox
      public void cambiarTamañoTabla(String seleccion) {
        
           tamaño = Integer.parseInt(seleccion.substring(0, seleccion.indexOf('x')));

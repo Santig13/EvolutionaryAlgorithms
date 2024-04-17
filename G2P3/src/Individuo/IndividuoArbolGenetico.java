@@ -104,6 +104,20 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		    }
 		    profundidad++; 
 		}
+		@Override
+		public String toString() {
+			if(numHijos>0) {
+				String s=descripcion+"(";
+			
+			for(nodo n: hijos) {
+				s=s+n.toString()+",";
+			}
+			s=s.substring(0, s.length()-1);
+			s=s+")";
+			return s;
+			}
+			else return descripcion;
+		}
 	}
 	 protected nodo raiz;
 	
@@ -383,5 +397,13 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	}
 	public  abstract void reset();
     
+	@Override
+	public String toString() {
+		String s="El cortacesped ha podado:"+this.fitness+"\n(";
+		
+			s=s+raiz.toString();
 	
+		s=s+")";
+		return s;
+	}
 }
