@@ -10,6 +10,10 @@ import java.awt.BorderLayout;
 import javax.swing.JTextArea;
 import javax.swing.JFormattedTextField;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
@@ -25,6 +29,7 @@ import Controlador.Controller;
 import Controlador.ControllerIMP;
 import Controlador.TParametros;
 import Controlador.TResultStatistics;
+import Individuo.TJardin;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
@@ -48,13 +53,14 @@ public class MainWindow extends JFrame implements GUI {
 	private JTextField txtTeltxt;
 	private Plot2DPanel plot;
 	//private final String[] tiposDeFuncion=  {"vuelos1.txt", "vuelos2.txt"};
-	private final String[] tiposDeCruzador= {"PMX", "OX", "OXPP","OXOP", "CX", "CO", "ZigZag"};
-	private final String[] tiposDeMutador= { "Intercambio","Insercion", "Inversion", "Heuristica", "Fibonacci"};
+	private final String[] tiposDeCruzador= {"Normal"};
+	private final String[] tiposDeMutador= {"Terminal","Funcional", "Arbol-SubArbol", "Inicializacion"};
 	private final String[] tiposDeSelector= {"Ruleta", "Estocastico", "Truncamiento", "Torneo Det", "Torneo Pro", "Restos", "Ranking"};
-	
+	private final String[] tiposIniciadores= {"Completo","Creciente", "Ramped-Half", "Inicializacion"};
 	JComboBox MutacioncomboBox;
 	JComboBox CrucecomboBox;
 	JComboBox SelecomboBox;
+	private Interfaz interfaz;
 	
 	/**
 	 * Launch the application.
@@ -79,55 +85,31 @@ public class MainWindow extends JFrame implements GUI {
 		Controller ctr=new ControllerIMP();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(50, 100, 1433, 435);
+		setBounds(700, 100, 800, 435);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JPanel SolPanel = new JPanel();
-		SolPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		SolPanel.setBackground(new Color(224, 224, 224));
-		contentPane.add(SolPanel, BorderLayout.WEST);
-		SolPanel.setLayout(new BoxLayout(SolPanel, BoxLayout.Y_AXIS));
+		
 		//SolPanel.setMaximumSize(new Dimension(700, 400));
-		JLabel SolucionLabel = new JLabel("Solucion");
-		SolPanel.add(SolucionLabel);
 		
-		solTXT = new JTextArea();
 		
-		solTXT.setColumns(10);
-		JScrollPane scrollPane = new JScrollPane(solTXT);
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setPreferredSize(new Dimension(700, 400));
-        SolPanel.add(scrollPane);
-
+		this.interfaz=new Interfaz(this);
+		
+       
         
 		JButton EjecutarButton = new JButton("Ejecutar");
-		SolPanel.add(EjecutarButton);
+		
 		
 		JPanel ParametersPanel = new JPanel();
 		ParametersPanel.setBackground(new Color(224, 224, 224));
 		contentPane.add(ParametersPanel, BorderLayout.NORTH);
 		ParametersPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JLabel VuelosLabel = new JLabel("Vuelos");
-		ParametersPanel.add(VuelosLabel);
-		
-		VuelostextField = new JTextField();
-		VuelostextField.setText("vuelos1.txt");
-		ParametersPanel.add(VuelostextField);
-		VuelostextField.setColumns(8);
-		
-		JLabel TELLabel = new JLabel("TEL");
-		ParametersPanel.add(TELLabel);
-		
-		txtTeltxt = new JTextField();
-		txtTeltxt.setText("TEL1.txt");
-		ParametersPanel.add(txtTeltxt);
-		txtTeltxt.setColumns(6);
+		Dimension preferredSize = ParametersPanel.getPreferredSize();
+		preferredSize.height += 60; // Aumentar en 50 píxeles la altura actual
+		ParametersPanel.setPreferredSize(preferredSize);
 		
 		JLabel TamGenLabel = new JLabel("Tam Generaci\u00F3n");
 		ParametersPanel.add(TamGenLabel);
@@ -190,8 +172,11 @@ public class MainWindow extends JFrame implements GUI {
 		ParametersPanel.add(ElitismotextField);
 		ElitismotextField.setColumns(2);
 		
+		ParametersPanel.add(EjecutarButton);
+		
 		JPanel Graficapanel = new JPanel();
 		contentPane.add(Graficapanel, BorderLayout.CENTER);
+		
 		Graficapanel.setLayout(new BorderLayout(0, 0));
 		
 		plot = new Plot2DPanel();
@@ -212,6 +197,7 @@ public class MainWindow extends JFrame implements GUI {
             	// ex.printStackTrace();
             }
         });
+		this.interfaz.setVisible(true);
 	}
 	
 	private TParametros camposToRun() throws CamposException {
@@ -222,8 +208,6 @@ public class MainWindow extends JFrame implements GUI {
 		String mutador = (String) MutacioncomboBox.getSelectedItem();
 		String cruzador = (String) CrucecomboBox.getSelectedItem();
 		
-		String Vuelostxt = VuelostextField.getText();
-		String TELtxt = txtTeltxt.getText();
 		
 		double probMuta = Double.parseDouble(ProbMutaciontextField.getText());
 		double probCruce = Double.parseDouble(ProbCrucetextField.getText());
@@ -232,8 +216,8 @@ public class MainWindow extends JFrame implements GUI {
 		int generaciones = Integer.parseInt(nGentextField.getText());
 		int tamPobla = Integer.parseInt(TamGentextField.getText());
 
-
-		return new TParametros(selector,mutador,cruzador,Vuelostxt,TELtxt,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100);
+		Color[][] sol=this.interfaz.getColores();
+		return new TParametros(selector,mutador,cruzador,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100,sol);
 		}
 		catch(Exception e){
 			throw new CamposException("No se han podido analizar los datos introducidos, asegurese de que ha rellenado correctamente todos los campos");
@@ -258,6 +242,6 @@ public class MainWindow extends JFrame implements GUI {
 		plot.addLinePlot("Presion Generacional",trs.getGenreaciones(),trs.getPresion());
 		solTXT.setText(trs.getElMejor()+"Durante la generacion: " + trs.getPosicion());
 	}
-
+	
 
 }

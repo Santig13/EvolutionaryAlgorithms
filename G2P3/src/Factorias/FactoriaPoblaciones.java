@@ -1,7 +1,7 @@
 package Factorias;
 
 
-import Individuo.Jardin;
+import Individuo.TJardin;
 import Individuo.TPoblacion;
 
 public abstract class FactoriaPoblaciones {
@@ -13,5 +13,5 @@ public abstract class FactoriaPoblaciones {
 		return fp;
 	}
 
-	 public abstract TPoblacion generarPoblacion(Jardin jardin);
+	 public abstract TPoblacion generarPoblacion(int profundidad, int tamPoblacion);
 }

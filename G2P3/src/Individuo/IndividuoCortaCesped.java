@@ -3,6 +3,8 @@ package Individuo;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Individuo.TJardin.Casillas;
+
 public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	private static enum PuntoCardinal {
 	    NORTE,
@@ -10,11 +12,7 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	    OESTE,
 	    SUR
 	}
-	private static enum Casillas {
-	   CESPED,
-	   TIERRA,
-	   PARED
-	}
+	
 	private static final ArrayList<String> terminales = new ArrayList<String>() {{
         add("AVANZA");
         add("ALEATORIA");
@@ -42,32 +40,23 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	private int giros;
 	
 	//COSTRUCTOR VACIO
-	public IndividuoCortaCesped(int n, int m) {
+	public IndividuoCortaCesped(int profundidad) {
 		// TODO Auto-generated constructor stub
 		this.podado=0;
 		this.pos=new posicion(4,4);
 		this.orientacion=PuntoCardinal.NORTE;
-		
-		this.n = n;
-		this.m = m;
-		
+		this.maximaProfundidad=profundidad;
+		Casillas[][] original= TJardin.jardin;
+		n=original.length;
+		m=original[0].length;
 		this.jardin = new Casillas[n][m];
 		
-		Random r=new Random();
+		
 		for(int i=0;i<n;i++) {
 			for(int j=0;j<m;j++) {
-				int tipoCasilla = r.nextInt(3);
-	            
-	            switch (tipoCasilla) {
-	                case 0:
-	                    jardin[i][j] = Casillas.CESPED;
-	                    break;
-	                case 1:
-	                    jardin[i][j] = Casillas.TIERRA;
-	                    break;
-	                case 2:
-	                    jardin[i][j] = Casillas.PARED;
-	                    break;
+				
+	              jardin[i][j] = original[i][j];
+	                  
 	            }
 			}
 		}

@@ -11,5 +11,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/G2P2/ArchivosExternos/jmathplot (1).jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

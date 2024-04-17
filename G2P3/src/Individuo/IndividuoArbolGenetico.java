@@ -10,7 +10,7 @@ import Individuo.IndividuoArbolGenetico.nodo;
 
 public abstract class IndividuoArbolGenetico extends Individuo {
 	
-	private int maximaProfundidad;
+	protected int maximaProfundidad;
 	private int minimaProfundidad;
 	
 	class nodo{

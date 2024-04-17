@@ -4,9 +4,12 @@ import java.util.Arrays;
 
 import Controlador.TResultStatistics;
 import Cruzadores.Cruzador;
+import Factorias.FactoriaPoblaciones;
 import Individuo.Individuo;
 import Individuo.IndividuoArbolGenetico;
+import Individuo.TJardin;
 import Individuo.TPoblacion;
+import Iniciadores.Iniciador;
 import Mutadores.Mutador;
 import Selectores.Selector;
 	
@@ -39,11 +42,11 @@ public class algoritmoGenetico {
 	private int nElite;
 	private boolean minimizar;
 	
-	private String vuelostxt;
-	private String TELtxt;
+	private Iniciador iniciador;
+	private int profundidad;
 
     public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
-    			Selector sel,Mutador mut,Cruzador cruz,TPoblacion poblacion,  double porcenElite, String vuelostxt, String TELtxt)
+    			Selector sel,Mutador mut,Cruzador cruz,TPoblacion poblacion,  double porcenElite,Iniciador iniciador)
     {
     	this.tamPoblacion = tamPoblacion;
         this.maxGeneraciones = maxGeneraciones;
@@ -59,8 +62,7 @@ public class algoritmoGenetico {
     	this.aptitud_absoluta_generacion = new double[maxGeneraciones];
     	this.presion_evolutiva_generacional = new double[maxGeneraciones];
     	gener= new double[maxGeneraciones];
-    	this.vuelostxt = vuelostxt;
-    	this.TELtxt = TELtxt;
+    	this.iniciador=iniciador;
     }
 
     public TResultStatistics executeAlgorithm() {
@@ -199,7 +201,7 @@ public class algoritmoGenetico {
 
 	private void initialize() {
 		// TODO Auto-generated method stub
-		poblacion=FactoriaPoblaciones.getInstancia().generarPoblacion(vuelostxt,TELtxt,tamPoblacion);
+		poblacion=FactoriaPoblaciones.getInstancia().generarPoblacion(this.profundidad,tamPoblacion);
 		this.minimizar=poblacion.isMin();
 	}
 

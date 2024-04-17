@@ -1,7 +1,10 @@
 package Iniciadores;
 
-public abstract class Iniciador {
+import Individuo.TPoblacion;
 
-	public abstract void IniciarPoblacion();
+public abstract class Iniciador {
+	protected int tamaño;
+	protected int profundidad;
+	public abstract void IniciarPoblacion(TPoblacion poblacion);
 	
 }
