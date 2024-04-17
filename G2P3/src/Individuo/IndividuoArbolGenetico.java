@@ -167,15 +167,32 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	
 	protected abstract nodo nodoFuncional();
 	protected abstract nodo nodoTernminal();
+	protected abstract nodo nodoFuncionalConAridadN(int n);
+	
 	protected nodo copiaArbol() {	
 		return raiz.copia();
 	}
 	//MUTADORES
 	//Mutador terminal
 	public void mutacionTerminal() {
-		this.mutarTerminal(raiz);
+		//this.mutarTerminal(raiz);
+		List<nodo> nodos = new ArrayList<nodo>();
+		obtenerNodosTerminales(raiz,nodos);
+		Random rand = new Random();
+		int seleccionado = rand.nextInt(nodos.size());
+		
+		
+		//CambiarTerminal
+		int HijoId = nodos.get(seleccionado).idHijo;
+		nodo padre = nodos.get(seleccionado).padre;
+		
+		nodo nuevoNodoTerm = nodoTernminal();
+		nuevoNodoTerm.padre = padre;
+		nuevoNodoTerm.idHijo = HijoId;
+		padre.hijos.set(HijoId, nuevoNodoTerm);
+		
 	}
-	private void mutarTerminal(nodo n) {
+	/*private void mutarTerminal(nodo n) { 
 		int hijos=n.hijos.size();
 		if(hijos==0)//es terminal
 			n=nodoTernminal();
@@ -185,7 +202,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	         mutarTerminal(n.hijos.get(indiceAleatorio));
 		}
 		
-	}
+	}*/
 	//Mutador funcional
 	public void mutacionFuncinal() {
 		this.mutacionFuncinal(raiz);
@@ -201,7 +218,15 @@ public abstract class IndividuoArbolGenetico extends Individuo {
         if (!nodosFuncionales.isEmpty()) {
             int indiceAleatorio = rand.nextInt(nodosFuncionales.size());
             nodo nodoAleatorio = nodosFuncionales.get(indiceAleatorio);
-            cambiarFuncional(nodoAleatorio); // Cambia aquí el valor como desees
+            
+            
+            int HijoId = nodoAleatorio.idHijo;
+    		nodo padre = nodoAleatorio.padre;
+    		
+        	nodo nuevo = nodoFuncionalConAridadN(nodoAleatorio.hijos.size());
+        	nuevo.padre = padre;
+        	nuevo.idHijo = HijoId;
+    		padre.hijos.set(HijoId, nuevo);
         }
     }    
 	// Método para obtener todos los nodos funcionales del árbol
@@ -219,11 +244,10 @@ public abstract class IndividuoArbolGenetico extends Individuo {
             obtenerNodosFuncionales(hijo, nodosFuncionales);
         }
         
-    }
-    private void cambiarFuncional(nodo nodofuncional) {
-		// TODO Auto-generated method stub
-		
-	}
+    }    
+    
+    
+    
     //Mutacion arbol-subarbol
     	//1 Inicializacion
     public void mutacionInicializacion() {
@@ -255,7 +279,6 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	public void cruceSubArbol1(Individuo individuo2)
 	{
 		
-		Individuo H1 = this.copia();
 		
 		//Obtener los nodos
 		List<nodo> nodos = new ArrayList<nodo>();

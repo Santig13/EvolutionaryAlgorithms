@@ -280,6 +280,45 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		return podado;
 	}
 	
+	@Override
+	protected nodo nodoFuncionalConAridadN(int n) {
+		
+		
+		int size=funciones.size();
+		Random r = new Random();
+		int hijos ;
+		int seleccionado = r.nextInt(size);
+		String funcion=funciones.get(seleccionado);
+		
+		switch(funcion){
+			case "SALTA":
+				hijos=1;
+				break;
+			default:
+				hijos=2;
+				break;
+		}
+		
+		
+		while (hijos != n)
+		{
+			 funcion=funciones.get(seleccionado);
+			
+			switch(funcion){
+				case "SALTA":
+					hijos=1;
+					break;
+				default:
+					hijos=2;
+					break;
+			}
+			seleccionado = (seleccionado + 1)%size;
+			
+		}
+		
+		return new nodo(funcion,hijos);
+	}
+	
 	
 	
 	

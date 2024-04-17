@@ -19,6 +19,8 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.SoftBevelBorder;
 
+import org.math.plot.Plot2DPanel;
+
 import Controlador.Controller;
 import Controlador.ControllerIMP;
 import Controlador.TParametros;
