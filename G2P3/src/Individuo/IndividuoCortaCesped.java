@@ -74,7 +74,7 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		return false;		
 	}
 	public boolean terminado() {
-		return giros>100||movimientos>100;
+		return giros>200||movimientos>100;
 	}
 	//Funciones SALTA(V),SUMA(V1,V2),PROGN(OP1,OP2),IF-DIRTY (A,B),(repeat A,B) 
 	public posicion salta(posicion nueva) {
@@ -248,6 +248,7 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	public Individuo copia() { 
 		
 		IndividuoCortaCesped copia=new IndividuoCortaCesped();
+		copia.maximaProfundidad = this.maximaProfundidad;
 		copia.fitness=this.fitness;
 		copia.puntuacion=this.puntuacion;
 		copia.pos=this.pos.copia();
@@ -276,6 +277,8 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	}
 	@Override
 	public void reset() {
+		this.giros = 0;
+		this.movimientos = 0;
 		this.podado=0;
 		this.pos=new posicion(4,4);
 		this.orientacion=PuntoCardinal.NORTE;

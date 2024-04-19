@@ -162,6 +162,7 @@ public class algoritmoGenetico {
 		/*
 		 * Escalado lineal de la poblacion
 		 */
+		/*
 		double adaptacion_media=(sumaFit/tamPoblacion);
 		double a=(P*adaptacion_media)/(maximo-adaptacion_media);
 		double b=(1-a)*adaptacion_media;
@@ -170,7 +171,7 @@ public class algoritmoGenetico {
 			double fitnessEscalado=a*individuos[i].getFitness()+b;
 			individuos[i].setFitness(fitnessEscalado);
 		}
-			
+			*/
 		
 		
 		for(int i=0;i<tamPoblacion;i++) {
