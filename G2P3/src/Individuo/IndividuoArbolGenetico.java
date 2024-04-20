@@ -17,7 +17,6 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		 
 		private String descripcion;
 		private ArrayList<nodo> hijos;
-		public int profundidad;
 		private int numNodos;
 		private int numHijos;
 		private nodo padre = null;
@@ -29,7 +28,6 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 			this.idHijo = -1;
 			this.numHijos=size;
 			this.numNodos=1;
-			this.profundidad=1;
 			this.descripcion = descripcion;
 			hijos=new ArrayList<nodo>();
 		}
@@ -38,9 +36,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 			// TODO Auto-generated constructor stub
 			this.padre = padre;
 			this.idHijo = idHijo;
-			
 			this.numNodos=1;
-			this.profundidad=1;
 			this.descripcion = descripcion;
 			hijos=new ArrayList<nodo>(size);
 		}
@@ -67,6 +63,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 			n=new nodo(this.descripcion,this.hijos.size());
 			int cont = 0;
 			n.numHijos=numHijos;
+			n.numNodos=numNodos;
 			for(nodo hijo:hijos) {
 				n.hijos.add(hijo.copiaConPadre(n,cont));
 				cont++;
@@ -79,6 +76,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 			nodo n;
 			n=new nodo(this.descripcion,this.hijos.size(), Padre, HijoId);
 			int cont = 0;
+			n.numNodos=numNodos;
 			n.numHijos=numHijos;
 			for(nodo hijo:hijos) {
 				n.hijos.add(hijo.copiaConPadre(n,cont));
@@ -89,21 +87,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		}
 		
 		
-		public void calculaNodos() {
-		    numNodos = 1; // Contar el nodo actual
-		    for (nodo hijo : hijos) {
-		        numNodos += hijo.numNodos;
-		    }
-		    
-		}
-
-		public void calcularProfundidad() {
-		    profundidad = 0; 
-		    for (nodo hijo : hijos) {
-		        profundidad = Math.max(profundidad, hijo.profundidad);
-		    }
-		    profundidad++; 
-		}
+		
 		@Override
 		public String toString() {
 			if(numHijos>0) {
@@ -118,8 +102,20 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 			}
 			else return descripcion;
 		}
+
+		public int calcularMiProfundidad() {
+			// TODO Auto-generated method stub
+			int i=1;
+			nodo n=this.padre;
+			while(n!=null) {
+				i++;
+				n=n.padre;
+			}
+			return i;	
+		}
 	}
 	 protected nodo raiz;
+	private int totNodos;
 	
 	 
 	 //INICIALIZACIONES
@@ -129,6 +125,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	 public void inicializacionCompleta(int profundidad) {
 		 this.maximaProfundidad=profundidad;
 		 raiz=inicializacionCompleta(1,null,-1);
+		 this.totNodos=numNodos(raiz);
 	 }
 	 private nodo inicializacionCompleta(int profundidad, nodo Padre, int HijoId) {
 		nodo nuevo;
@@ -145,8 +142,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 			 nuevo=nodoTernminal();
 		 nuevo.padre = Padre;
 		 nuevo.idHijo = HijoId;
-		 nuevo.calcularProfundidad();
-		 nuevo.calculaNodos();//suma los nodos de sus hijos +1 por cada hijo
+		 
 		 return nuevo;
 	 }
 	 
@@ -154,15 +150,19 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	 public void inicializacionCreciente(int profundidad) {
 		 this.maximaProfundidad=profundidad;
 		 raiz=inicializacionCreciente(1,null,-1);
+		 this.totNodos=numNodos(raiz);
 	 }
 	 private nodo inicializacionCreciente(int profundidad,  nodo Padre, int HijoId) {
 		nodo nuevo;
+		
 		 if(profundidad<maximaProfundidad) {
-			 nuevo=nodoaleatorio();
+			if(profundidad==1)  nuevo=nodoFuncional();
+			else	nuevo=nodoaleatorio();
+			
 			 int cont = 0;
-			 for(nodo h:nuevo.hijos)
+			 for(int i=0;i<nuevo.numHijos;i++)
 			 {
-				 h=inicializacionCreciente(profundidad + 1, nuevo, cont);
+				 nuevo.hijos().add(inicializacionCompleta(profundidad + 1, nuevo, cont));
 				 cont++;
 			 }
 		 }
@@ -288,11 +288,12 @@ public abstract class IndividuoArbolGenetico extends Individuo {
           if (!nodos.isEmpty()) {
               int indiceAleatorio = rand.nextInt(nodos.size());
               nodo nodoAleatorio = nodos.get(indiceAleatorio);
-              nodoAleatorio.calcularProfundidad();
+              int p= nodoAleatorio.calcularMiProfundidad();
               int HijoId = nodoAleatorio.idHijo;
               nodo padre = nodoAleatorio.padre;
-              nodoAleatorio= inicializacionCompleta(nodoAleatorio.profundidad, padre, HijoId);
+              nodoAleatorio= inicializacionCompleta(p, padre, HijoId);
           }
+          this.totNodos=numNodos(raiz);
       }  
     
     
@@ -321,6 +322,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		//Seleccionar un Nodo aleatorio donde haremos el cruce
 		int pos=0;
 		if(fun) {
+			if(nodos.size()==1)return;
 			while(pos==0)
 				pos = rand.nextInt(nodos.size());
 		}
@@ -328,7 +330,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 			pos = rand.nextInt(nodos.size());
 		nodo subArbolSeleccionado = nodos.get(pos).copia();
 		nodo subArbolParaCruce = ((IndividuoArbolGenetico)individuo2).cruceSubArbol2(subArbolSeleccionado);
-		
+		if(subArbolParaCruce==null)return;
 		//CRUCE
 		nodo padre = nodos.get(pos).padre;
 		int Hijoid = nodos.get(pos).idHijo;
@@ -336,7 +338,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		subArbolParaCruce.padre = padre;
 		subArbolParaCruce.idHijo = Hijoid;
 		padre.hijos.set(Hijoid, subArbolParaCruce);
-		
+		this.totNodos=numNodos(raiz);
 	}
 	
 	public nodo cruceSubArbol2(nodo subArbolParaCruce)
@@ -357,6 +359,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		//Seleccionar un Nodo aleatorio donde haremos el cruce
 		int pos=0;
 		if(fun) {
+			if(nodos.size()==1)return null;
 			while(pos==0)
 				pos = rand.nextInt(nodos.size());
 		}
@@ -372,7 +375,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		subArbolParaCruce.padre = padre;
 		subArbolParaCruce.idHijo = Hijoid;
 		padre.hijos.set(Hijoid, subArbolParaCruce);
-		
+		this.totNodos=numNodos(raiz);
 		
 		// DEVOLVEMOS EL SUBARBOL QUE IRÁ EN EL OTRO INDIVIDUO
 		return subArbolSeleccionado;
@@ -410,5 +413,12 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 	
 		s=s+")";
 		return s;
+	}
+	private int numNodos(nodo n) {
+		int contador=1;
+		for(nodo h:n.hijos) {
+			contador+=numNodos(h);
+		}
+		return contador;
 	}
 }

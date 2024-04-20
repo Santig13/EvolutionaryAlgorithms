@@ -137,6 +137,9 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	public double evalua() {
 		while(!terminado()) {
 			ejecuta(raiz);
+			if(cortacesped.quieto()) {
+				return 0;
+			}
 		}
 		return cortacesped.getPodado();
 	}

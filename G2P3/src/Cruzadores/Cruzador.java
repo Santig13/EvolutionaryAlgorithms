@@ -38,8 +38,8 @@ public abstract class Cruzador {
 
 			cruzar(seleccionados[i],seleccionados[i+1]);
 
-			individuos[indices[i]]=seleccionados[i];
-			individuos[indices[i+1]]=seleccionados[i+1];
+			//individuos[indices[i]]=seleccionados[i];
+			//individuos[indices[i+1]]=seleccionados[i+1];
 		}
 
 	}

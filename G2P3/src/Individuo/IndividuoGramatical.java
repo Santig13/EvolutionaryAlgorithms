@@ -1,5 +1,7 @@
 package Individuo;
 
+import java.util.List;
+
 import Individuo.TJardin.Casillas;
 
 public class IndividuoGramatical extends Individuo {
@@ -8,6 +10,8 @@ public class IndividuoGramatical extends Individuo {
 	private int wraps;
 	private int maxWraps;
     private int[] cromosoma;
+
+	private int i;
     
     public IndividuoGramatical() {
     	// TODO Auto-generated constructor stub
@@ -15,29 +19,55 @@ public class IndividuoGramatical extends Individuo {
     }
     @Override
 	public double evalua() {
+    	
 		while(!terminado()) {
-			start();
+			i=0;
+			wraps=0;
+			ejecuta(BNFGramatica.start());
 		}
 		return cortacesped.getPodado();
 	}
 
 	private void start() {
 		// TODO Auto-generated method stub
-		
+		List<String> l=BNFGramatica.regla("start",cromosoma[0]);
+		this.i=1;
+		this.ejecuta(l.get(0));
 	}
-	private int ejecuta(int i, boolean operativa) {
+	private posicion ejecuta(String clave) {
 		// TODO Auto-generated method stub
+		posicion casilla=new posicion(0,0);
 		if (i >= cromosoma.length){
 			 i = 0;
 			 this.wraps++;
 		}
 	    if(this.wraps >= this.maxWraps)
-		 return i;
+		 return casilla;
 	    
+	    List<String> l=BNFGramatica.regla(clave,cromosoma[i]);
+	    String regla=l.get(0);
+	    if(regla.equalsIgnoreCase("progn2")) {
+	    	i++;
+	    	ejecuta(l.get(1));
+	    	return ejecuta(l.get(2));
+	    }
+	    else if(regla.equalsIgnoreCase("suma")) {
+	    	return cortacesped.suma(ejecuta(l.get(1)), ejecuta(l.get(2)));
+	    }else if(regla.equalsIgnoreCase("salta")) {
+	    	return cortacesped.salta(ejecuta(l.get(1)));
+	    }
+	    else if(regla.equalsIgnoreCase("avanza")) {
+	    	return cortacesped.avanza();
+	    }else if(regla.equalsIgnoreCase("izquierda")) {
+	    	return cortacesped.izquierda();
+	    }else if(regla.equalsIgnoreCase("derecha")) {
+	    	return cortacesped.derecha();
+	    }else if(regla.equalsIgnoreCase("cte")) {
+	    	return new posicion(cortacesped.aleatoria());
+	    }else {
+	    	return casilla;
+	    }
 	    
-	    
-	    
-		return i;
 	}
 	private boolean terminado() {
 		// TODO Auto-generated method stub

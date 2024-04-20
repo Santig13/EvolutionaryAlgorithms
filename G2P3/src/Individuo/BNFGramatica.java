@@ -54,8 +54,14 @@ public class BNFGramatica {
 		}
         return contenido.toString();
     }
-    protected static String regla(int codon) {
-    	int regla = codon % (gramatica.size()+1);
-		return null;
+    protected static List<String> regla(String key, int codon) {
+    	List<List<String>> lista =gramatica.get(key);
+    	int regla = codon % (lista.size());
+		return lista.get(regla);
     }
+	public static String start() {
+		// TODO Auto-generated method stub
+		List<List<String>> lista =gramatica.get("start");
+		return lista.get(0).get(0);
+	}
 }

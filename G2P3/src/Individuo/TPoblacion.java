@@ -66,5 +66,11 @@ public  class TPoblacion {
 		// TODO Auto-generated method stub
 		individuos[i]=(IndividuoArbolGenetico) individuo;
 	}
+
+
+	public void setIndivuduos(Individuo[] individuos2) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

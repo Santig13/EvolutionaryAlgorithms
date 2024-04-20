@@ -12,6 +12,7 @@ public class Cortacesped {
 	    SUR
 	}
 	private int podado;
+	
 	private int n;
 	private int m;
 	private Casillas[][] jardin;
@@ -191,5 +192,9 @@ public class Cortacesped {
 		public double getPodado() {
 			// TODO Auto-generated method stub
 			return this.podado;
+		}
+		public boolean quieto() {
+			// TODO Auto-generated method stub
+			 return giros==0&&movimientos==0;
 		}
 }

@@ -16,7 +16,7 @@ public class FactoriaIniciadorIMP extends FactoriaIniciador {
 			return new IniciadorCompleta();
 		case "Creciente":
 			return new IniciadorCreciente();
-		case "Ramped and Half":
+		case "Ramped-Half":
 			return new IniciadorRampedAndHalf();
 		default:
 			return null;
