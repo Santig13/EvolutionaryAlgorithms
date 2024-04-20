@@ -205,7 +205,7 @@ public class MainWindow extends JFrame implements GUI {
             // Manejar la acción del botón aquí
             reiniciarGrafica();
             try{
-            ctr.run(this, camposToRun());
+            	ctr.run(this, camposToRun());
             }
             catch(Exception ex) {
             	//JOptionPane.showMessageDialog(null, "No se ha podido ejecutar el algoritmo, introduzca los datos correctamente");

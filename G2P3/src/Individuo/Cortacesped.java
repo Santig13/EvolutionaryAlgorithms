@@ -2,6 +2,8 @@ package Individuo;
 
 
 import java.util.Random;
+
+import Individuo.IndividuoArbolGenetico.nodo;
 import Individuo.TJardin.Casillas;
 
 public class Cortacesped {
@@ -11,6 +13,8 @@ public class Cortacesped {
 	    OESTE,
 	    SUR
 	}
+		
+	
 	private int podado;
 	
 	private int n;
@@ -196,5 +200,28 @@ public class Cortacesped {
 		public boolean quieto() {
 			// TODO Auto-generated method stub
 			 return giros==0&&movimientos==0;
+		}
+
+		public boolean DelanteTierra() {
+			switch(orientacion) {
+			case NORTE:
+				if (jardin[pos.getX()][Math.abs((pos.getY()-1)%m)] != Casillas.TIERRA)
+					return false;
+				break;
+			case ESTE :
+				if (jardin[(pos.getX()+1)%n][pos.getY()] != Casillas.TIERRA)
+					return false;
+				break;
+			case OESTE:
+				if (jardin[Math.abs((pos.getX()-1)%n)][pos.getY()] != Casillas.TIERRA)
+					return false;
+				break;
+			case SUR:
+				if (jardin[pos.getX()][(pos.getY()+1)%m] != Casillas.TIERRA)
+					return false;
+				break;
+			}
+			
+			return true;
 		}
 }

@@ -20,6 +20,7 @@ import Individuo.TJardin;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class Interfaz extends JFrame {
 
@@ -107,10 +108,15 @@ public class Interfaz extends JFrame {
          casillas = new JPanel[tamaño][tamaño];
          Dimension dim = new Dimension(panelJardin.getWidth() / tamaño, panelJardin.getHeight() / tamaño);
 
+         Random rand = new Random();
          for (int i = 0; i < tamaño; i++) {
              for (int j = 0; j < tamaño; j++) {
                  casillas[i][j] = new JPanel();
-                 casillas[i][j].setBackground(Color.GREEN);
+                 //if(rand.nextDouble() < 0.9)
+                     casillas[i][j].setBackground(Color.GREEN);
+                 //else
+                  //   casillas[i][j].setBackground(Color.RED);
+                 
                  casillas[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
                  casillas[i][j].setPreferredSize(dim);
                  panelJardin.add(casillas[i][j]);

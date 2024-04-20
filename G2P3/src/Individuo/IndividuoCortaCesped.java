@@ -3,6 +3,7 @@ package Individuo;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Individuo.IndividuoArbolGenetico.nodo;
 import Individuo.TJardin.Casillas;
 
 public class IndividuoCortaCesped extends IndividuoArbolGenetico {
@@ -23,7 +24,7 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
         add("SALTA");
         add("PROGN");
         add("SUMA");
-        //add("IF-DIRTY");
+        add("IF-DIRTY");
        // add("REPEAT");
     }};
 
@@ -79,7 +80,7 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	    	casilla=cortacesped.suma(ejecuta(n.hijo1()), ejecuta(n.hijo2()));
 	    	break;
 	    case "IF-DIRTY":
-	    	
+	    	casilla=this.ifDirty(n.hijo1(), n.hijo2());
 	    	break;
 	    case "REPEAT":
 	    	
@@ -197,5 +198,12 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		cortacesped.setJardin(jardin);
 	}
 	
+	public posicion ifDirty(nodo A, nodo B) {
+		if (cortacesped.DelanteTierra())
+		{
+			return ejecuta(B);
+		}
+		return ejecuta(A);
+	}
 	
 }
