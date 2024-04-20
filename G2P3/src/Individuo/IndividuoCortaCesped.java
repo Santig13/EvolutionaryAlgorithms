@@ -196,7 +196,7 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		switch(orientacion) {
 			case NORTE:
 				orientacion=PuntoCardinal.ESTE;
-				break;
+			 	break;
 			case ESTE :
 				orientacion=PuntoCardinal.SUR;
 				break;
@@ -334,6 +334,7 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		
 		return new nodo(funcion,hijos);
 	}
+	
 	
 	public Casillas[][] getJardin() {
 		return jardin;
