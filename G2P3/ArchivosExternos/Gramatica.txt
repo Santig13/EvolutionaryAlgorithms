@@ -1,3 +1,4 @@
 <start>::=<op>
-<op>::=(progn2 <op> <op>)|(suma <op> <op>)|(salta <op>)
+<e>::=<op>|<x>
+<op>::=(progn2 <e> <e>)|(suma <e> <e>)|(salta <e>)
 <x>::=(avanza)|(izquierda)|(derecha)|cte

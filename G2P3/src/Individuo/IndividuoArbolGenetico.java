@@ -327,7 +327,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		else
 			pos = rand.nextInt(nodos.size());
 		nodo subArbolSeleccionado = nodos.get(pos).copia();
-		nodo subArbolParaCruce = individuo2.cruceSubArbol2(subArbolSeleccionado);
+		nodo subArbolParaCruce = ((IndividuoArbolGenetico)individuo2).cruceSubArbol2(subArbolSeleccionado);
 		
 		//CRUCE
 		nodo padre = nodos.get(pos).padre;

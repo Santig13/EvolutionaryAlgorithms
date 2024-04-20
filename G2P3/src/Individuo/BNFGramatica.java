@@ -1,6 +1,7 @@
 package Individuo;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,34 +40,22 @@ public class BNFGramatica {
             gramatica.put(regla[0].trim(), list1);
         }
     }
-    public static void main(String[] args) {
-        // Nombre del archivo que contiene la definición de la gramática
-        String nombreArchivo = "./ArchivosExternos/Gramatica.txt";
-
-        try {
-            // Lee el contenido del archivo
-            String contenido = leerArchivo(nombreArchivo);
-
-            // Crea una instancia de BNFGramatica y pasa el contenido del archivo
-           // BNFGramatica gramatica = new BNFGramatica(contenido);
-
-            // Haz lo que necesites con la gramática aquí
-            // Por ejemplo, podrías imprimir el mapa de gramática para verificar que se haya creado correctamente
-            System.out.println(gramatica);
-        } catch (IOException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
-        }
-    }
-
     // Método para leer el contenido de un archivo y devolverlo como una cadena
-    private static String leerArchivo(String nombreArchivo) throws IOException {
+    private static String leerArchivo(String nombreArchivo)  {
         StringBuilder contenido = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 contenido.append(linea).append("\n");
             }
-        }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return contenido.toString();
+    }
+    protected static String regla(int codon) {
+    	int regla = codon % (gramatica.size()+1);
+		return null;
     }
 }

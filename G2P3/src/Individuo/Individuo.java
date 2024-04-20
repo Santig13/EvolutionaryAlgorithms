@@ -23,8 +23,8 @@ public abstract class Individuo {
 	public abstract double evalua();
 	public abstract Individuo copia();
 
-	public abstract void cruceSubArbol1(Individuo individuo2);
-	public abstract nodo cruceSubArbol2(nodo subArbolParaCruce);
+	public  void cruceSubArbol1(Individuo individuo2) {};
+	
 	public abstract void reset();
 	public abstract Casillas[][] getJardin();
 
