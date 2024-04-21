@@ -73,7 +73,7 @@ public class Cortacesped {
 		switch(orientacion) {
 			case NORTE:
 				
-				if(puedemoverseY(1))pos.mueveY(1);
+				if(puedemoverseY(-1))pos.mueveY(-1);
 				break;
 			case ESTE :
 				if(puedemoverseX(1))pos.mueveX(1);
@@ -82,7 +82,7 @@ public class Cortacesped {
 				if(puedemoverseX(-1))pos.mueveX(-1);
 				break;
 			case SUR:
-				if(puedemoverseY(-1))pos.mueveY(-1);
+				if(puedemoverseY(1))pos.mueveY(1);
 				break;
 		}
 		this.poda();
@@ -203,21 +203,28 @@ public class Cortacesped {
 		}
 
 		public boolean DelanteTierra() {
+			
 			switch(orientacion) {
 			case NORTE:
-				if (jardin[pos.getX()][Math.abs((pos.getY()-1)%m)] != Casillas.TIERRA)
+				int Y = (pos.getY()-1);
+				if (Y == -1)
+					Y = n-1;
+				if (jardin[Y][pos.getX()] != Casillas.TIERRA)
 					return false;
 				break;
 			case ESTE :
-				if (jardin[(pos.getX()+1)%n][pos.getY()] != Casillas.TIERRA)
+				if (jardin[pos.getY()][(pos.getX()+1)%m] != Casillas.TIERRA)
 					return false;
 				break;
 			case OESTE:
-				if (jardin[Math.abs((pos.getX()-1)%n)][pos.getY()] != Casillas.TIERRA)
+				int X =(pos.getX()-1);
+				if (X == -1)
+					X = m-1;
+				if (jardin[pos.getY()][X] != Casillas.TIERRA)
 					return false;
 				break;
 			case SUR:
-				if (jardin[pos.getX()][(pos.getY()+1)%m] != Casillas.TIERRA)
+				if (jardin[(pos.getY()+1)%n][ pos.getX()] != Casillas.TIERRA)
 					return false;
 				break;
 			}

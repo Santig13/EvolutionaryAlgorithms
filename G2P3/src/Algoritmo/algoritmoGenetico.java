@@ -43,7 +43,7 @@ public class algoritmoGenetico {
 	private boolean minimizar;
 	
 	private Iniciador iniciador;
-	private int profundidad=3;
+	private int profundidad=2;
 
     public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
     			Selector sel,Mutador mut,Cruzador cruz,TPoblacion poblacion,  double porcenElite,Iniciador iniciador)

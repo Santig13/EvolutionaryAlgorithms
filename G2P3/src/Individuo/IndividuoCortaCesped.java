@@ -199,7 +199,7 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	}
 	
 	public posicion ifDirty(nodo A, nodo B) {
-		if (cortacesped.DelanteTierra())
+		if (cortacesped.DelanteTierra())//Si está podado
 		{
 			return ejecuta(B);
 		}
