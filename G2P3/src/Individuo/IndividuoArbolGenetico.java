@@ -115,7 +115,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		}
 	}
 	 protected nodo raiz;
-	private int totNodos;
+	protected int totNodos;
 	
 	 
 	 //INICIALIZACIONES

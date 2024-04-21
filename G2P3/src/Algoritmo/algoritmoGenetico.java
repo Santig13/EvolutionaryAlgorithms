@@ -121,7 +121,7 @@ public class algoritmoGenetico {
 		// TODO Auto-generated method stub
 		Individuo[] individuos=poblacion.getIndivuduos();
 		double sumaFit = 0.0;
-		double maximo = Double.MIN_VALUE;
+		double maximo = -Double.MAX_VALUE;
 		Individuo mejor=null;
 		gener[currentGeneration]=currentGeneration;
 		double sumaNodos=0;
@@ -156,10 +156,14 @@ public class algoritmoGenetico {
 			covarianza+=(individuos[i].getTamanio()-mediaNodos)*(individuos[i].getFitness()-mediaGen);
 		}
 		covarianza/=tamPoblacion;
-		//Factor penalizacion
-		double k=covarianza/varianza;
+		//Factor penalizacion´
+		double k=0;
+		if(varianza!=0)
+			k=covarianza/varianza;
+		sumaFit=0;
 		for(int i=0;i<tamPoblacion;i++) {
-			individuos[i].setFitness(Math.max(0.0,individuos[i].getFitness()-(k*individuos[i].getTamanio())));
+			individuos[i].setFitness(individuos[i].getFitness()+(k*individuos[i].getTamanio()));
+			sumaFit+=individuos[i].getFitness();
 		}
 		//this.tamanio_media_generacion[this.currentGeneration]=mediaNodos;
 		//this.factor_penalizacion_generacion[this.currentGeneration]=k;
@@ -197,14 +201,22 @@ public class algoritmoGenetico {
 			individuos[i].setFitness(fitnessEscalado);
 		}
 			*/
-		
+		if(mejor==null) {
+		 varianza++;
+		}
 		
 		for(int i=0;i<tamPoblacion;i++) {
-			individuos[i].setPuntuacion(individuos[i].getFitness()/sumaFit);
+			if(sumaFit!=0)
+				individuos[i].setPuntuacion(individuos[i].getFitness()/sumaFit);
+			else
+				individuos[i].setPuntuacion(0);
 		}
 
 		this.aptitud_mejor_generacion[this.currentGeneration]=mejor.evalua();
-		this.presion_evolutiva_generacional[this.currentGeneration]=this.aptitud_mejor_generacion[this.currentGeneration]/this.aptitud_media_generacion[this.currentGeneration];
+		if(this.aptitud_media_generacion[this.currentGeneration]!=0)
+			this.presion_evolutiva_generacional[this.currentGeneration]=this.aptitud_mejor_generacion[this.currentGeneration]/this.aptitud_media_generacion[this.currentGeneration];
+		else
+			this.presion_evolutiva_generacional[this.currentGeneration]=0;
 		
 		if(this.currentGeneration==0||(this.currentGeneration>0&&
 				((this.elMejor.getFitness()<mejor.getFitness()&&!minimizar)||

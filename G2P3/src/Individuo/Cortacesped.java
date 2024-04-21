@@ -15,7 +15,7 @@ public class Cortacesped {
 	}
 		
 	
-	private int podado;
+	private int podado=0;
 	
 	private int n;
 	private int m;

@@ -139,6 +139,7 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		copia.maximaProfundidad = this.maximaProfundidad;
 		copia.fitness=this.fitness;
 		copia.puntuacion=this.puntuacion;
+		copia.totNodos=totNodos;
 		copia.cortacesped=cortacesped.copia();
 		copia.raiz=copiaArbol();
 		return copia;
@@ -217,6 +218,15 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		{
 			return ejecuta(B);
 		}
+	}
+	@Override
+	public String toString() {
+		String s="El cortacesped ha podado:"+this.cortacesped.getPodado()+"\n(";
+		
+			s=s+raiz.toString();
+	
+		s=s+")"+totNodos;
+		return s;
 	}
 	
 }

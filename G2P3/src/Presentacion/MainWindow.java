@@ -210,7 +210,7 @@ public class MainWindow extends JFrame implements GUI {
             catch(Exception ex) {
             	//JOptionPane.showMessageDialog(null, "No se ha podido ejecutar el algoritmo, introduzca los datos correctamente");
             	JOptionPane.showMessageDialog(null, ex.getMessage());
-            	// ex.printStackTrace();
+            	ex.printStackTrace();
             }
         });
 		this.interfaz.setVisible(true);
