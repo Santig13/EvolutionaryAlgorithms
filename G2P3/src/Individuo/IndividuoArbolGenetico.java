@@ -411,7 +411,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 		
 			s=s+raiz.toString();
 	
-		s=s+")";
+		s=s+")"+totNodos;
 		return s;
 	}
 	private int numNodos(nodo n) {
@@ -420,5 +420,9 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 			contador+=numNodos(h);
 		}
 		return contador;
+	}
+	public int getTamanio() {
+		
+		return this.totNodos;
 	}
 }

@@ -44,6 +44,8 @@ public class algoritmoGenetico {
 	
 	private Iniciador iniciador;
 	private int profundidad=3;
+	private double[] tamanio_media_generacion;
+	private double[] factor_penalizacion_generacion;
 
     public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
     			Selector sel,Mutador mut,Cruzador cruz,TPoblacion poblacion,  double porcenElite,Iniciador iniciador)
@@ -122,23 +124,45 @@ public class algoritmoGenetico {
 		double maximo = Double.MIN_VALUE;
 		Individuo mejor=null;
 		gener[currentGeneration]=currentGeneration;
-
+		int sumaNodos=0;
+		
 		for(int i=0;i<tamPoblacion;i++) {
 			double aptitud=individuos[i].evalua();
 
 			sumaFit+=aptitud;
+			sumaNodos=individuos[i].getTamanio();
 			individuos[i].setFitness(aptitud);
 			if(aptitud>maximo) {
 				maximo=aptitud;
 				mejor = individuos[i].copia();
 			}
 		}
-
-
-		this.aptitud_media_generacion[this.currentGeneration]=sumaFit/tamPoblacion;
+		double mediaNodos=sumaNodos/tamPoblacion;
+		double mediaGen=sumaFit/tamPoblacion;
 		
 
-
+		this.aptitud_media_generacion[this.currentGeneration]=mediaGen;
+		//Bloating
+		//Varianza
+		double varianza=0;
+		for(int i=0;i<tamPoblacion;i++) {
+			varianza+=Math.pow(individuos[i].getTamanio()-mediaNodos, 2);
+		}
+		varianza/=tamPoblacion;
+		//Covarianza
+		double covarianza=0;
+		for(int i=0;i<tamPoblacion;i++) {
+			covarianza+=(individuos[i].getTamanio()-mediaNodos)*(individuos[i].getFitness()-mediaGen);
+		}
+		covarianza/=tamPoblacion;
+		//Factor penalizacion
+		double k=covarianza/varianza;
+		for(int i=0;i<tamPoblacion;i++) {
+			individuos[i].setFitness(individuos[i].getFitness()-(k*individuos[i].getTamanio()));
+		}
+		this.tamanio_media_generacion[this.currentGeneration]=mediaNodos;
+		this.factor_penalizacion_generacion[this.currentGeneration]=k;
+		
 		if(minimizar) {
 
 			sumaFit = 0.0;

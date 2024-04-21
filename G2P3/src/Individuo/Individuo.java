@@ -27,6 +27,10 @@ public abstract class Individuo {
 	
 	public abstract void reset();
 	public abstract Casillas[][] getJardin();
+	public int getTamanio() {
+		
+		return 0;
+	}
 
     
     

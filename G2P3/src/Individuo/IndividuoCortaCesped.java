@@ -25,7 +25,8 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
         add("PROGN");
         add("SUMA");
         add("IF-DIRTY");
-       // add("REPEAT");
+        add("REPEATY");
+        add("REPEATX");
     }};
 
 	
@@ -80,10 +81,18 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	    	casilla=cortacesped.suma(ejecuta(n.hijo1()), ejecuta(n.hijo2()));
 	    	break;
 	    case "IF-DIRTY":
-	    	casilla=this.ifDirty(n.hijo1(), n.hijo2());
+	    	casilla= cortacesped.DelanteTierra() ? ejecuta(n.hijo1()) : ejecuta(n.hijo2());
+	    	//casilla=this.ifDirty(n.hijo1(), n.hijo2());
 	    	break;
-	    case "REPEAT":
-	    	
+	    case "REPEATY":
+	    	int vecesy=ejecuta(n.hijo1()).getY()%8;
+	    	for(int i=0;i<vecesy;i++)
+	    		casilla=ejecuta(n.hijo2());
+	        break;
+	    case "REPEATX":
+	    	int vecesx=ejecuta(n.hijo1()).getY()%8;
+	    	for(int i=0;i<vecesx;i++)
+	    		casilla=ejecuta(n.hijo2());
 	        break;
 	    default:
 	    	casilla=new posicion(n.getDescript());
@@ -140,7 +149,7 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 			ejecuta(raiz);
 			
 			if(cortacesped.quieto()) {
-				return 0;
+				break;
 			}
 			
 		}
@@ -200,12 +209,6 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		cortacesped.setJardin(jardin);
 	}
 	
-	public posicion ifDirty(nodo A, nodo B) {
-		if (cortacesped.DelanteTierra())//Si está podado
-		{
-			return ejecuta(B);
-		}
-		return ejecuta(A);
-	}
+	
 	
 }
