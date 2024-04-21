@@ -19,10 +19,10 @@ public class TJardin {
 	            	
 	            	Color c=colors[i][j];
 	            	Casillas cas=null;
-	            	if(c==Color.green) {
+	            	if(c==Color.GREEN) {
 	            		cas=Casillas.CESPED;
 	            	}
-	            	else if(c==Color.red) {
+	            	else if(c==Color.RED) {
 	            		cas=Casillas.PARED;
 	            	}
 	            	else  {
@@ -48,7 +48,7 @@ public class TJardin {
 	            		c=Color.green;
 	            	}
 	            	else if(cas==Casillas.PARED) {
-	            		c=Color.red;
+	            		c=Color.RED;
 	            	}
 	            	else if(cas==Casillas.TIERRA) {
 	            		c=Color.WHITE;

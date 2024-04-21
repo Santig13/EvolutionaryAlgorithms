@@ -20,6 +20,8 @@ import Individuo.TJardin;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Random;
 
 public class Interfaz extends JFrame {
@@ -43,8 +45,10 @@ public class Interfaz extends JFrame {
 	private JTextField ElitismotextField;
   	private JFrame parent;
 	private int tamaño;
+	private int tierra;
     public Interfaz(JFrame parent) {
     	 parent=parent;
+    	 tierra=0;
     	setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     	
         setBounds(10,100, 700, parent.getHeight()); // Ajustar posición
@@ -88,6 +92,7 @@ public class Interfaz extends JFrame {
 
      public  void reset() {
 		// TODO Auto-generated method stub
+    	 if(tierra==0)return;
     	String seleccion = (String) comboBox.getSelectedItem();
    	  	cambiarTamañoTabla(seleccion);
 	}
@@ -104,7 +109,7 @@ public class Interfaz extends JFrame {
      private void crearCasillas(int tamaño) {
          panelJardin.removeAll();
          panelJardin.setLayout(new GridLayout(tamaño, tamaño));
-
+         tierra=0;
          casillas = new JPanel[tamaño][tamaño];
          Dimension dim = new Dimension(panelJardin.getWidth() / tamaño, panelJardin.getHeight() / tamaño);
 
@@ -119,6 +124,17 @@ public class Interfaz extends JFrame {
                  
                  casillas[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
                  casillas[i][j].setPreferredSize(dim);
+              // Agregar un MouseListener a cada panel
+                 casillas[i][j].addMouseListener(new MouseAdapter() {
+                     @Override
+                     public void mouseClicked(MouseEvent e) {
+                         JPanel panelClicado = (JPanel) e.getSource();
+                         Color c= panelClicado.getBackground()==Color.GREEN ? Color.RED:Color.GREEN ;
+                        panelClicado.setBackground(c);
+                        panelJardin.revalidate();
+           	         	panelJardin.repaint(); 
+                     }
+                 });
                  panelJardin.add(casillas[i][j]);
              }
          }
@@ -134,7 +150,7 @@ public class Interfaz extends JFrame {
 		
          for (int i = 0; i < tamaño; i++) {
             for (int j = 0; j < tamaño; j++) {
-              sol[i][j] =casillas[i][j].getBackground();
+              sol[i][j] =casillas[i][j].getBackground();  
             }
         }
          return sol;
@@ -149,6 +165,7 @@ public class Interfaz extends JFrame {
 	             for (int j = 0; j < tamaño; j++) {
 	                 
 	                 casillas[i][j].setBackground(colors[i][j]);
+	                 if(colors[i][j]==Color.WHITE)this.tierra++;
 	             }
 	         }
 	         
