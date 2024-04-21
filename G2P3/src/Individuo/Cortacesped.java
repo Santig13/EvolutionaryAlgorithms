@@ -24,7 +24,9 @@ public class Cortacesped {
 	private posicion pos;
 	private PuntoCardinal orientacion;
 	
-	//Condicionales de terminacion 
+	//Condicionales de terminacion
+	private int movimientosAnt;
+	private int girosAnt;
 	private int movimientos;
 	private int giros;
     public Cortacesped() {
@@ -155,6 +157,8 @@ public class Cortacesped {
 			copia.orientacion=this.orientacion;
 			copia.movimientos=this.movimientos;
 			copia.giros=this.giros;
+			copia.girosAnt = this.girosAnt;
+			copia.movimientosAnt = this.movimientosAnt;
 			copia.podado=podado;
 			copia.n=n;
 			copia.m=m;
@@ -167,6 +171,8 @@ public class Cortacesped {
 			return copia;
 		}
 		public void reset() {
+			this.girosAnt = 0;
+			this.movimientosAnt = 0;
 			this.giros = 0;
 			this.movimientos = 0;
 			this.podado=0;
@@ -199,7 +205,14 @@ public class Cortacesped {
 		}
 		public boolean quieto() {
 			// TODO Auto-generated method stub
-			 return giros==0&&movimientos==0;
+			if (giros==girosAnt && movimientos==movimientosAnt)
+			 return true;
+			else
+			{
+				girosAnt = giros;
+				movimientosAnt = movimientos;
+				return false;
+			}
 		}
 
 		public boolean DelanteTierra() {
