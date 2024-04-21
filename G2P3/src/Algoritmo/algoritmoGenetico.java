@@ -124,13 +124,13 @@ public class algoritmoGenetico {
 		double maximo = Double.MIN_VALUE;
 		Individuo mejor=null;
 		gener[currentGeneration]=currentGeneration;
-		int sumaNodos=0;
+		double sumaNodos=0;
 		
 		for(int i=0;i<tamPoblacion;i++) {
 			double aptitud=individuos[i].evalua();
 
 			sumaFit+=aptitud;
-			sumaNodos=individuos[i].getTamanio();
+			sumaNodos+=individuos[i].getTamanio();
 			individuos[i].setFitness(aptitud);
 			if(aptitud>maximo) {
 				maximo=aptitud;
@@ -144,6 +144,7 @@ public class algoritmoGenetico {
 		this.aptitud_media_generacion[this.currentGeneration]=mediaGen;
 		//Bloating
 		//Varianza
+		
 		double varianza=0;
 		for(int i=0;i<tamPoblacion;i++) {
 			varianza+=Math.pow(individuos[i].getTamanio()-mediaNodos, 2);
@@ -158,10 +159,10 @@ public class algoritmoGenetico {
 		//Factor penalizacion
 		double k=covarianza/varianza;
 		for(int i=0;i<tamPoblacion;i++) {
-			individuos[i].setFitness(individuos[i].getFitness()-(k*individuos[i].getTamanio()));
+			individuos[i].setFitness(Math.max(0.0,individuos[i].getFitness()-(k*individuos[i].getTamanio())));
 		}
-		this.tamanio_media_generacion[this.currentGeneration]=mediaNodos;
-		this.factor_penalizacion_generacion[this.currentGeneration]=k;
+		//this.tamanio_media_generacion[this.currentGeneration]=mediaNodos;
+		//this.factor_penalizacion_generacion[this.currentGeneration]=k;
 		
 		if(minimizar) {
 

@@ -85,12 +85,12 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	    	casilla=this.ifDirty(n.hijo1(), n.hijo2());
 	    	break;
 	    case "REPEATY":
-	    	int vecesy=ejecuta(n.hijo1()).getY()%8;
+	    	int vecesy=ejecuta(n.hijo1()).getY()%8+1;
 	    	for(int i=0;i<vecesy;i++)
 	    		casilla=ejecuta(n.hijo2());
 	        break;
 	    case "REPEATX":
-	    	int vecesx=ejecuta(n.hijo1()).getX()%8;
+	    	int vecesx=ejecuta(n.hijo1()).getX()%8+1;
 	    	for(int i=0;i<vecesx;i++)
 	    		casilla=ejecuta(n.hijo2());
 	        break;

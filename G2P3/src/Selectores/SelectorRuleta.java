@@ -32,7 +32,7 @@ public class SelectorRuleta implements Selector{
             int x = 0;
             double sum = 0;
 
-            while (numeroAleatorio > sum)
+            while (numeroAleatorio > sum && x<generacion.length)
             {
                 sum = sum + probSeleccion[x];
                 x++;
