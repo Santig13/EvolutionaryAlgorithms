@@ -1,6 +1,7 @@
 package Individuo;
 
 import java.util.List;
+import java.util.Random;
 
 import Individuo.TJardin.Casillas;
 
@@ -96,6 +97,45 @@ public class IndividuoGramatical extends Individuo {
 		return cortacesped.getJardin();
 	}
 	
+	
+	//CRUCES
+	public int getLongitudCromosoma() {
+		return cromosoma.length;
+	}
+	
+	@Override
+	public void cruzarMonopunto(int i, Individuo padre2) {
+		// TODO Auto-generated method stub
+		int[] cromosomaPadre= padre2.getCromosoma();
+		for(int x=i;x<cromosoma.length;x++) {
+			cromosoma[x]=cromosomaPadre[x];
+		}
+
+	}
+	
+	@Override
+	public int[] getCromosoma() {
+		return cromosoma;
+	}
+	
+	@Override
+	public void cruzarUniforme(Boolean[] cruzar, Individuo individuo2) {
+		int[] cromosomaPadre= individuo2.getCromosoma();
+		for(int i=0;i<cromosoma.length;i++) {
+			if(cruzar[i]) {
+				cromosoma[i]=cromosomaPadre[i];
+			}
+		}
+	}
+
+	// MUTACION
+	@Override
+	public void mutarBasico() {	
+		
+		Random rand = new Random();
+		int pos = rand.nextInt(cromosoma.length);
+		cromosoma[pos] = rand.nextInt();
+	}
 
 	
 

@@ -59,7 +59,7 @@ public class MainWindow extends JFrame implements GUI{
 	private Plot2DPanel plot;
 	//private final String[] tiposDeFuncion=  {"vuelos1.txt", "vuelos2.txt"};
 	private final String[] tiposDeCruzadorArboles= {"Normal"};
-	private final String[] tiposDeCruzadorGramaticas= {"Mono Punto","Uniforme","BLXa","Aritmetico"};
+	private final String[] tiposDeCruzadorGramaticas= {"Mono Punto","Uniforme"};
 
 	private final String[] tiposDeMutadorArboles= {"Terminal","Funcional", "Arbol-SubArbol", "Inicializacion"};
 	private final String[] tiposDeMutadorGramaticas= {"Basico"};

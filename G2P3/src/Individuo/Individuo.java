@@ -31,6 +31,15 @@ public abstract class Individuo {
 		
 		return 0;
 	}
+	
+	public int getLongitudCromosoma() {
+		return 0;
+	}
+	public void cruzarUniforme(Boolean[] cruzar, Individuo individuo2) {}
+	public void cruzarMonopunto(int puntoDeCorte, Individuo individuo) {}
+	public int[] getCromosoma() {return null;}
+	public void mutarBasico() {	}
+	
 
     
     
