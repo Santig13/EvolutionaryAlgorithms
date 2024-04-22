@@ -1,6 +1,8 @@
 package Presentacion;
 
 
+
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -40,7 +42,7 @@ import java.awt.Dimension;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
 
-public class MainWindow extends JFrame implements GUI {
+public class MainWindow extends JFrame implements GUI{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -50,20 +52,31 @@ public class MainWindow extends JFrame implements GUI {
 	private JTextField ProbCrucetextField;
 	private JTextField ProbMutaciontextField;
 	private JTextField ElitismotextField;
+	private JTextField WrapstextField;
+
 	private JTextField VuelostextField;
 	private JTextField txtTeltxt;
 	private Plot2DPanel plot;
 	//private final String[] tiposDeFuncion=  {"vuelos1.txt", "vuelos2.txt"};
-	private final String[] tiposDeCruzador= {"Normal"};
-	private final String[] tiposDeMutador= {"Terminal","Funcional", "Arbol-SubArbol", "Inicializacion"};
+	private final String[] tiposDeCruzadorArboles= {"Normal"};
+	private final String[] tiposDeCruzadorGramaticas= {"Mono Punto","Uniforme","BLXa","Aritmetico"};
+
+	private final String[] tiposDeMutadorArboles= {"Terminal","Funcional", "Arbol-SubArbol", "Inicializacion"};
+	private final String[] tiposDeMutadorGramaticas= {"Basico"};
+
+	
 	private final String[] tiposDeSelector= {"Ruleta", "Estocastico", "Truncamiento", "Torneo Det", "Torneo Pro", "Restos", "Ranking"};
 	private final String[] tiposIniciadores= {"Completo","Creciente", "Ramped-Half", "Inicializacion"};
+	private final String[] tiposIndividuos= {"Programacion Genetica","Gramaticas Evolutivas"};
+
 	JComboBox MutacioncomboBox;
 	JComboBox CrucecomboBox;
 	JComboBox SelecomboBox;
 	private Interfaz interfaz;
 	private JComboBox inicomboBox;
 	private JTextArea textArea;
+	private JPanel IndividuoPanel;
+	private JComboBox IndividuoComboBox;
 	
 	/**
 	 * Launch the application.
@@ -88,7 +101,7 @@ public class MainWindow extends JFrame implements GUI {
 		Controller ctr=new ControllerIMP();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(700, 100, 800, 470);
+		setBounds(700, 100, 787, 568);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -157,14 +170,14 @@ public class MainWindow extends JFrame implements GUI {
 		ParametersPanel.add(CruceLabel);
 		
 		CrucecomboBox = new JComboBox();
-		CrucecomboBox.setModel(new DefaultComboBoxModel(tiposDeCruzador));
+		CrucecomboBox.setModel(new DefaultComboBoxModel(tiposDeCruzadorArboles));
 		ParametersPanel.add(CrucecomboBox);
 		
 		JLabel MutacionLabel = new JLabel("Mutacion");
 		ParametersPanel.add(MutacionLabel);
 		
 		MutacioncomboBox = new JComboBox();
-		MutacioncomboBox.setModel(new DefaultComboBoxModel(tiposDeMutador));
+		MutacioncomboBox.setModel(new DefaultComboBoxModel(tiposDeMutadorArboles));
 		ParametersPanel.add(MutacioncomboBox);
 		
 		
@@ -184,6 +197,19 @@ public class MainWindow extends JFrame implements GUI {
 		ParametersPanel.add(ElitismotextField);
 		ElitismotextField.setColumns(2);
 		
+		
+		JLabel MaxWrapsLabel = new JLabel("Wraps");
+		ParametersPanel.add(MaxWrapsLabel);
+		
+		
+		WrapstextField = new JTextField();
+		WrapstextField.setText("20");
+		ParametersPanel.add(WrapstextField);
+		WrapstextField.setColumns(2);
+		
+		MaxWrapsLabel.setVisible(false);
+		WrapstextField.setVisible(false);
+		
 		ParametersPanel.add(EjecutarButton);
 		
 		JPanel Graficapanel = new JPanel();
@@ -199,7 +225,40 @@ public class MainWindow extends JFrame implements GUI {
 		textArea.setRows(5); // Establecer el número de filas (altura) del área de texto
 
 		// Agregar el JTextArea al contenedor principal (contentPane) debajo de ParametersPanel
-		contentPane.add(new JScrollPane(textArea), BorderLayout.SOUTH);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		contentPane.add(scrollPane, BorderLayout.SOUTH);
+		
+		IndividuoPanel = new JPanel();
+		scrollPane.setRowHeaderView(IndividuoPanel);
+		
+		IndividuoComboBox = new JComboBox();
+		IndividuoPanel.add(IndividuoComboBox);
+		IndividuoComboBox.setModel(new DefaultComboBoxModel(tiposIndividuos));
+		IndividuoComboBox.addActionListener(e -> {
+			if(IndividuoComboBox.getSelectedItem() == "Programacion Genetica")
+			{
+				inicializadotrs.setVisible(true);
+				inicomboBox.setVisible(true);
+
+				MaxWrapsLabel.setVisible(false);
+				WrapstextField.setVisible(false);
+				
+				CrucecomboBox.setModel(new DefaultComboBoxModel(tiposDeCruzadorArboles));
+				MutacioncomboBox.setModel(new DefaultComboBoxModel(tiposDeMutadorArboles));
+
+			}
+			else
+			{
+				inicializadotrs.setVisible(false);
+				inicomboBox.setVisible(false);
+
+				MaxWrapsLabel.setVisible(true);
+				WrapstextField.setVisible(true);
+				
+				CrucecomboBox.setModel(new DefaultComboBoxModel(tiposDeCruzadorGramaticas));
+				MutacioncomboBox.setModel(new DefaultComboBoxModel(tiposDeMutadorGramaticas));
+			}
+        });
 		
 		EjecutarButton.addActionListener(e -> {
             // Manejar la acción del botón aquí
@@ -215,7 +274,8 @@ public class MainWindow extends JFrame implements GUI {
         });
 		this.interfaz.setVisible(true);
 	}
-	
+
+
 	private TParametros camposToRun() throws CamposException {
 
 
@@ -259,8 +319,7 @@ public class MainWindow extends JFrame implements GUI {
 		plot.addLinePlot("Media Generacional",trs.getGenreaciones(),trs.getMedio());
 		plot.addLinePlot("Presion Generacional",trs.getGenreaciones(),trs.getPresion());
 		textArea.setText("Durante la generacion: " + trs.getPosicion()+" "+trs.getElMejor());
-	this.interfaz.colorear(trs.getColors());
+		this.interfaz.colorear(trs.getColors());
 	}
-	
 
 }
