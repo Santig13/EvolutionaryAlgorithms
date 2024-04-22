@@ -18,7 +18,7 @@ public class IndividuoGramatical extends Individuo {
     	// TODO Auto-generated constructor stub
     	cortacesped=new Cortacesped();
     	cromosoma = new int[5];
-    	this.wraps = wraps;
+    	this.maxWraps = wraps;
     }
     
     
@@ -80,7 +80,7 @@ public class IndividuoGramatical extends Individuo {
 	}
 	@Override
 	public Individuo copia() {
-		IndividuoGramatical copia = new IndividuoGramatical(wraps);
+		IndividuoGramatical copia = new IndividuoGramatical(maxWraps);
 		copia.cortacesped=this.cortacesped;
 		for(int i=0;i<cromosoma.length;i++)
 			copia.cromosoma[i]=this.cromosoma[i];
