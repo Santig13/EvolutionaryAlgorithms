@@ -9,12 +9,26 @@ public class FactoriaPoblacionesIMP extends FactoriaPoblaciones {
 
 	
 	@Override
-	public TPoblacion generarPoblacion( int tamPoblacion) {
-		 IndividuoArbolGenetico[] individuos= new IndividuoArbolGenetico[tamPoblacion];
-		 for(int i=0;i<tamPoblacion;i++) {
-			 individuos[i]=new IndividuoCortaCesped();
-		 }
-		 return new TPoblacion(individuos, false);
+	public TPoblacion generarPoblacion( int tamPoblacion, String tIndividuo,int wraps) {
+		 
+		if (tIndividuo == "Programacion Genetica")
+		{
+			IndividuoArbolGenetico[] individuos= new IndividuoArbolGenetico[tamPoblacion];
+			 for(int i=0;i<tamPoblacion;i++) {
+				 individuos[i]=new IndividuoCortaCesped();
+			 }
+			 return new TPoblacion(individuos, false);
+		}
+		else
+		{
+			IndividuoGramatical[] individuos= new IndividuoGramatical[tamPoblacion];
+			 for(int i=0;i<tamPoblacion;i++) {
+				 individuos[i]=new IndividuoGramatical(wraps);
+			 }
+			 return new TPoblacion(individuos, false);
+		}
+		
+		
 	}
 }
 

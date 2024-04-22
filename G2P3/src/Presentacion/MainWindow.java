@@ -64,9 +64,10 @@ public class MainWindow extends JFrame implements GUI{
 	private final String[] tiposDeMutadorArboles= {"Terminal","Funcional", "Arbol-SubArbol", "Inicializacion"};
 	private final String[] tiposDeMutadorGramaticas= {"Basico"};
 
-	
+	private final String[] tiposIniciadoresArboles= {"Completo","Creciente", "Ramped-Half", "Inicializacion"};
+	private final String[] tiposIniciadoresGramaticas= {"Normal"};
+
 	private final String[] tiposDeSelector= {"Ruleta", "Estocastico", "Truncamiento", "Torneo Det", "Torneo Pro", "Restos", "Ranking"};
-	private final String[] tiposIniciadores= {"Completo","Creciente", "Ramped-Half", "Inicializacion"};
 	private final String[] tiposIndividuos= {"Programacion Genetica","Gramaticas Evolutivas"};
 
 	JComboBox MutacioncomboBox;
@@ -185,7 +186,7 @@ public class MainWindow extends JFrame implements GUI{
 		JLabel inicializadotrs = new JLabel("Iniciadores");
 		ParametersPanel.add(inicializadotrs);
 		 inicomboBox = new JComboBox();
-		inicomboBox.setModel(new DefaultComboBoxModel(tiposIniciadores));
+		inicomboBox.setModel(new DefaultComboBoxModel(tiposIniciadoresArboles));
 		ParametersPanel.add(inicomboBox);
 		
 		
@@ -237,24 +238,22 @@ public class MainWindow extends JFrame implements GUI{
 		IndividuoComboBox.addActionListener(e -> {
 			if(IndividuoComboBox.getSelectedItem() == "Programacion Genetica")
 			{
-				inicializadotrs.setVisible(true);
-				inicomboBox.setVisible(true);
 
 				MaxWrapsLabel.setVisible(false);
 				WrapstextField.setVisible(false);
 				
+				inicomboBox.setModel(new DefaultComboBoxModel(tiposIniciadoresArboles));
 				CrucecomboBox.setModel(new DefaultComboBoxModel(tiposDeCruzadorArboles));
 				MutacioncomboBox.setModel(new DefaultComboBoxModel(tiposDeMutadorArboles));
 
 			}
 			else
 			{
-				inicializadotrs.setVisible(false);
-				inicomboBox.setVisible(false);
 
 				MaxWrapsLabel.setVisible(true);
 				WrapstextField.setVisible(true);
 				
+				inicomboBox.setModel(new DefaultComboBoxModel(tiposIniciadoresGramaticas));
 				CrucecomboBox.setModel(new DefaultComboBoxModel(tiposDeCruzadorGramaticas));
 				MutacioncomboBox.setModel(new DefaultComboBoxModel(tiposDeMutadorGramaticas));
 			}
@@ -284,7 +283,8 @@ public class MainWindow extends JFrame implements GUI{
 		String mutador = (String) MutacioncomboBox.getSelectedItem();
 		String cruzador = (String) CrucecomboBox.getSelectedItem();
 		String ini = (String) inicomboBox.getSelectedItem();
-		
+		String tIndividuo =(String) this.IndividuoComboBox.getSelectedItem();
+
 		
 		double probMuta = Double.parseDouble(ProbMutaciontextField.getText());
 		double probCruce = Double.parseDouble(ProbCrucetextField.getText());
@@ -292,9 +292,14 @@ public class MainWindow extends JFrame implements GUI{
 
 		int generaciones = Integer.parseInt(nGentextField.getText());
 		int tamPobla = Integer.parseInt(TamGentextField.getText());
+		int wraps = 0;
 
+		if (IndividuoComboBox.getSelectedItem() == "Gramaticas Evolutivas")
+			 Integer.parseInt(WrapstextField.getText());
+		
 		Color[][] sol=this.interfaz.getColores();
-		return new TParametros(selector,mutador,cruzador,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100,sol,ini);
+		
+		return new TParametros(selector,mutador,cruzador,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100,sol,ini,tIndividuo,wraps);
 		}
 		catch(Exception e){
 			throw new CamposException("No se han podido analizar los datos introducidos, asegurese de que ha rellenado correctamente todos los campos");

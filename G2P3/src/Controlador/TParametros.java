@@ -14,9 +14,11 @@ public class TParametros {
 	private double elitismo;
 	private Color[][] sol;
 	private String iniciador;
+	private String TipoIndividuio;
+	private int wraps;
 
 	public TParametros(String selector, String mutador, String cruzador, double probMuta,
-			int generaciones, int tamPobla, double probCruce, double elitismo,Color[][] sol,String iniciador) {
+			int generaciones, int tamPobla, double probCruce, double elitismo,Color[][] sol,String iniciador,String TipoIndividuio, int wraps) {
 		this.selector = selector;
 		this.mutador = mutador;
 		this.cruzador = cruzador;
@@ -27,6 +29,8 @@ public class TParametros {
 		this.elitismo = elitismo;
 		this.setSol(sol);
 		this.iniciador= iniciador;
+		this.TipoIndividuio =TipoIndividuio;
+		this.wraps = wraps;
 	}
 
 	
@@ -90,6 +94,18 @@ public class TParametros {
 	public String iniciador() {
 		// TODO Auto-generated method stub
 		return iniciador;
+	}
+
+
+
+	public String getTipoIndividuio() {
+		return TipoIndividuio;
+	}
+
+
+
+	public int getWraps() {
+		return wraps;
 	}
 
 

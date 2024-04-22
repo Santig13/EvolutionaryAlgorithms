@@ -4,6 +4,7 @@ import Cruzadores.Cruzador;
 import Iniciadores.Iniciador;
 import Iniciadores.IniciadorCompleta;
 import Iniciadores.IniciadorCreciente;
+import Iniciadores.IniciadorNormal;
 import Iniciadores.IniciadorRampedAndHalf;
 
 public class FactoriaIniciadorIMP extends FactoriaIniciador {
@@ -18,6 +19,8 @@ public class FactoriaIniciadorIMP extends FactoriaIniciador {
 			return new IniciadorCreciente();
 		case "Ramped-Half":
 			return new IniciadorRampedAndHalf();
+		case "Normal":
+			return new IniciadorNormal();
 		default:
 			return null;
 		}

@@ -14,10 +14,14 @@ public class IndividuoGramatical extends Individuo {
 
 	private int i;
     
-    public IndividuoGramatical() {
+    public IndividuoGramatical(int wraps) {
     	// TODO Auto-generated constructor stub
     	cortacesped=new Cortacesped();
+    	cromosoma = new int[5];
+    	this.wraps = wraps;
     }
+    
+    
     @Override
 	public double evalua() {
     	
@@ -76,7 +80,7 @@ public class IndividuoGramatical extends Individuo {
 	}
 	@Override
 	public Individuo copia() {
-		IndividuoGramatical copia = new IndividuoGramatical();
+		IndividuoGramatical copia = new IndividuoGramatical(wraps);
 		copia.cortacesped=this.cortacesped;
 		for(int i=0;i<cromosoma.length;i++)
 			copia.cromosoma[i]=this.cromosoma[i];
@@ -135,6 +139,16 @@ public class IndividuoGramatical extends Individuo {
 		Random rand = new Random();
 		int pos = rand.nextInt(cromosoma.length);
 		cromosoma[pos] = rand.nextInt();
+	}
+	
+	//INICIALIZADOR
+	public void inicializacion() {
+		Random rand = new Random();
+		for (int i = 0 ; i < cromosoma.length;i++)
+		{
+			cromosoma[i] = rand.nextInt();
+		}
+		
 	}
 
 	

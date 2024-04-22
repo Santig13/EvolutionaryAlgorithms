@@ -47,8 +47,11 @@ public class algoritmoGenetico {
 	private double[] tamanio_media_generacion;
 	private double[] factor_penalizacion_generacion;
 
+	private  String tIndividuo;
+	private int wraps;
+	
     public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
-    			Selector sel,Mutador mut,Cruzador cruz,TPoblacion poblacion,  double porcenElite,Iniciador iniciador)
+    			Selector sel,Mutador mut,Cruzador cruz,TPoblacion poblacion,  double porcenElite,Iniciador iniciador, String tIndividuo, int wraps)
     {
     	this.tamPoblacion = tamPoblacion;
         this.maxGeneraciones = maxGeneraciones;
@@ -65,6 +68,8 @@ public class algoritmoGenetico {
     	this.presion_evolutiva_generacional = new double[maxGeneraciones];
     	gener= new double[maxGeneraciones];
     	this.iniciador=iniciador;
+    	this.tIndividuo = tIndividuo;
+    	this.wraps = wraps;
     }
 
     public TResultStatistics executeAlgorithm() {
@@ -239,7 +244,7 @@ public class algoritmoGenetico {
 
 	private void initialize() {
 		// TODO Auto-generated method stub
-		poblacion=FactoriaPoblaciones.getInstancia().generarPoblacion(tamPoblacion);
+		poblacion=FactoriaPoblaciones.getInstancia().generarPoblacion(tamPoblacion,tIndividuo,wraps);
 		this.iniciador.IniciarPoblacion(poblacion,this.profundidad);
 		this.minimizar=poblacion.isMin();
 	}
