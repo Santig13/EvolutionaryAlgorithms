@@ -41,7 +41,7 @@ public class BNFGramatica {
         }
     }
     // Método para leer el contenido de un archivo y devolverlo como una cadena
-    private static String leerArchivo(String nombreArchivo)  {
+    public static void leerArchivo(String nombreArchivo)  {
         StringBuilder contenido = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;
@@ -52,16 +52,17 @@ public class BNFGramatica {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        return contenido.toString();
+         setReglas(contenido.toString());
     }
     protected static List<String> regla(String key, int codon) {
     	List<List<String>> lista =gramatica.get(key);
     	int regla = codon % (lista.size());
+    	if(regla<0)System.out.print(codon);
 		return lista.get(regla);
     }
 	public static String start() {
 		// TODO Auto-generated method stub
-		List<List<String>> lista =gramatica.get("start");
+		List<List<String>> lista =gramatica.get("<start>");
 		return lista.get(0).get(0);
 	}
 }

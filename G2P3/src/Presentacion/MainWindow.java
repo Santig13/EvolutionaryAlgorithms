@@ -295,7 +295,7 @@ public class MainWindow extends JFrame implements GUI{
 		int wraps = 0;
 
 		if (IndividuoComboBox.getSelectedItem() == "Gramaticas Evolutivas")
-			 Integer.parseInt(WrapstextField.getText());
+			wraps=Integer.parseInt(WrapstextField.getText());
 		
 		Color[][] sol=this.interfaz.getColores();
 		

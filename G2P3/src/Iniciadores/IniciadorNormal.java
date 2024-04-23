@@ -1,5 +1,6 @@
 package Iniciadores;
 
+import Individuo.BNFGramatica;
 import Individuo.IndividuoGramatical;
 import Individuo.TPoblacion;
 
@@ -11,6 +12,7 @@ public class IniciadorNormal extends Iniciador{
 		for(IndividuoGramatical indv:individuos) {
 			indv.inicializacion();
 		}
+		BNFGramatica.leerArchivo("./ArchivosExternos/Gramatica.txt");
 		
 	}
 

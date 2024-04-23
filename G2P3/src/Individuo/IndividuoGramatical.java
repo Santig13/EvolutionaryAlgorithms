@@ -29,6 +29,9 @@ public class IndividuoGramatical extends Individuo {
 			i=0;
 			wraps=0;
 			ejecuta(BNFGramatica.start());
+			if(cortacesped.quieto()) {
+				break;
+			}
 		}
 		return cortacesped.getPodado();
 	}
@@ -48,11 +51,10 @@ public class IndividuoGramatical extends Individuo {
 		}
 	    if(this.wraps >= this.maxWraps)
 		 return casilla;
-	    
-	    List<String> l=BNFGramatica.regla(clave,cromosoma[i]);
+	   
+	    List<String> l=this.next(clave);
 	    String regla=l.get(0);
 	    if(regla.equalsIgnoreCase("progn2")) {
-	    	i++;
 	    	ejecuta(l.get(1));
 	    	return ejecuta(l.get(2));
 	    }
@@ -70,10 +72,25 @@ public class IndividuoGramatical extends Individuo {
 	    }else if(regla.equalsIgnoreCase("cte")) {
 	    	return new posicion(cortacesped.aleatoria());
 	    }else {
-	    	return casilla;
+	    	//Solo entra si es del tipo<...>
+	    	if (i >= cromosoma.length){
+				 i = 0;
+				 this.wraps++;
+			}
+		    if(this.wraps >= this.maxWraps)
+			 return casilla;
+	    	return ejecuta(this.next(clave).get(0));
 	    }
 	    
 	}
+	private List<String> next(String clave) {
+		// TODO Auto-generated method stub
+		List<String> s =BNFGramatica.regla(clave,cromosoma[i]);
+		i++;
+		return s;
+	}
+
+
 	private boolean terminado() {
 		// TODO Auto-generated method stub
 		return cortacesped.terminado();
@@ -138,7 +155,7 @@ public class IndividuoGramatical extends Individuo {
 		
 		Random rand = new Random();
 		int pos = rand.nextInt(cromosoma.length);
-		cromosoma[pos] = rand.nextInt();
+		cromosoma[pos] =Math.abs(rand.nextInt());
 	}
 	
 	//INICIALIZADOR
@@ -146,7 +163,7 @@ public class IndividuoGramatical extends Individuo {
 		Random rand = new Random();
 		for (int i = 0 ; i < cromosoma.length;i++)
 		{
-			cromosoma[i] = rand.nextInt();
+			cromosoma[i] =  Math.abs(rand.nextInt());
 		}
 		
 	}

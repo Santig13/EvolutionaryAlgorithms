@@ -129,50 +129,28 @@ public class algoritmoGenetico {
 		double maximo = -Double.MAX_VALUE;
 		Individuo mejor=null;
 		gener[currentGeneration]=currentGeneration;
-		double sumaNodos=0;
+		
 		
 		for(int i=0;i<tamPoblacion;i++) {
 			double aptitud=individuos[i].evalua();
-
 			sumaFit+=aptitud;
-			sumaNodos+=individuos[i].getTamanio();
 			individuos[i].setFitness(aptitud);
 			if(aptitud>maximo) {
 				maximo=aptitud;
 				mejor = individuos[i].copia();
 			}
 		}
-		double mediaNodos=sumaNodos/tamPoblacion;
+		
 		double mediaGen=sumaFit/tamPoblacion;
 		
 
 		this.aptitud_media_generacion[this.currentGeneration]=mediaGen;
-		//Bloating
-		//Varianza
+		if (tIndividuo == "Programacion Genetica")
+			this.bloating();
 		
-		double varianza=0;
-		for(int i=0;i<tamPoblacion;i++) {
-			varianza+=Math.pow(individuos[i].getTamanio()-mediaNodos, 2);
-		}
-		varianza/=tamPoblacion;
-		//Covarianza
-		double covarianza=0;
-		for(int i=0;i<tamPoblacion;i++) {
-			covarianza+=(individuos[i].getTamanio()-mediaNodos)*(individuos[i].getFitness()-mediaGen);
-		}
-		covarianza/=tamPoblacion;
-		//Factor penalizacion´
-		double k=0;
-		if(varianza!=0)
-			k=covarianza/varianza;
-		sumaFit=0;
-		for(int i=0;i<tamPoblacion;i++) {
-			individuos[i].setFitness(individuos[i].getFitness()+(k*individuos[i].getTamanio()));
-			sumaFit+=individuos[i].getFitness();
-		}
-		//this.tamanio_media_generacion[this.currentGeneration]=mediaNodos;
-		//this.factor_penalizacion_generacion[this.currentGeneration]=k;
 		
+		
+	
 		if(minimizar) {
 
 			sumaFit = 0.0;
@@ -206,9 +184,7 @@ public class algoritmoGenetico {
 			individuos[i].setFitness(fitnessEscalado);
 		}
 			*/
-		if(mejor==null) {
-		 varianza++;
-		}
+		
 		
 		for(int i=0;i<tamPoblacion;i++) {
 			if(sumaFit!=0)
@@ -236,6 +212,40 @@ public class algoritmoGenetico {
 		}
 	}
 
+
+	private void bloating() {
+		Individuo[] individuos=poblacion.getIndivuduos();
+		double sumaFit = 0.0;
+		double sumaNodos=0.0;
+		
+		for(int i=0;i<tamPoblacion;i++) {
+			sumaFit+=individuos[i].getFitness();
+			sumaNodos+=individuos[i].getTamanio();
+		}
+		double mediaNodos=sumaNodos/tamPoblacion;
+		double mediaGen=sumaFit/tamPoblacion;
+	
+		double varianza=0;
+		for(int i=0;i<tamPoblacion;i++) {
+			varianza+=Math.pow(individuos[i].getTamanio()-mediaNodos, 2);
+		}
+		varianza/=tamPoblacion;
+		//Covarianza
+		double covarianza=0;
+		for(int i=0;i<tamPoblacion;i++) {
+			covarianza+=(individuos[i].getTamanio()-mediaNodos)*(individuos[i].getFitness()-mediaGen);
+		}
+		covarianza/=tamPoblacion;
+		//Factor penalizacion´
+		double k=0;
+		if(varianza!=0)
+			k=covarianza/varianza;
+		sumaFit=0;
+		for(int i=0;i<tamPoblacion;i++) {
+			individuos[i].setFitness(individuos[i].getFitness()+(k*individuos[i].getTamanio()));
+		}
+		
+	}
 
 	private void seleccionar() {
 		// TODO Auto-generated method stub
