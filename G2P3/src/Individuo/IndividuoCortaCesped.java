@@ -14,35 +14,24 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	    SUR
 	}
 	
-	private ArrayList<String> terminales = new ArrayList<String>() {{
-       add("AVANZA");
-       add("ALEATORIA");
-       add("IZQUIERDA");
-       add("DERECHA");
-    }};
-	private ArrayList<String> funciones = new ArrayList<String>() {{
-        add("SALTA");
-        add("PROGN");
-        add("SUMA");
-        add("IF-DIRTY");
-        add("REPEATY");
-        add("REPEATX");
-    }};
+	private ArrayList<String> terminales ;
+	private ArrayList<String> funciones ;
 
-	
+	private Boolean funAgregadas;
 	private Cortacesped cortacesped;
 	
 	//COSTRUCTOR VACIO
-	public IndividuoCortaCesped() {
+	//public IndividuoCortaCesped() {
 		// TODO Auto-generated constructor stub
-		cortacesped= new Cortacesped();
-		}
+	//	cortacesped= new Cortacesped();
+	//}
 	
 	
 	
 	//RESTO DE COSTRUCTORES
 	
 	public IndividuoCortaCesped(Boolean funAgregadas) {
+		this.funAgregadas = funAgregadas;
 		if (!funAgregadas)
 		{
 			terminales = new ArrayList<String>() {{
@@ -57,6 +46,23 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 		        add("PROGN");
 		        add("SUMA");
 		    }};
+		}
+		else
+		{
+			 terminales = new ArrayList<String>() {{
+			       add("AVANZA");
+			       add("ALEATORIA");
+			       add("IZQUIERDA");
+			       add("DERECHA");
+			    }};
+				funciones = new ArrayList<String>() {{
+			        add("SALTA");
+			        add("PROGN");
+			        add("SUMA");
+			        add("IF-DIRTY");
+			        add("REPEATY");
+			        add("REPEATX");
+				}};
 		}
 		
 		
@@ -159,7 +165,7 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	@Override
 	public Individuo copia() { 
 		
-		IndividuoCortaCesped copia=new IndividuoCortaCesped();
+		IndividuoCortaCesped copia=new IndividuoCortaCesped(funAgregadas);
 		copia.maximaProfundidad = this.maximaProfundidad;
 		copia.fitness=this.fitness;
 		copia.puntuacion=this.puntuacion;
