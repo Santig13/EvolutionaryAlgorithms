@@ -1,5 +1,6 @@
 package Individuo;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -58,6 +59,37 @@ public class IndividuoGramatical extends Individuo {
 	    	ejecuta(l.get(1));
 	    	return ejecuta(l.get(2));
 	    }
+	    else if(regla.equalsIgnoreCase("IF-DIRTY")) {
+	    	if (cortacesped.DelanteTierra())//Si est podado
+				return ejecuta(l.get(1));
+	    	else
+				return ejecuta(l.get(2));
+			
+	    	
+	    }else if(regla.equalsIgnoreCase("REPEATY")) {
+	    	
+	    	int veces=ejecuta(l.get(1)).getY()%8;
+	    	int temp=i;
+	    	
+	    	for (int i = 0; i < veces-1; i++) {
+	    		ejecuta(l.get(2));
+			}
+	    	
+	    	this.i=temp;
+	    	
+	    	return ejecuta(l.get(2));
+	    }else if(regla.equalsIgnoreCase("REPEATX")) {
+	    	int veces=ejecuta(l.get(1)).getX()%8;
+	    	int temp=i;
+	    	
+	    	for (int i = 0; i < veces-1; i++) {
+	    		ejecuta(l.get(2));
+			}
+	    	
+	    	this.i=temp;
+	    	
+	    	return ejecuta(l.get(2));
+	    }
 	    else if(regla.equalsIgnoreCase("suma")) {
 	    	return cortacesped.suma(ejecuta(l.get(1)), ejecuta(l.get(2)));
 	    }else if(regla.equalsIgnoreCase("salta")) {
@@ -70,18 +102,32 @@ public class IndividuoGramatical extends Individuo {
 	    }else if(regla.equalsIgnoreCase("derecha")) {
 	    	return cortacesped.derecha();
 	    }else if(regla.equalsIgnoreCase("cte")) {
-	    	return new posicion(cortacesped.aleatoria());
-	    }else {
+	    	if (i >= cromosoma.length){
+				 i = 0;
+				 this.wraps++;
+			}
+		    if(this.wraps >= this.maxWraps);
+		    String x=this.next(l.get(1)).get(0);
+		    if (i >= cromosoma.length){
+				 i = 0;
+				 this.wraps++;
+			}
+		    if(this.wraps >= this.maxWraps);
+		    String y=this.next(l.get(2)).get(0);
+		    return new posicion(Integer.parseInt(x),Integer.parseInt(y));
+	    }else if(regla.equalsIgnoreCase("<op>")||(regla.equalsIgnoreCase("<x>"))) {
 	    	//Solo entra si es del tipo<...>
 	    	if (i >= cromosoma.length){
 				 i = 0;
 				 this.wraps++;
 			}
 		    if(this.wraps >= this.maxWraps)
-			 return casilla;
-	    	return ejecuta(this.next(clave).get(0));
+		    	return casilla;
+		    
+	    	return ejecuta(regla);
 	    }
-	    
+	    return casilla;
+	   
 	}
 	private List<String> next(String clave) {
 		// TODO Auto-generated method stub

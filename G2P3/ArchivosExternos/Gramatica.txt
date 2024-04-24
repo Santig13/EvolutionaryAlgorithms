@@ -1,4 +1,5 @@
 <start>::=<op>
 <e>::=<op>|<x>
-<op>::=(progn2 <e> <e>)|(suma <e> <e>)|(salta <e>)
-<x>::=(avanza)|(izquierda)|(derecha)|cte
+<op>::=(progn2 <e> <e>)|(suma <e> <e>)|(salta <e>)|(IF-DIRTY <e> <e>)|(REPEATY <e> <e>)|(REPEATX <e> <e>)
+<x>::=(avanza)|(izquierda)|(derecha)|(cte <var> <var>)
+<var>::=0|1|2|3|4|5|6|7

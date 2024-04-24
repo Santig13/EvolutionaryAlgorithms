@@ -79,7 +79,7 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	
 	private posicion ejecuta(nodo n) {
 		// TODO Auto-generated method stub
-		posicion casilla=null;
+		posicion casilla=new posicion(0,0);
 		switch (n.getDescript()) {
 	    case "AVANZA":
 	    	
@@ -109,12 +109,12 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	    	casilla=this.ifDirty(n.hijo1(), n.hijo2());
 	    	break;
 	    case "REPEATY":
-	    	int vecesy=ejecuta(n.hijo1()).getY()%8+1;
+	    	int vecesy=ejecuta(n.hijo1()).getY()%8;
 	    	for(int i=0;i<vecesy;i++)
 	    		casilla=ejecuta(n.hijo2());
 	        break;
 	    case "REPEATX":
-	    	int vecesx=ejecuta(n.hijo1()).getX()%8+1;
+	    	int vecesx=ejecuta(n.hijo1()).getX()%8;
 	    	for(int i=0;i<vecesx;i++)
 	    		casilla=ejecuta(n.hijo2());
 	        break;
