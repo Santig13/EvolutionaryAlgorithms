@@ -286,12 +286,21 @@ public abstract class IndividuoArbolGenetico extends Individuo {
 
           // Si hay nodos funcionales, elige uno aleatoriamente y cambia su valor
           if (!nodos.isEmpty()) {
-              int indiceAleatorio = rand.nextInt(nodos.size());
+        	  int indiceAleatorio = rand.nextInt(nodos.size());
               nodo nodoAleatorio = nodos.get(indiceAleatorio);
+
+        	  while(nodoAleatorio.padre == null)
+        	  {
+        		  indiceAleatorio = rand.nextInt(nodos.size());
+                  nodoAleatorio = nodos.get(indiceAleatorio);
+        	  }
+              
               int p= nodoAleatorio.calcularMiProfundidad();
               int HijoId = nodoAleatorio.idHijo;
               nodo padre = nodoAleatorio.padre;
               nodoAleatorio= inicializacionCompleta(p, padre, HijoId);
+              
+              padre.hijos.set(HijoId, nodoAleatorio);
           }
           this.totNodos=numNodos(raiz);
       }  
