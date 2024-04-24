@@ -95,7 +95,7 @@ public class algoritmoGenetico {
     		}
     		this.evaluar();
     	//	if(aptitud_media_generacion[this.currentGeneration]>aptitud_media_generacion[currentGeneration-1])//Contractividad
-    			currentGeneration++;
+    		currentGeneration++;
 
     	}
 
@@ -149,10 +149,8 @@ public class algoritmoGenetico {
 		
 
 		this.aptitud_media_generacion[this.currentGeneration]=mediaGen;
+
 		
-		if (Bloating)
-			if (tIndividuo == "Programacion Genetica")
-				this.bloating();
 		
 		
 		
@@ -176,11 +174,15 @@ public class algoritmoGenetico {
 				}
 			}
 		}
-
+		this.aptitud_mejor_generacion[this.currentGeneration]=mejor.evalua();
+		if(this.aptitud_media_generacion[this.currentGeneration]!=0)
+			this.presion_evolutiva_generacional[this.currentGeneration]=this.aptitud_mejor_generacion[this.currentGeneration]/this.aptitud_media_generacion[this.currentGeneration];
+		else
+			this.presion_evolutiva_generacional[this.currentGeneration]=0;
 		/*
 		 * Escalado lineal de la poblacion
 		 */
-		/*
+		
 		double adaptacion_media=(sumaFit/tamPoblacion);
 		double a=(P*adaptacion_media)/(maximo-adaptacion_media);
 		double b=(1-a)*adaptacion_media;
@@ -189,8 +191,10 @@ public class algoritmoGenetico {
 			double fitnessEscalado=a*individuos[i].getFitness()+b;
 			individuos[i].setFitness(fitnessEscalado);
 		}
-			*/
-		
+			
+		if (Bloating)
+			if (tIndividuo == "Programacion Genetica")
+				this.bloating();
 		
 		for(int i=0;i<tamPoblacion;i++) {
 			if(sumaFit!=0)
@@ -199,11 +203,7 @@ public class algoritmoGenetico {
 				individuos[i].setPuntuacion(0);
 		}
 
-		this.aptitud_mejor_generacion[this.currentGeneration]=mejor.evalua();
-		if(this.aptitud_media_generacion[this.currentGeneration]!=0)
-			this.presion_evolutiva_generacional[this.currentGeneration]=this.aptitud_mejor_generacion[this.currentGeneration]/this.aptitud_media_generacion[this.currentGeneration];
-		else
-			this.presion_evolutiva_generacional[this.currentGeneration]=0;
+		
 		
 		if(this.currentGeneration==0||(this.currentGeneration>0&&
 				((this.elMejor.getFitness()<mejor.getFitness()&&!minimizar)||
@@ -216,6 +216,8 @@ public class algoritmoGenetico {
 			this.aptitud_absoluta_generacion[this.currentGeneration]=aptitud_absoluta_generacion[this.currentGeneration-1];
 
 		}
+		
+		
 	}
 
 

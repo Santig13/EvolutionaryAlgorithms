@@ -8,7 +8,7 @@ public class posicion {
 		protected static int maxancho;
 		protected static int maxalto;
 		
-		public posicion(int x,int y,int maxalto,int maxancho) {
+		public posicion(int y,int x,int maxalto,int maxancho) {
 			this.setX(x);
 			this.setY(y);
 		
@@ -83,6 +83,7 @@ public class posicion {
 		}
 
 		public void salta(posicion nueva) {
+			
 			mueveX(nueva.x);
 			mueveY(nueva.y);
 			

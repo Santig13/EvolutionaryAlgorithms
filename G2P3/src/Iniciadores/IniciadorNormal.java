@@ -12,7 +12,7 @@ public class IniciadorNormal extends Iniciador{
 		for(IndividuoGramatical indv:individuos) {
 			indv.inicializacion();
 		}
-		BNFGramatica.leerArchivo("./ArchivosExternos/Gramatica.txt");
+		
 		
 	}
 

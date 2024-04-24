@@ -18,8 +18,10 @@ public class TParametros {
 	private int wraps;
 	private Boolean bloating;
 	private Boolean funAgregadas;
+	private String gramatica;
+	
 	public TParametros(String selector, String mutador, String cruzador, double probMuta,
-			int generaciones, int tamPobla, double probCruce, double elitismo,Color[][] sol,String iniciador,String TipoIndividuio, int wraps, Boolean bloating, Boolean funAgregadas) {
+			int generaciones, int tamPobla, double probCruce, double elitismo,Color[][] sol,String iniciador,String TipoIndividuio, int wraps, Boolean bloating, Boolean funAgregadas,String gramatica) {
 		this.selector = selector;
 		this.mutador = mutador;
 		this.cruzador = cruzador;
@@ -34,6 +36,7 @@ public class TParametros {
 		this.wraps = wraps;
 		this.bloating = bloating;
 		this.funAgregadas = funAgregadas;
+		this.gramatica=gramatica;
 	}
 
 	
@@ -121,6 +124,13 @@ public class TParametros {
 
 	public Boolean getFunAgregadas() {
 		return funAgregadas;
+	}
+
+
+
+	public String getGramatica() {
+		// TODO Auto-generated method stub
+		return this.gramatica;
 	}
 
 

@@ -301,7 +301,7 @@ public abstract class IndividuoArbolGenetico extends Individuo {
               nodoAleatorio= inicializacionCompleta(p, padre, HijoId);
               
               padre.hijos.set(HijoId, nodoAleatorio);
-          }
+          	}
           this.totNodos=numNodos(raiz);
       }  
     

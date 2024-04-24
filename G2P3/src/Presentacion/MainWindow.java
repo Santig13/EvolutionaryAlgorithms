@@ -13,6 +13,7 @@ import java.awt.BorderLayout;
 import javax.swing.JTextArea;
 import javax.swing.JFormattedTextField;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -22,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.SoftBevelBorder;
@@ -61,7 +63,7 @@ public class MainWindow extends JFrame implements GUI{
 	//private final String[] tiposDeFuncion=  {"vuelos1.txt", "vuelos2.txt"};
 	private final String[] tiposDeCruzadorArboles= {"Normal"};
 	private final String[] tiposDeCruzadorGramaticas= {"Mono Punto","Uniforme"};
-
+	private final String[] tiposGramaticas= {"GramaticaNormal.txt", "GramaticaAmpliada.txt"};
 	private final String[] tiposDeMutadorArboles= {"Terminal","Funcional", "Arbol-SubArbol", "Inicializacion"};
 	private final String[] tiposDeMutadorGramaticas= {"Basico"};
 
@@ -74,6 +76,7 @@ public class MainWindow extends JFrame implements GUI{
 	JComboBox MutacioncomboBox;
 	JComboBox CrucecomboBox;
 	JComboBox SelecomboBox;
+	JComboBox GramaticaBox;
 	private Interfaz interfaz;
 	private JComboBox inicomboBox;
 	private JTextArea textArea;
@@ -132,6 +135,7 @@ public class MainWindow extends JFrame implements GUI{
 		Dimension preferredSize = ParametersPanel.getPreferredSize();
 		preferredSize.height += 60; // Aumentar en 50 píxeles la altura actual
 		ParametersPanel.setPreferredSize(preferredSize);
+		
 		
 		JLabel TamGenLabel = new JLabel("Tam Generaci\u00F3n");
 		ParametersPanel.add(TamGenLabel);
@@ -209,7 +213,7 @@ public class MainWindow extends JFrame implements GUI{
 		
 		
 		WrapstextField = new JTextField();
-		WrapstextField.setText("20");
+		WrapstextField.setText("5");
 		ParametersPanel.add(WrapstextField);
 		WrapstextField.setColumns(2);
 		
@@ -250,15 +254,29 @@ public class MainWindow extends JFrame implements GUI{
 		contentPane.add(scrollPane, BorderLayout.SOUTH);
 		
 		IndividuoPanel = new JPanel();
-		scrollPane.setRowHeaderView(IndividuoPanel);
-		
+		IndividuoPanel = new JPanel(new GridLayout(0, 1)); // Una columna, filas variables
+
+		// Agregar IndividuoComboBox
 		IndividuoComboBox = new JComboBox();
 		IndividuoPanel.add(IndividuoComboBox);
+
+		GramaticaBox=new JComboBox();
+		GramaticaBox.setVisible(false);
+		// Agregar GramaticaBox debajo de Individuo
+	//	IndividuoPanel.add(Box.createVerticalStrut(10)); // Espacio vertical entre los componentes
+		IndividuoPanel.add(GramaticaBox);
+
+		// Establecer el IndividuoPanel como el encabezado de fila del JScrollPane
+		scrollPane.setRowHeaderView(IndividuoPanel);
+
+		// Configurar los modelos de los JComboBox
 		IndividuoComboBox.setModel(new DefaultComboBoxModel(tiposIndividuos));
+		GramaticaBox.setModel(new DefaultComboBoxModel(tiposGramaticas));
+		
 		IndividuoComboBox.addActionListener(e -> {
 			if(IndividuoComboBox.getSelectedItem() == "Programacion Genetica")
 			{
-
+				GramaticaBox.setVisible(false);
 				MaxWrapsLabel.setVisible(false);
 				WrapstextField.setVisible(false);
 				
@@ -267,6 +285,7 @@ public class MainWindow extends JFrame implements GUI{
 				FunAgregadasLabel.setVisible(true);
 				FunAgregadascheckBox.setVisible(true);
 				
+				
 				inicomboBox.setModel(new DefaultComboBoxModel(tiposIniciadoresArboles));
 				CrucecomboBox.setModel(new DefaultComboBoxModel(tiposDeCruzadorArboles));
 				MutacioncomboBox.setModel(new DefaultComboBoxModel(tiposDeMutadorArboles));
@@ -274,7 +293,7 @@ public class MainWindow extends JFrame implements GUI{
 			}
 			else
 			{
-
+				GramaticaBox.setVisible(true);
 				MaxWrapsLabel.setVisible(true);
 				WrapstextField.setVisible(true);
 				
@@ -282,6 +301,7 @@ public class MainWindow extends JFrame implements GUI{
 				BloatingcheckBox.setVisible(false);
 				FunAgregadasLabel.setVisible(false);
 				FunAgregadascheckBox.setVisible(false);
+				
 				
 				inicomboBox.setModel(new DefaultComboBoxModel(tiposIniciadoresGramaticas));
 				CrucecomboBox.setModel(new DefaultComboBoxModel(tiposDeCruzadorGramaticas));
@@ -314,7 +334,7 @@ public class MainWindow extends JFrame implements GUI{
 		String cruzador = (String) CrucecomboBox.getSelectedItem();
 		String ini = (String) inicomboBox.getSelectedItem();
 		String tIndividuo =(String) this.IndividuoComboBox.getSelectedItem();
-
+		String gramatica=(String) this.GramaticaBox.getSelectedItem();
 		
 		double probMuta = Double.parseDouble(ProbMutaciontextField.getText());
 		double probCruce = Double.parseDouble(ProbCrucetextField.getText());
@@ -332,7 +352,7 @@ public class MainWindow extends JFrame implements GUI{
 		
 		Color[][] sol=this.interfaz.getColores();
 		
-		return new TParametros(selector,mutador,cruzador,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100,sol,ini,tIndividuo,wraps,bloating,funAgregadas);
+		return new TParametros(selector,mutador,cruzador,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100,sol,ini,tIndividuo,wraps,bloating,funAgregadas,gramatica);
 		}
 		catch(Exception e){
 			throw new CamposException("No se han podido analizar los datos introducidos, asegurese de que ha rellenado correctamente todos los campos");

@@ -6,6 +6,7 @@ import Factorias.FactoriaCruzador;
 import Factorias.FactoriaIniciador;
 import Factorias.FactoriaMutador;
 import Factorias.FactoriaSelector;
+import Individuo.BNFGramatica;
 import Individuo.TJardin;
 import Individuo.TPoblacion;
 import Iniciadores.Iniciador;
@@ -26,6 +27,7 @@ public class ControllerIMP implements Controller {
 		iniciador.setTam(parametros.getTamPoblacion());
 		TJardin.setCasillas(parametros.getSol());
 		TPoblacion poblacion=null;
+		BNFGramatica.leerArchivo("./ArchivosExternos/"+parametros.getGramatica());//Gramatica.txt"
 		//Ejecutar algoritmo
 		algoritmoGenetico AG =new algoritmoGenetico(parametros.getTamPoblacion(),parametros.getMaxGen(),parametros.getProbCruce(),parametros.getProbMuta(),selector,mutador,cruzador,poblacion,parametros.getElitismo(),iniciador,parametros.getTipoIndividuio(),parametros.getWraps(),parametros.getBloating(),parametros.getFunAgregadas());
 

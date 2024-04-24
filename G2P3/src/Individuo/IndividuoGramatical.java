@@ -12,7 +12,6 @@ public class IndividuoGramatical extends Individuo {
 	private int wraps;
 	private int maxWraps;
     private int[] cromosoma;
-
 	private int i;
     
     public IndividuoGramatical(int wraps) {
@@ -29,6 +28,7 @@ public class IndividuoGramatical extends Individuo {
 		while(!terminado()) {
 			i=0;
 			wraps=0;
+			//traduccion="";
 			ejecuta(BNFGramatica.start());
 			if(cortacesped.quieto()) {
 				break;
@@ -37,12 +37,6 @@ public class IndividuoGramatical extends Individuo {
 		return cortacesped.getPodado();
 	}
 
-	private void start() {
-		// TODO Auto-generated method stub
-		List<String> l=BNFGramatica.regla("start",cromosoma[0]);
-		this.i=1;
-		this.ejecuta(l.get(0));
-	}
 	private posicion ejecuta(String clave) {
 		// TODO Auto-generated method stub
 		posicion casilla=new posicion(0,0);
@@ -56,10 +50,17 @@ public class IndividuoGramatical extends Individuo {
 	    List<String> l=this.next(clave);
 	    String regla=l.get(0);
 	    if(regla.equalsIgnoreCase("progn2")) {
+	    	
+	    	
 	    	ejecuta(l.get(1));
-	    	return ejecuta(l.get(2));
+	    	
+	    	casilla= ejecuta(l.get(2));
+
+	    	
+	    	return casilla;
 	    }
 	    else if(regla.equalsIgnoreCase("IF-DIRTY")) {
+	    //	traduccion=traduccion+regla+"(";
 	    	if (cortacesped.DelanteTierra())//Si est podado
 				return ejecuta(l.get(1));
 	    	else
@@ -116,7 +117,6 @@ public class IndividuoGramatical extends Individuo {
 		    String y=this.next(l.get(2)).get(0);
 		    return new posicion(Integer.parseInt(x),Integer.parseInt(y));
 	    }else if(regla.equalsIgnoreCase("<op>")||(regla.equalsIgnoreCase("<x>"))) {
-	    	//Solo entra si es del tipo<...>
 	    	if (i >= cromosoma.length){
 				 i = 0;
 				 this.wraps++;
@@ -144,7 +144,9 @@ public class IndividuoGramatical extends Individuo {
 	@Override
 	public Individuo copia() {
 		IndividuoGramatical copia = new IndividuoGramatical(maxWraps);
-		copia.cortacesped=this.cortacesped;
+		copia.cortacesped=this.cortacesped.copia();
+		copia.fitness=this.fitness;
+		copia.puntuacion=puntuacion;
 		for(int i=0;i<cromosoma.length;i++)
 			copia.cromosoma[i]=this.cromosoma[i];
 		
@@ -213,7 +215,73 @@ public class IndividuoGramatical extends Individuo {
 		}
 		
 	}
+	@Override
+	public String toString() {
+		this.i=0;
+		this.wraps=0;
+		String s="Este individuo ha podado:"+this.cortacesped.getPodado()+"\n("+decodifica(BNFGramatica.start())+")";
+		return s;
+	}
 
+
+	private String decodifica(String clave) {
+		// TODO Auto-generated method stub
+		String casilla="(0,0)";
+		if (i >= cromosoma.length){
+			 i = 0;
+			 this.wraps++;
+		}
+	    if(this.wraps >= this.maxWraps)
+		 return casilla;
+	   
+	    List<String> l=this.next(clave);
+	    String regla=l.get(0);
+	    if(regla.equalsIgnoreCase("progn2")||regla.equalsIgnoreCase("REPEATY")||regla.equalsIgnoreCase("REPEATX")||regla.equalsIgnoreCase("suma")) {
+	    	
+	    	casilla=regla.toUpperCase()+"("+decodifica(l.get(1))+"," + decodifica(l.get(2))+")";
+	    	return casilla;
+	    }
+	    else if(regla.equalsIgnoreCase("IF-DIRTY")) {
+	    	int temp=i;
+	    	
+	    	casilla=regla.toUpperCase()+"("+decodifica(l.get(1))+",";
+				 
+			int i=temp;
+				 casilla=casilla+decodifica(l.get(2))+")";		 
+	    }else if(regla.equalsIgnoreCase("salta")) {
+	    	return regla.toUpperCase()+"("+decodifica(l.get(1))+")";
+	    }
+	    else if(regla.equalsIgnoreCase("avanza")||regla.equalsIgnoreCase("izquierda")||regla.equalsIgnoreCase("derecha")) {
+	    	return regla.toUpperCase();
+	    }else if(regla.equalsIgnoreCase("cte")) {
+	    	if (i >= cromosoma.length){
+				 i = 0;
+				 this.wraps++;
+			}
+		    if(this.wraps >= this.maxWraps);
+		    String x=this.next(l.get(1)).get(0);
+		    if (i >= cromosoma.length){
+				 i = 0;
+				 this.wraps++;
+			}
+		    if(this.wraps >= this.maxWraps);
+		    String y=this.next(l.get(2)).get(0);
+		    return "("+y+","+x+")";
+	    }else if(regla.equalsIgnoreCase("<op>")||(regla.equalsIgnoreCase("<x>"))) {
+	    	//Solo entra si es del tipo<...>
+	    	if (i >= cromosoma.length){
+				 i = 0;
+				 this.wraps++;
+			}
+		    if(this.wraps >= this.maxWraps)
+		    	return casilla;
+		    
+		   return decodifica(regla);
+	    }
+	    return casilla;
+	   
+	
+	}
 	
 
 }
