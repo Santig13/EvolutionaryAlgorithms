@@ -41,6 +41,7 @@ import java.awt.Dimension;
 
 import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 
 public class MainWindow extends JFrame implements GUI{
 
@@ -78,6 +79,10 @@ public class MainWindow extends JFrame implements GUI{
 	private JTextArea textArea;
 	private JPanel IndividuoPanel;
 	private JComboBox IndividuoComboBox;
+	
+	private JCheckBox  BloatingcheckBox;
+	private JCheckBox  FunAgregadascheckBox;
+
 	
 	/**
 	 * Launch the application.
@@ -211,6 +216,21 @@ public class MainWindow extends JFrame implements GUI{
 		MaxWrapsLabel.setVisible(false);
 		WrapstextField.setVisible(false);
 		
+		
+		
+		JLabel BloatingLabel = new JLabel("Bloating");
+		ParametersPanel.add(BloatingLabel);
+
+		BloatingcheckBox = new JCheckBox();
+		ParametersPanel.add(BloatingcheckBox);
+		
+		
+		JLabel FunAgregadasLabel = new JLabel("Fun. Agregadas");
+		ParametersPanel.add(FunAgregadasLabel);
+		
+		FunAgregadascheckBox = new JCheckBox();
+		ParametersPanel.add(FunAgregadascheckBox);
+
 		ParametersPanel.add(EjecutarButton);
 		
 		JPanel Graficapanel = new JPanel();
@@ -242,6 +262,11 @@ public class MainWindow extends JFrame implements GUI{
 				MaxWrapsLabel.setVisible(false);
 				WrapstextField.setVisible(false);
 				
+				BloatingLabel.setVisible(true);
+				BloatingcheckBox.setVisible(true);
+				FunAgregadasLabel.setVisible(true);
+				FunAgregadascheckBox.setVisible(true);
+				
 				inicomboBox.setModel(new DefaultComboBoxModel(tiposIniciadoresArboles));
 				CrucecomboBox.setModel(new DefaultComboBoxModel(tiposDeCruzadorArboles));
 				MutacioncomboBox.setModel(new DefaultComboBoxModel(tiposDeMutadorArboles));
@@ -252,6 +277,11 @@ public class MainWindow extends JFrame implements GUI{
 
 				MaxWrapsLabel.setVisible(true);
 				WrapstextField.setVisible(true);
+				
+				BloatingLabel.setVisible(false);
+				BloatingcheckBox.setVisible(false);
+				FunAgregadasLabel.setVisible(false);
+				FunAgregadascheckBox.setVisible(false);
 				
 				inicomboBox.setModel(new DefaultComboBoxModel(tiposIniciadoresGramaticas));
 				CrucecomboBox.setModel(new DefaultComboBoxModel(tiposDeCruzadorGramaticas));
@@ -294,12 +324,15 @@ public class MainWindow extends JFrame implements GUI{
 		int tamPobla = Integer.parseInt(TamGentextField.getText());
 		int wraps = 0;
 
+		Boolean bloating = BloatingcheckBox.isSelected();
+		Boolean funAgregadas = FunAgregadascheckBox.isSelected();
+
 		if (IndividuoComboBox.getSelectedItem() == "Gramaticas Evolutivas")
 			wraps=Integer.parseInt(WrapstextField.getText());
 		
 		Color[][] sol=this.interfaz.getColores();
 		
-		return new TParametros(selector,mutador,cruzador,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100,sol,ini,tIndividuo,wraps);
+		return new TParametros(selector,mutador,cruzador,probMuta/100,generaciones,tamPobla,probCruce/100,elitismo/100,sol,ini,tIndividuo,wraps,bloating,funAgregadas);
 		}
 		catch(Exception e){
 			throw new CamposException("No se han podido analizar los datos introducidos, asegurese de que ha rellenado correctamente todos los campos");

@@ -16,9 +16,10 @@ public class TParametros {
 	private String iniciador;
 	private String TipoIndividuio;
 	private int wraps;
-
+	private Boolean bloating;
+	private Boolean funAgregadas;
 	public TParametros(String selector, String mutador, String cruzador, double probMuta,
-			int generaciones, int tamPobla, double probCruce, double elitismo,Color[][] sol,String iniciador,String TipoIndividuio, int wraps) {
+			int generaciones, int tamPobla, double probCruce, double elitismo,Color[][] sol,String iniciador,String TipoIndividuio, int wraps, Boolean bloating, Boolean funAgregadas) {
 		this.selector = selector;
 		this.mutador = mutador;
 		this.cruzador = cruzador;
@@ -31,6 +32,8 @@ public class TParametros {
 		this.iniciador= iniciador;
 		this.TipoIndividuio =TipoIndividuio;
 		this.wraps = wraps;
+		this.bloating = bloating;
+		this.funAgregadas = funAgregadas;
 	}
 
 	
@@ -106,6 +109,18 @@ public class TParametros {
 
 	public int getWraps() {
 		return wraps;
+	}
+
+
+
+	public Boolean getBloating() {
+		return bloating;
+	}
+
+
+
+	public Boolean getFunAgregadas() {
+		return funAgregadas;
 	}
 
 

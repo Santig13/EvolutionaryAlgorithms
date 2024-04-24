@@ -14,13 +14,13 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	    SUR
 	}
 	
-	private static final ArrayList<String> terminales = new ArrayList<String>() {{
+	private ArrayList<String> terminales = new ArrayList<String>() {{
        add("AVANZA");
        add("ALEATORIA");
        add("IZQUIERDA");
        add("DERECHA");
     }};
-	private static final ArrayList<String> funciones = new ArrayList<String>() {{
+	private ArrayList<String> funciones = new ArrayList<String>() {{
         add("SALTA");
         add("PROGN");
         add("SUMA");
@@ -42,6 +42,30 @@ public class IndividuoCortaCesped extends IndividuoArbolGenetico {
 	
 	//RESTO DE COSTRUCTORES
 	
+	public IndividuoCortaCesped(Boolean funAgregadas) {
+		if (!funAgregadas)
+		{
+			terminales = new ArrayList<String>() {{
+			       add("AVANZA");
+			       add("ALEATORIA");
+			       add("IZQUIERDA");
+			    }};
+			    
+			    
+			funciones = new ArrayList<String>() {{
+		        add("SALTA");
+		        add("PROGN");
+		        add("SUMA");
+		    }};
+		}
+		
+		
+		cortacesped= new Cortacesped();
+
+	}
+
+
+
 	public boolean terminado() {
 		return cortacesped.terminado();
 	}

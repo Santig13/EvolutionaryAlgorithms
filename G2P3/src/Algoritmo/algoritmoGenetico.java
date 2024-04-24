@@ -50,8 +50,11 @@ public class algoritmoGenetico {
 	private  String tIndividuo;
 	private int wraps;
 	
+	private Boolean Bloating;
+	private Boolean funAgregadas;
+	
     public algoritmoGenetico(int tamPoblacion, int maxGeneraciones, double probCruce, double probMutacion,
-    			Selector sel,Mutador mut,Cruzador cruz,TPoblacion poblacion,  double porcenElite,Iniciador iniciador, String tIndividuo, int wraps)
+    			Selector sel,Mutador mut,Cruzador cruz,TPoblacion poblacion,  double porcenElite,Iniciador iniciador, String tIndividuo, int wraps, Boolean bloating, Boolean funAgregadas)
     {
     	this.tamPoblacion = tamPoblacion;
         this.maxGeneraciones = maxGeneraciones;
@@ -70,6 +73,8 @@ public class algoritmoGenetico {
     	this.iniciador=iniciador;
     	this.tIndividuo = tIndividuo;
     	this.wraps = wraps;
+    	this.Bloating = bloating;
+    	this.funAgregadas = funAgregadas;
     }
 
     public TResultStatistics executeAlgorithm() {
@@ -123,7 +128,6 @@ public class algoritmoGenetico {
 	}
 
 	private void evaluar() {
-		// TODO Auto-generated method stub
 		Individuo[] individuos=poblacion.getIndivuduos();
 		double sumaFit = 0.0;
 		double maximo = -Double.MAX_VALUE;
@@ -145,8 +149,10 @@ public class algoritmoGenetico {
 		
 
 		this.aptitud_media_generacion[this.currentGeneration]=mediaGen;
-		if (tIndividuo == "Programacion Genetica")
-			this.bloating();
+		
+		if (Bloating)
+			if (tIndividuo == "Programacion Genetica")
+				this.bloating();
 		
 		
 		
@@ -254,7 +260,7 @@ public class algoritmoGenetico {
 
 	private void initialize() {
 		// TODO Auto-generated method stub
-		poblacion=FactoriaPoblaciones.getInstancia().generarPoblacion(tamPoblacion,tIndividuo,wraps);
+		poblacion=FactoriaPoblaciones.getInstancia().generarPoblacion(tamPoblacion,tIndividuo,wraps,funAgregadas);
 		this.iniciador.IniciarPoblacion(poblacion,this.profundidad);
 		this.minimizar=poblacion.isMin();
 	}

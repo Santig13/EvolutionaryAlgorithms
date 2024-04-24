@@ -13,5 +13,5 @@ public abstract class FactoriaPoblaciones {
 		return fp;
 	}
 
-	 public abstract TPoblacion generarPoblacion(int profundidad, String tIndividuo, int wraps);
+	 public abstract TPoblacion generarPoblacion(int profundidad, String tIndividuo, int wraps, Boolean funAgregadas);
 }

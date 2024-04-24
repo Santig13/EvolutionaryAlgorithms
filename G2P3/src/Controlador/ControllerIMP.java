@@ -27,7 +27,7 @@ public class ControllerIMP implements Controller {
 		TJardin.setCasillas(parametros.getSol());
 		TPoblacion poblacion=null;
 		//Ejecutar algoritmo
-		algoritmoGenetico AG =new algoritmoGenetico(parametros.getTamPoblacion(),parametros.getMaxGen(),parametros.getProbCruce(),parametros.getProbMuta(),selector,mutador,cruzador,poblacion,parametros.getElitismo(),iniciador,parametros.getTipoIndividuio(),parametros.getWraps());
+		algoritmoGenetico AG =new algoritmoGenetico(parametros.getTamPoblacion(),parametros.getMaxGen(),parametros.getProbCruce(),parametros.getProbMuta(),selector,mutador,cruzador,poblacion,parametros.getElitismo(),iniciador,parametros.getTipoIndividuio(),parametros.getWraps(),parametros.getBloating(),parametros.getFunAgregadas());
 
 		//Informar a la vista
 		gui.update(AG.executeAlgorithm());
