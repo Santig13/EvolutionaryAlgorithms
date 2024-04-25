@@ -12,10 +12,10 @@ public class TJardin {
 	protected static Casillas[][] jardin;
 	
 	public static void setCasillas(Color[][] colors) {
-		int tamaño=colors.length;
-		jardin= new Casillas[tamaño][tamaño] ;
-		 for (int i = 0; i < tamaño; i++) {
-	            for (int j = 0; j < tamaño; j++) {
+		int tamanio=colors.length;
+		jardin= new Casillas[tamanio][tamanio] ;
+		 for (int i = 0; i < tamanio; i++) {
+	            for (int j = 0; j < tamanio; j++) {
 	            	
 	            	Color c=colors[i][j];
 	            	Casillas cas=null;
@@ -33,14 +33,14 @@ public class TJardin {
 	              
 	            }
 	        }
-		 posicion.maxalto=tamaño;
-		 posicion.maxancho=tamaño;
+		 posicion.maxalto=tamanio;
+		 posicion.maxancho=tamanio;
 	}
 	public static Color[][] getColores(Casillas[][] jar) {
-		int tamaño=jar.length;
-		Color[][] colors= new Color[tamaño][tamaño] ;
-		 for (int i = 0; i < tamaño; i++) {
-	            for (int j = 0; j < tamaño; j++) {
+		int tamanio=jar.length;
+		Color[][] colors= new Color[tamanio][tamanio] ;
+		 for (int i = 0; i < tamanio; i++) {
+	            for (int j = 0; j < tamanio; j++) {
 	            	
 	            	Color c = null;
 	            	Casillas cas=jar[i][j];

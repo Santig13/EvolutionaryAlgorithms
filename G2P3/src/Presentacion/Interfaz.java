@@ -44,7 +44,7 @@ public class Interfaz extends JFrame {
 	private JTextField ProbMutaciontextField;
 	private JTextField ElitismotextField;
   	private JFrame parent;
-	private int tamaño;
+	private int tamanio;
 	private int tierra;
     public Interfaz(JFrame parent) {
     	 parent=parent;
@@ -56,7 +56,7 @@ public class Interfaz extends JFrame {
         panelJardin = new JPanel();
         panelJardin.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         crearCasillas(8);
-        tamaño=8;
+        tamanio=8;
          // Agregar paneles al JFrame
         JPanel ParametersPanel = new JPanel();
  		ParametersPanel.setBackground(new Color(224, 224, 224));
@@ -73,7 +73,7 @@ public class Interfaz extends JFrame {
               @Override
               public void actionPerformed(ActionEvent e) {
              	  String seleccion = (String) comboBox.getSelectedItem();
-             	 cambiarTamañoTabla(seleccion);
+             	 cambiartamanioTabla(seleccion);
               }
           });
         
@@ -94,28 +94,28 @@ public class Interfaz extends JFrame {
 		// TODO Auto-generated method stub
     	 if(tierra==0)return;
     	String seleccion = (String) comboBox.getSelectedItem();
-   	  	cambiarTamañoTabla(seleccion);
+   	  	cambiartamanioTabla(seleccion);
 	}
 
-	// Método para cambiar el tamaño de la tabla según la opción seleccionada en el JComboBox
-     public void cambiarTamañoTabla(String seleccion) {
+	// Método para cambiar el tamanio de la tabla según la opción seleccionada en el JComboBox
+     public void cambiartamanioTabla(String seleccion) {
        
-          tamaño = Integer.parseInt(seleccion.substring(0, seleccion.indexOf('x')));
+          tamanio = Integer.parseInt(seleccion.substring(0, seleccion.indexOf('x')));
 
-         crearCasillas(tamaño);
+         crearCasillas(tamanio);
      }
 
      // Método para crear las casillas iniciales de la tabla
-     private void crearCasillas(int tamaño) {
+     private void crearCasillas(int tamanio) {
          panelJardin.removeAll();
-         panelJardin.setLayout(new GridLayout(tamaño, tamaño));
+         panelJardin.setLayout(new GridLayout(tamanio, tamanio));
          tierra=0;
-         casillas = new JPanel[tamaño][tamaño];
-         Dimension dim = new Dimension(panelJardin.getWidth() / tamaño, panelJardin.getHeight() / tamaño);
+         casillas = new JPanel[tamanio][tamanio];
+         Dimension dim = new Dimension(panelJardin.getWidth() / tamanio, panelJardin.getHeight() / tamanio);
 
          Random rand = new Random();
-         for (int i = 0; i < tamaño; i++) {
-             for (int j = 0; j < tamaño; j++) {
+         for (int i = 0; i < tamanio; i++) {
+             for (int j = 0; j < tamanio; j++) {
                  casillas[i][j] = new JPanel();
                  //if(rand.nextDouble() < 0.9)
                      casillas[i][j].setBackground(Color.GREEN);
@@ -146,10 +146,10 @@ public class Interfaz extends JFrame {
 	
 
 	public Color[][] getColores() {
-        Color[][] sol= new  Color[tamaño][tamaño];
+        Color[][] sol= new  Color[tamanio][tamanio];
 		
-         for (int i = 0; i < tamaño; i++) {
-            for (int j = 0; j < tamaño; j++) {
+         for (int i = 0; i < tamanio; i++) {
+            for (int j = 0; j < tamanio; j++) {
               sol[i][j] =casillas[i][j].getBackground();  
             }
         }
@@ -161,8 +161,8 @@ public class Interfaz extends JFrame {
 		 
 		
 	      
-	         for (int i = 0; i < tamaño; i++) {
-	             for (int j = 0; j < tamaño; j++) {
+	         for (int i = 0; i < tamanio; i++) {
+	             for (int j = 0; j < tamanio; j++) {
 	                 
 	                 casillas[i][j].setBackground(colors[i][j]);
 	                 if(colors[i][j]==Color.WHITE)this.tierra++;
